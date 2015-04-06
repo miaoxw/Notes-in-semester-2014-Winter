@@ -226,7 +226,7 @@ module\_param(变量名称,类型,访问许可掩码)
 创建设备文件
 * proc_mkdir()  
 创建目录
-* remove_proc_entry()  
+* remove\_proc\_entry()  
 删除文件或目录
 ###11.驱动的类型
 * 字符设备  
@@ -271,9 +271,9 @@ module\_param(变量名称,类型,访问许可掩码)
 #####inode结构体
 除了标记普通文件的域外，还有两个字段用来特别标记设备文件
 
-* `dev\_t i\_rdev`  
+* `dev_t i_rdev`  
 标记设备号
-* `struct cdev *i\_cdev`  
+* `struct cdev *i_cdev`  
 用于设定设备参数
 ###13.字符设备驱动程序的初始化加载过程
 ####申请设备号

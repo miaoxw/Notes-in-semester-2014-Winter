@@ -250,6 +250,8 @@ FILE *fdopen(int fildes,)
 * st_blocks
 ####文件类型与模式
 #####文件类型
+对struct stat的st_mode进行操作
+
 * S_ISREG()  
 是否为普通文件
 * S_ISDIR()  
