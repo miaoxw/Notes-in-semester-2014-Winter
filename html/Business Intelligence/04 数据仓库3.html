@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>04 数据仓库3</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #000;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+h6 {
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #000;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>04 数据仓库3</h1>
+<h2>四、数据集市与数据仓库</h2>
+<h3>1.建立数据集市的原因</h3>
+<ul>
+<li>
+组织信息  
+
+<ul>
+<li>统一的数据视图和访问接口</li>
+<li>
+全局性数据组织
+<ul>
+<li>统一的数据模式</li>
+<li>统一的数据表示</li>
+<li>统一的数据属性</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>全局性数据仓库往往太大<br />
+按部门或个人分别建立反映各个子主题的<em>局部性</em>数据组织，反映某一特定领域信息<br />
+此即<strong>数据集市</strong></p>
+<blockquote>
+<h6>例：商品销售的数据仓库拆分</h6>
+<ul>
+<li>商品采购数据集市</li>
+<li>库房使用数据集市</li>
+<li>商品销售数据集市</li>
+</ul>
+</blockquote>
+<ul>
+<li>
+<strong><em>操作型数据库与数据集市存在区别</em></strong>
+<ol>
+<li>不一定所有部门都拥有操作性数据库</li>
+<li>不一定所有部门都拥有建立在操作型数据库基础上的应用</li>
+<li>不一定所有部门都需要使用数据集市</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3>2.数据仓库/数据集市体系</h3>
+<pre><code>数据仓库从分析型数据库中抽取数据，数据仓库再将这些数据分散给不同的数据集市  
+数据集市包含什么东西，取决于当前数据集市的拥有者有怎么样的分析需求
+</code></pre>
+
+<ul>
+<li>
+数据仓库仓库与集市类似于基表与视图的关系  
+
+<ul>
+<li>从效率上考量，整个系统的效率会有所提升</li>
+<li>不应将所有信息公开给某一个分析人员，权限必须清晰地控制<br />
+当前数据仓库概念意义上的子集，内容得到精心挑选</li>
+</ul>
+</li>
+<li>数据集市中的数据来自数据仓库，是数据仓库中数据的一个部分与局部<br />
+是数据的再抽取与组织的过程</li>
+<li>从性质上讲，数据集市除了在规模上与数据仓库有差异，其它方面与数据仓库没有任何区别<br />
+数据集市面向特定的分析需求和用户群，而不是全局</li>
+</ul>
+<h4>数据集市的两种类型</h4>
+<ul>
+<li>独立的数据集市<br />
+怎么做数据仓库就怎么做数据集市</li>
+<li>
+从属性数据集市<br />
+在建立完毕的数据仓库上，将数据集市的那部分数据单独地摘取出来
+<ul>
+<li>此时建立数据集市没有ETL的过程</li>
+<li>当前的从属性数据集市与数据仓库<strong>未必</strong>是准确的复本关系</li>
+</ul>
+</li>
+</ul>
+<h4>数据仓库与数据集市的关系</h4>
+<ul>
+<li>
+自顶向下的结构<br />
+从数据仓库构建数据集市，数据集市之间没有关联  
+
+<ul>
+<li>
+优点
+<ul>
+<li>减轻数据仓库访问负载</li>
+<li>各部门可以任意处理数据</li>
+<li>数据转换和整合在DW阶段统一完成</li>
+<li>具备数据缓冲的功能</li>
+</ul>
+</li>
+<li>缺点：成本高，见效慢，各集市间不共享任何数据<br />
+小规模应用容易展现，但需要花费大代价先完成数据仓库的建立，数据仓库建立完成之前没有任何实效</li>
+</ul>
+</li>
+<li>
+自底向上的结构<br />
+先构建独立的数据集市，再试图将这些数据集市统一成全局的数据仓库
+<ul>
+<li>优点：见效快，启动资金少</li>
+<li>
+缺点
+<ul>
+<li>各个部门都要进行数据清理整合<br />
+额外增加的分析性数据环境使数据源更加混乱</li>
+<li>可能造成“蜘蛛网”、数据不一致等问题</li>
+<li>总体上不能节约资金</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+总线结构的数据集市<br />
+定义一组总线，在构造每一个特定的数据集市时，优先定义各个数据集市中可能发生冲突的数据  
+
+<ul>
+<li>不定义主题，以相同的编码和准则定义主题与主题之间的<strong>公共维度</strong>，即总线</li>
+<li>不建立数据仓库而直接建立数据集市</li>
+<li>各个数据集市之间相互通过总线连接</li>
+<li>优点：共享维表和事实表，解决了建立数据集市的问题</li>
+<li>
+缺点
+<ul>
+<li>数据没有在全局范围内进行过检查</li>
+<li>直接基于多维模型，只能应用于OLAP</li>
+<li>集成产生的数据仓库并不十分稳定</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4>企业级数据集市结构</h4>
+<p>建立总线结构的数据集市，在条件允许的前提下做一个数据仓库（物理意义上的），这样总线已经处理掉了明显的不一致问题；之后的数据集市的建立就成为了自顶向下的方式</p>
+<p><em>此结构综合了各种各样的优点，但消耗的资源更多</em></p>
+<h2>五、数据仓库的应用</h2>
+<p>充分开发、利用数据库和数据仓库中的数据资源是计算机界目前的重要工作</p>
+<ul>
+<li>查询服务</li>
+<li>
+演绎
+<ul>
+<li>演绎数据库、知识库</li>
+<li>统计分析软件（SPSS）</li>
+</ul>
+</li>
+<li>归纳<br />
+数据挖掘</li>
+</ul>
+<h3>1.操作型、分析型环境间的数据流</h3>
+<ul>
+<li>某些时候，存在从数据仓库环境到操作性环境的数据回流</li>
+<li>操作性环境中直接采用SQL等方式访问数据仓库的“回流”是不正常的</li>
+</ul>
+<h4>数据仓库数据的直接访问</h4>
+<p>存在以下限制：</p>
+<ul>
+<li>请求数据仓库数据的操作型处理通常不具有在线特性</li>
+<li>对数据的请求必须是少量的</li>
+<li>管理数据仓库和管理操作型环境用到的技术（如协议等）必须一致</li>
+<li>从数据仓库取得的、准备传输到操作性环境的数据必须不用做或只要做很少的格式化</li>
+</ul>
+<p><strong>因此操作型环境到数据仓库的直接访问很少</strong></p>
+<h4>数据仓库数据的间接访问</h4>
+<blockquote>
+<h6>例：飞机订票系统</h6>
+<ul>
+<li>离线时，航班的折扣信息从数据仓库中挖掘出需要的信息，计算结果（单次操作时间长）</li>
+<li>在线时，订票系统直接简单地读取预先被计算出的折扣结果（毫秒级别）</li>
+</ul>
+<h6>例：市场分析程序</h6>
+<p>市场分析程序预先分析客户历史，电话推销员通过会员ID等凭据直接获取客户信息</p>
+</blockquote>
+<p>后台程序对数据仓库进行定期分析，在在线程序中产生一个小文件，记录在操作型环境中可能会用到的分析结果</p>
+<ul>
+<li>分析程序</li>
+<li>周期性刷新</li>
+<li>在线预分析数据文件</li>
+</ul>
+<h3>2.分析型应用</h3>
+<h4>客户关系管理</h4>
+<ul>
+<li>
+客户数据的集成
+<ul>
+<li>
+客户信息中姓名和地址的集成
+<ul>
+<li>地址信息的切分</li>
+<li>地址的标准化</li>
+</ul>
+</li>
+<li>
+客户数据的更新
+<ul>
+<li>新客户的识别</li>
+<li>老客户的信息更新</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+客户信息的分析与挖掘
+<ul>
+<li>客户特征分类分析<br />
+发现新客户</li>
+<li>客户盈利分析<br />
+挖掘优质客户</li>
+<li>客户行为分析<br />
+发现客户异常行为</li>
+<li>客户需求分析</li>
+<li>客户反映分析<br />
+提供一对一服务，防止已有客户的流失</li>
+</ul>
+</li>
+</ul>
+<h4>商业零售</h4>
+<ul>
+<li>
+客户信息管理与分析<br />
+客户关系管理
+<ul>
+<li>客户特征分析<br />
+针对不同特征设定不同的促销方案</li>
+<li>客户购买行为与购买习惯分析</li>
+</ul>
+</li>
+<li>
+销售分析
+<ul>
+<li>销售额与销售时间的关系</li>
+<li>销售额与商品的关系</li>
+<li>销售额与销售地区的关系</li>
+<li>销售额与购买客户的关系</li>
+</ul>
+</li>
+<li>货种管理<br />
+不同种类商品的关系分析</li>
+<li>
+市场分析
+<ul>
+<li>商品销售预测</li>
+<li>商品价格分析</li>
+<li>零售点设置布局</li>
+</ul>
+</li>
+<li>
+库存管理
+<ul>
+<li>仓库使用管理</li>
+<li>商品的库存数量分析</li>
+</ul>
+</li>
+<li>人力资源管理</li>
+</ul>
+<h4>金融领域</h4>
+<ul>
+<li>账户信用等级评估<br />
+以聚类分析等方法对银行账户分类，得到账户的信用等级</li>
+<li>
+信用卡运作
+<ul>
+<li>新客户的发现</li>
+<li>优质客户挖掘</li>
+<li>老客户的保留</li>
+<li>信用卡使用模式分析</li>
+</ul>
+</li>
+<li>
+股票交易规律分析
+<ul>
+<li>客户分类</li>
+<li>客户交易</li>
+<li>客户账户</li>
+<li>客户价值</li>
+</ul>
+</li>
+<li>财政预算和计划</li>
+</ul>
+<h4>保险业</h4>
+<ul>
+<li>保险费率的确定<br />
+不同条件、不同人员、不同险种、不同时间与年龄的保险费率</li>
+<li>险种关联分析<br />
+分析客户在购买了某种保险后是否同时还会购买另一种保险</li>
+<li>认购险种的预测<br />
+通过数据挖掘预测新险种的客户群以及新险种的前景</li>
+</ul>
+<h4>电讯行业</h4>
+<ul>
+<li>客户开发<br />
+开展新客户，防止丢失很有利的客户，查明哪些客户会离开，又为什么</li>
+<li>活动成本管理<br />
+需花多少钱来实现一个新线或建立一项新服务</li>
+<li>价格制定<br />
+分时段制定收费标准</li>
+<li>调用详细记录分析<br />
+了解每次通话记录的详细信息，包括通话类型、时长、通话位置等，以便于进行定价和容量规划<br />
+异常电话检测（盗打，欠费等）</li>
+<li>电信市场<br />
+向客户提供混合销售、呼叫、等待、留言等新服务</li>
+</ul>
+<h4>医疗</h4>
+<ul>
+<li>成本分析<br />
+费用支出分析<br />
+如何能最有效地减少费用支出</li>
+<li>客户分类</li>
+</ul>
+<h4>政府</h4>
+<ul>
+<li>税务<br />
+个人所得税的偷税漏税现象分析<br />
+税收政策与计划的制订</li>
+<li>交通<br />
+航班/车次的时间/方向/客流量分析
+价格分析
+客户满意度分析</li>
+<li>水利<br />
+防洪、抗旱决策分析</li>
+<li>公安</li>
+<li>……</li>
+</ul>
+<h4>其它</h4>
+<ul>
+<li>新闻出版业</li>
+<li>酒店管理</li>
+<li>……</li>
+</ul>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

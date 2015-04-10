@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ch4 Software Architecture Descriptions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #000;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+h6 {
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #000;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>Ch4 Software Architecture Descriptions</h1>
+<h2>一、体系结构模型的描述</h2>
+<h3>1.建模的内容</h3>
+<ul>
+<li>组件</li>
+<li>连接件</li>
+<li>接口</li>
+<li>配置</li>
+<li>Rationale（？）</li>
+</ul>
+<h3>2.建模的方法</h3>
+<h4>Box-Line</h4>
+<p>将Component做成box，将Connector做成line</p>
+<ul>
+<li>描述太模糊<br />
+如接口，无法被描述</li>
+<li>缺乏不一致性检查<br />
+原因是它与数学无关</li>
+<li>无法跟踪到设计与编码阶段</li>
+<li>体系结构的体系不完备</li>
+</ul>
+<p><em>尽管如此，日常工作中仍然常用此方法</em></p>
+<hr />
+<h4>形式化语言</h4>
+<ul>
+<li>
+优点
+<ul>
+<li>每个层次都能表示出来</li>
+<li>机器与人（？）都可读</li>
+<li>可以根据形式化语言对架构做分析</li>
+</ul>
+</li>
+<li>
+缺点
+<ul>
+<li>形式化语言难度较大</li>
+<li>学院常用，但企业界用得不多  
+</li>
+<li>个别领域开始使用特定的形式化语言</li>
+</ul>
+</li>
+</ul>
+<p>常用的形式化语言，Wright、ACME……<br />
+所有语言都围绕对组件、连接件、配置的描述展开</p>
+<hr />
+<h4>UML</h4>
+<ul>
+<li>目前来说是最实用的体系结构语言</li>
+<li>UML并不十分适合体系结构，需要自行加工，因此会导致产生一些不同的效果</li>
+</ul>
+<h2>二、体系结构的主流建模思想——&quot;4+1&quot; View Model</h2>
+<h3>1.IEEE的多视角模型指导思想</h3>
+<ul>
+<li>一个描述有多个视角，每个视角反映不同群体的关注点</li>
+<li>按每个视角来单独开发View和Model</li>
+</ul>
+<blockquote>
+<p>插图与名词解释见ppt18页</p>
+</blockquote>
+<h3>2.Philippe Kruchten与4+1模型</h3>
+<ul>
+<li>
+逻辑视图
+<ul>
+<li>系统被分解为一系列的关键抽象（即后来的部件、连接件），来自与问题域，以对象集的方式来体现</li>
+<li>此视图用于功能分布<br />
+即需求向各个模块的分配<br />
+<em>不仅仅是功能的分配，其它的质量等等也会有所关注</em></li>
+<li>提供给终端用户，用于确认哪些需求被分配，哪些需求被遗漏</li>
+</ul>
+<blockquote>
+<ul>
+<li>部件类型用以构造型<code>&lt;&lt;component&gt;&gt;</code>扩展了的类来描述<br />
+可以拥有端口</li>
+<li>连接件类型用以构造型<code>&lt;&lt;connector&gt;&gt;</code>扩展了的类来描述<br />
+用类的端口来描述角色</li>
+<li>用构造型<code>&lt;&lt;property&gt;&gt;</code>扩展属性来描述特征<br />
+<code>&lt;&lt;component&gt;&gt;</code>与<code>&lt;&lt;connector&gt;&gt;</code>中分别有<code>&lt;&lt;property&gt;&gt;</code>属性可供描述</li>
+<li>用对象图描述配置</li>
+<li>为部件类型建立行为状态图描述的详细功能规格</li>
+<li>为连接件类型建立行为状态图描述交互机制</li>
+<li>为端口/角色建立协议状态机描述部件端口和连接件角色的交互协议</li>
+<li>为配置和复合类型建立顺序图描述它们所包含的功能规格</li>
+</ul>
+</blockquote>
+</li>
+<li>
+开发视图
+<ul>
+<li>系统分成一些模块或子系统，通过导入和导出的方式联系起来</li>
+<li>此视图用于软件模块的组织<br />
+提供给程序员和产品经理<br />
+用来判断人员水平是否与模块中内容匹配</li>
+</ul>
+<blockquote>
+<ul>
+<li>以构件图描述软件体系结构实现模块的组织</li>
+<li>以构造型<code>&lt;&lt;subsystem&gt;&gt;</code>实现子系统的组织和分层组织</li>
+</ul>
+</blockquote>
+</li>
+<li>
+进程视图
+<ul>
+<li>进程的分解</li>
+<li>
+此视图用于考虑非功能性需求  
+
+<ul>
+<li>可以查找性能、吞吐量、可扩展性的瓶颈所在</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>用主动类来描述进程<br />
+有关联就可能存在通信</li>
+<li>利用顺序图详细地描述进程之间的通信机制</li>
+<li>给出逻辑视图/开发视图与进程视图的映射表</li>
+</ul>
+</blockquote>
+</li>
+<li>
+物理视图
+<ul>
+<li>物理视图与开发视图是必不可少的</li>
+<li>
+此视图用于考察资源  
+
+<ul>
+<li>硬件资源相关的非功能需求与物理视图都有关</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>
+以部署图实现物理视图
+<ul>
+<li>体现进程的部署</li>
+<li>体现开发构件的部署</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</li>
+<li>
+<strong>+1：Scenarios</strong> 
+<ul>
+<li>起到粘合剂的作用，令四个视图互相关联</li>
+<li>用于表现视图的合理性，帮助进行设计和验证</li>
+</ul>
+</li>
+<li>
+视图间的映射
+<ul>
+<li>
+逻辑-&gt;开发  
+
+<ul>
+<li>模块与物理包之间的映射关系，逻辑组件与物理文件之间的过渡 </li>
+<li>注意包的设计原则</li>
+<li>最终的目的是将系统组织成物理包</li>
+</ul>
+</li>
+<li>
+逻辑-&gt;进程
+<ul>
+<li>
+Inside-out：最大并发
+<ul>
+<li>假设所有功能都是并发的</li>
+<li>逐步减少不需要、不需要的</li>
+</ul>
+</li>
+<li>Outside-in：最小并发</li>
+</ul>
+</li>
+<li>
+开发/进程-&gt;物理
+<ul>
+<li>部署图即可</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>体系结构的迭代过程</li>
+</ul>
+<p>这四个视图基本就能完成绝大多数体系结构设计<br />
+<em>但未必全部需要</em><br />
+有时会破坏4+1，增加一些别的视图，如数据视图、安全视图等</p>
+<h2>三、UML描述示例</h2>
+<blockquote>
+<p>见ppt</p>
+</blockquote>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

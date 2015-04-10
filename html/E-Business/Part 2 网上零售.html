@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Part 2 网上零售</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #000;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+h6 {
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #000;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>Part 2 网上零售</h1>
+<h2>三、零售业电子商务：产品与服务</h2>
+<h3>1.零售与B2C电子零售</h3>
+<pre><code>零售最终已经面向最终消费者，因此电子零售处在企业与客户之间的位置。
+</code></pre>
+
+<h4>零售</h4>
+<ul>
+<li>零售是面向消费者的销售活动</li>
+<li>零售一般一次购买的商品数量或价值有限</li>
+<li>个人与企业都能作为消费者存在<br />
+此处所说的企业指组织体</li>
+<li>零售商是商品销售的中间环节<br />
+可以被定义为中介，但又有例外<br />
+如果制造企业直接与消费者发生关联（如直销），制造企业此时兼有零售商的功能，目的在于扩大与消费者的接触面（分销渠道）</li>
+<li>零售与电子零售一般是指将商品或服务销售给个体消费者，即B2C<br />
+B2B、B2C的界限一般是模糊的<br />
+主要区别在于客户是否将产品用于生产或再次销售</li>
+</ul>
+<h4>B2C电子零售</h4>
+<ul>
+<li>交易双方的交易关系是<strong>动态</strong>、<strong>不确定</strong>的<br />
+关系在交易时建立，交易完成时结束<br />
+下次交易时再重新建立</li>
+<li>绕过中介（销售商、批发商、经销商）直接与客户建立关系<br />
+可以消除某些中介，但又产生新的中介</li>
+</ul>
+<h4>常见的B2C销售商品类型</h4>
+<p>在法律法规规定范围内的商品都可以被销售</p>
+<ul>
+<li>数字商品</li>
+<li>实体商品</li>
+</ul>
+<h4>B2C销售商品的特点</h4>
+<ul>
+<li>品牌认知度高</li>
+<li>由知名供应商提供担保的商品<br />
+消费者习惯以更低价格获得更高使用价值的商品</li>
+<li>数字化商品</li>
+<li>相对便宜的商品<br />
+如果发生损失，损失可控</li>
+<li>频繁购买的商品</li>
+<li>有标准规格的商品  </li>
+<li>不能打开包装的商品<br />
+指现实中也不能打开包装的</li>
+</ul>
+<p>这里面隐含了对品牌、供应商、交易环境和体验的信任</p>
+<h3>2.电子零售商务模式</h3>
+<h4>B2C的位置</h4>
+<ul>
+<li>已经到达商品销售的末端，零售企业参与到B2C的市场  </li>
+<li>B2C电子市场可能由企业自行建立，也可能由第三方建立</li>
+</ul>
+<h4>按销售渠道分类</h4>
+<ul>
+<li>在线邮件订购</li>
+<li>直销</li>
+<li>虚拟电子零售</li>
+<li>传统零售商增加网络销售渠道<br />
+“鼠标加水泥”零售商<br />
+此转换过程极度痛苦</li>
+<li>互联网集市（电子市场）<br />
+做市商</li>
+</ul>
+<blockquote>
+<p><em>还存在其它模式，见ppt</em></p>
+<ul>
+<li>B2B2C<br />
+订单由客户流向零售商，而订单的履行由制造商直接完成<br />
+制造商可以扩大与消费者的接触面，同时减少了不必要的库存，流动资金的占有量较少<br />
+可以理解为商业模式的创新<br />
+<em>不同企业对B2B2C的理解可能不同</em></li>
+</ul>
+</blockquote>
+<h3>3.传统零售企业的转型战略</h3>
+<ul>
+<li>转型<br />
+实体+在线</li>
+<li>传统零售商的收益来源<br />
+实体业务和在线业务<br />
+需要发挥两者各自优势的混合战略</li>
+<li>
+在线交易的要求
+<ul>
+<li>业务流程设计与改造</li>
+<li>软件支持系统</li>
+</ul>
+</li>
+<li>
+混合战略战略需要注意的问题
+<ul>
+<li>信息和服务的一致性<br />
+<strong>一致并不等于相同</strong>，<em>但是对产品而言伴随的服务应当是一样的</em>	</li>
+<li>提供足够的信息、交互功能<br />
+实体环境下提供的交互和信息显然要稍多一些</li>
+<li>
+充分混合利用两种渠道的优势<br />
+势必要降低实体销售所占的比重，同时又要保证两种方式的销售量之和，这样才能赢利<br />
+但混合时往往会产生一些问题  
+
+<ul>
+<li>明知混合渠道的优势，但惯性阻碍创新</li>
+<li>业务流程的设计存在一定风险</li>
+<li>实体与在线都需要组织运行，涉及到的组织变更和重组<strong>一定会触及部分人的利益</strong>，引起一部分人的反弹</li>
+</ul>
+<blockquote>
+<h6>思考题：苏宁、国美VS京东，哪种模式将取得胜利？</h6>
+<p>此问题目前无解，但思考与分析可能会对职业选择产生影响</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3>4.电子零售存在的问题与经验教训</h3>
+<p>电子零售不是万能的，有些零售商甚至不能进入电子零售</p>
+<ul>
+<li>产品不适合在线销售</li>
+<li>缺少明显的在线销售优势</li>
+<li>费用太高</li>
+</ul>
+<h4>根本原因</h4>
+<ul>
+<li>不能为客户创造价值<br />
+价值主张没有为客户提供更好的价值</li>
+<li>没有建立合适的商业盈利模式<br />
+盈利公式、收益来源和成本之间的关系没有处理好</li>
+<li>没有建立合适的运作模式<br />
+企业内部的基础与合作伙伴网络存在问题，没有适应在线的方式</li>
+</ul>
+<h4>经验教训</h4>
+<ul>
+<li>不能忽略盈利能力</li>
+<li>控制新风险</li>
+<li>关注品牌创建成本</li>
+<li>启动项目需要足够的资金<br />
+需要融资的原因</li>
+<li>
+要有技术特色
+<ul>
+<li>速度<br />
+网站与App的速度、数据库的检索速度、寻找到所需商品的点击次数（3~5次以内）</li>
+<li>及时、全面的信息反馈</li>
+<li>系统可靠和安全性</li>
+<li>系统过载能力</li>
+</ul>
+</li>
+<li>保持吸引力<br />
+持续更新、商品促销</li>
+</ul>
+<h3>5.电子零售中值得关注的问题</h3>
+<h4>无中介和再中介</h4>
+<p>无中介：消除供应链上的中间环节</p>
+<p>再中介：互联网环境中，提供传统的或新的中介服务<br />
+<em>如安全服务中介、对产品、供应商、零售环境认证的中介、电子支付中介</em></p>
+<hr />
+<ul>
+<li>电子中介<br />
+特定或部分中介服务的电子化</li>
+<li>避免渠道冲突</li>
+<li>确定合适的价格<br />
+比较购物引擎</li>
+<li>购物环境的个性化<br />
+除电子目录个性化外，还可以对某些/某个商品进行个性化定制</li>
+<li>防止欺诈和其它违法行为</li>
+<li>提升客户满意度</li>
+</ul>
+<h2>四、消费者行为、市场调研和广告</h2>
+<h3>1.在线消费者行为</h3>
+<ul>
+<li>企业经营环境压力的主要来源——3C<br />
+竞争、顾客、变化</li>
+<li>电子商务消费者行为模型是消费者行为模型在电子商务环境下的调整和适应</li>
+<li>分析消费者行为过程，可以使得我们开发出合适的B2C系统</li>
+</ul>
+<h4>电子商务消费者行为模型</h4>
+<p>以消费者决策过程为中心，在决策过程中的各种影响因素</p>
+<ul>
+<li>
+电子商务的消费者
+<ul>
+<li>个体消费者<br />
+已有结论：<strong>媒介对消费者有重大影响，可能使消费者的决策产生重大偏移</strong></li>
+<li>组织机构采购者<br />
+组织体的采购量在金额上远远大于纯粹的个体消费者<br />
+最大的在线购物群体<br />
+组织结构采购者更加关注采购过程，大于对媒介的关注</li>
+</ul>
+</li>
+<li>
+在线购买目的<br />
+开发时应尽可能保证商品有实用目的，但购物的过程是娱乐的
+<ul>
+<li>实用目的</li>
+<li>娱乐目的<br />
+把购物的过程作为一种娱乐，此目的为娱乐目的<br />
+<em>享受购买的过程</em></li>
+</ul>
+<blockquote>
+<h6>例：在网上购买一台Xbox</h6>
+<p>是实用目的，因为玩游戏娱乐具有实用价值</p>
+</blockquote>
+</li>
+<li>
+消费者分类
+<ul>
+<li>冲动型<br />
+冲动型消费者的决策过程非常短暂（<em>具体决策过程未知</em>）<br />
+购物时并不十分理智<br />
+如何令其更冲动是需要研究的问题</li>
+<li>耐心型<br />
+耐心型购物决策过程时间比较长<br />
+会对商品进行仔细的研究分析，评估后作出判断<br />
+对此类消费者要给出足够详细的信息，还要将促销信息尽快告知</li>
+<li>分析研究型<br />
+分析研究型消费者一定是耐心型消费者<br />
+会对商品的历史沿革、生产厂家的能力、质量分析、其他用户的使用报告、未来的升级可能性、其它商品的比较、其他若干人的评价进行最终决策</li>
+</ul>
+<blockquote>
+<h6><em>消费者的类型可以相互转化</em></h6>
+<ul>
+<li>不同的商品会使消费者类型转化  
+</li>
+<li>促销可以使消费者类型转化</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<hr />
+<blockquote>
+<h6>例：各因素影响图见ppt</h6>
+<ul>
+<li>独立不可变量：个人特征变量<br />
+年龄、性别、种族……<br />
+卖方无法控制这些因素，但需要了解他所面对的客户群体的特征变量，有的放矢的进行商务活动</li>
+<li>独立不可变量：环境特征变量<br />
+社会交互、文化/交流、政治、技术……<br />
+卖方同样无法控制，但也需要了解这些因素</li>
+<li>卖方控制的介入变量：市场活动与电子商务系统（技术和网站变量）</li>
+<li>非独立变量（结果）：购物决策</li>
+</ul>
+</blockquote>
+<h3>2.消费者购物决策过程</h3>
+<h4>购买前阶段</h4>
+<ul>
+<li>需求确认<br />
+定义基本需求<br />
+获取建议</li>
+<li>确定考虑因素<br />
+建立决策标准<br />
+基本比较<br />
+考虑建议</li>
+<li>备选方案信息搜索与评价<br />
+定义决策标准<br />
+搜索详细信息<br />
+详细比较</li>
+</ul>
+<h4>购买阶段</h4>
+<ul>
+<li>做出决策</li>
+<li>配置/个性化<br />
+评价个性化选项<br />
+决定个人标准<br />
+在候选配置方案中进行选择</li>
+</ul>
+<h4>购买后阶段</h4>
+<ul>
+<li>产品升级、替换</li>
+</ul>
+<p><em>这仅仅是最大的过程，并不代表所有消费过程都会由这些过程</em></p>
+<blockquote>
+<h6>例：购物决策过程实例：从跟团到自由行，选择汽车的过程</h6>
+<ul>
+<li>载货<br />
+舒适度不佳，否决</li>
+<li>载客</li>
+<li>混合<br />
+有些地方不能前往，否决</li>
+</ul>
+<p>接下来考虑规格的问题</p>
+<ul>
+<li>on road</li>
+<li>on-off road<br />
+主要在铺装路面上行驶，但也有越野需求，故选择此类型</li>
+<li>off road  
+</li>
+</ul>
+<p>因此需求被定义为四轮驱动，以铺装路面为主，由一定越野能力，强调舒适度</p>
+</blockquote>
+<p><em>通过帮助消费者进行决策，提供相应的工具、服务或信息（价值主张），目的最终仍然在于获利</em></p>
+<h4>消费者购物决策过程的角色</h4>
+<p>这些角色并不一定都是自然人</p>
+<ul>
+<li>发起人<br />
+第一个提出或想到要购买特定产品和服务的人</li>
+<li>影响人<br />
+其建议或观点对最终决策起重要作用的人<br />
+<em>某种媒介或特定时间的事件也可能造成影响</em><br />
+获取建议的过程穿插在购物的整个决策过程中</li>
+<li>决定者<br />
+最终做出购买决策，或者对购物中某个环节做出决策的人</li>
+<li>购买者<br />
+执行购买行为者</li>
+<li>用户<br />
+最终使用产品或服务者</li>
+</ul>
+<p>在这些角色都是自然人的情况下，极端情况下这五个角色可能都是同一个人<br />
+另一个极端的情况是<strong>五权分裂</strong></p>
+<h3>3.一般购物决策模型</h3>
+<ul>
+<li>需求确认</li>
+<li>信息搜索</li>
+<li>选择评估</li>
+<li>购买和送货</li>
+<li>售后和评估</li>
+</ul>
+<h6>注：</h6>
+<ul>
+<li><em>有些过程中的活动是重复的，甚至可能推翻原有的结论</em></li>
+<li>每个阶段包含多种活动，部分阶段要进行一个或多个决策</li>
+<li>对于一个特定的购买，阶段不一定完整，顺序可能颠倒<br />
+视消费者类型不同，购买前阶段会有多有少<br />
+几个阶段都是离散式的，并没有前后的必然联系</li>
+<li>任何时刻都可能结束整个过程<br />
+受外界影响随时可能发生</li>
+</ul>
+<h3>4.在线消费者购买决策模型</h3>
+<ul>
+<li>在线消费者购买决策模型是通用模型的特殊化</li>
+<li>
+消费者的决策过程可以由CDSS和因特网的辅助手段来帮助和引导
+<blockquote>
+<p>各决策过程的辅助手段见ppt</p>
+</blockquote>
+</li>
+</ul>
+<h3>5.在线购物决策辅助工具</h3>
+<ul>
+<li>购物门户网站<br />
+通用门户、特定商品购物门户</li>
+<li>购物机器人代理软件<br />
+侦探服务（cookie、侦探软件等）、比较购物服务</li>
+<li>商业评级网站<br />
+对商品、供应商、网站评级</li>
+<li>信用认证网站<br />
+对销售商等级评估和信用认证</li>
+<li>其它购物工具<br />
+学习代理、比较购物代理等</li>
+</ul>
+<p>这些决策工具要么是独立的，要么分散在各大电商网站中</p>
+<h2>五、电子商务一对一营销、忠诚度与信任度</h2>
+<h3>1.一对一营销中的关键问题</h3>
+<ul>
+<li>个性化</li>
+<li>协同过滤</li>
+<li>消费者忠诚度</li>
+<li>消费者信任度</li>
+</ul>
+<p>结论：<strong>电子商务中，消费者的信任度与实体情况相比极低</strong><br />
+原因在于第三方对购物环境、商品、供应商的评价缺失</p>
+<h3>2.一对一营销基础理论</h3>
+<ul>
+<li>是一种关系营销<br />
+但关系用笑并不都是一对一营销</li>
+</ul>
+<h4>关系营销</h4>
+<p>在合作伙伴之间建立长期的关系，主要特点是在社会和组织关系的建立过程中有意识地合作和相互依赖</p>
+<ul>
+<li>关系营销包含了<strong>忠诚</strong>和<strong>信任</strong><br />
+有意识的合作就建立在忠诚和信任之上</li>
+</ul>
+<h4>一对一营销</h4>
+<ul>
+<li>必须愿意根据单个顾客的需求改变公司的行为</li>
+<li>一对一营销=一对一销售活动+根据单个顾客的需求改变产品的配置或服务提供方式</li>
+<li>一对一营销的结果<br />
+产品和服务对单个顾客更有价值-&gt;高顾客忠诚度-&gt;<strong>利润</strong></li>
+</ul>
+<h3>3.因特网一对一营销</h3>
+<p>因特网的一对一营销更容易了解顾客的需求和购买习惯，从而修正营销活动，更有效地进行一对一营销<br />
+<em>一对一营销可以从消费者的决策过程入手，从而获取顾客的个人特征</em></p>
+<h4><em>Garter Group的新营销模型</em></h4>
+<p>见ppt</p>
+<ul>
+<li>是一个闭环，从哪个环节开始都是合适的</li>
+<li>数据库的更新环节是<strong>数据仓库</strong>或<strong>数据集市</strong>的更新</li>
+<li>因特网一对一营销的目的是更好地选择影响消费者的媒介<br />
+从软件开发者角度来说，目的是希望更好地建立顾客档案以提供价值主张</li>
+</ul>
+<p><em>新技术固然重要，但即使用成熟的技术创新性地解决问题也很有价值，但根本目标都是将技术转换为生产力</em><br />
+<em>不能为自己创造价值的技术也是有限的</em></p>
+<h3>4.个性化</h3>
+<p>一对一营销的一部分内容本身就是个性化的过程<br />
+个性化：服务、产品以及广告内容和个体相匹配</p>
+<p>数据基础：用户资料</p>
+<h4>用户资料的获取方法</h4>
+<ul>
+<li>直接劝说用户提供</li>
+<li>观察用户上网操作<br />
+cookies</li>
+<li>通过以前的购物风格建立<br />
+在详细数据处理时建立</li>
+<li>市场调研</li>
+<li>推断<br />
+根据某些特征变量推断其余的变量<br />
+<em>经常在收入的推断上使用</em><br />
+推断实际上是一种计算，既要有方法，又要设定目标与规则</li>
+</ul>
+<h4>协同过滤</h4>
+<p>可以说是个性化的具体化，通过已有消费者数据推断其感兴趣的产品与服务</p>
+<ul>
+<li>基于规则的过滤</li>
+<li>基于内容的过滤</li>
+<li>基于操作的过滤</li>
+</ul>
+<h3>5.消费者忠诚度</h3>
+<p>客户在特定销售商（<em>商家</em>）处停留的时间或者重复购买某个品牌产品（<em>品牌</em>）的次数<br />
+<strong>电子忠诚度</strong>：电子零售商或直接在网上销售的制造商的客户忠诚度</p>
+<ul>
+<li>
+得到并留住客户——评价电子销售的重要指标  
+
+<ul>
+<li>2/8原则：对于销售商来说，80%的利润来自忠实的老客户</li>
+<li>发展新客户比留住老客户重要得多</li>
+<li><em>电子商务的便捷性又使得客户的流失更容易</em><br />
+实体环境中，消费者的发现成本非常高，包括时间成本，电子商务搜索的便利性使得客户的流失非常容易，顾客忠诚度<strong>总体下降</strong><br />
+<em>体验是电子商务的另一个问题，可以逼近，但永远无法解决</em></li>
+</ul>
+</li>
+</ul>
+<h3>6.电子商务的满意度</h3>
+<p>满意度与忠诚度相关</p>
+<h4>因特网消费者满意度模型</h4>
+<ul>
+<li>假设前提：网上重复购买行为主要由消费者满意度决定</li>
+</ul>
+<blockquote>
+<h6>消费者满意度模型</h6>
+<p>见ppt</p>
+<p>顾客的满意度主要由网上商店、价格、客户服务、物流支持四部分内容决定，而顾客的满意度又可能导致对网上购物环境的信任</p>
+<ul>
+<li>对网上商店的满意度的安全因素<br />
+网上商店负责保证安全，第三方的核准则用来证明安全</li>
+<li>系统可靠性</li>
+<li>操作速度</li>
+<li>内容、质量<br />
+及时、可靠、全面与合适的格式可以提高内容与质量的表组很难</li>
+<li>使用方便性</li>
+</ul>
+</blockquote>
+<h3>7.电子商务的信任度</h3>
+<p><em>目前的信任度比过去要好得多</em><br />
+参与交易的各方愿意达成预定目标的心理状态<br />
+电子商务交易的<strong>非直接性</strong>使得信任较难建立</p>
+<ul>
+<li>交易双方的信任</li>
+<li>对电子商务基础结构和环境的信任</li>
+<li>信任关系非常复杂  </li>
+</ul>
+<blockquote>
+<h6>信任度模型</h6>
+<p>见ppt</p>
+<p>信任来自于对商业和法规环境的信任、对因特网作为购物渠道的信任、对网上商家的信任</p>
+<ul>
+<li>依据来自于环境特征变量的一部分  
+</li>
+<li>善举是企业对社会的某种回馈，对于赢得消费者的信任是一个重要方面</li>
+<li>信任证书来自于第三方的核准</li>
+<li>这三方面的信任的建立需要时间</li>
+</ul>
+</blockquote>
+<h4>信任的种类</h4>
+<ul>
+<li>
+基于威胁的信任<br />
+与惩罚、威胁相关<br />
+如果某一方违反约定将受到怎样的惩罚   
+
+<ul>
+<li><em>货到付款在一定程度上可以认为是此种类型</em><br />
+对于零售商而言，如果提供的产品没有达到预期的要求，消费者将拒绝付款</li>
+<li>第三方平台的中介交易隐含了威胁<br />
+产品得到消费者确认后，货款才会提供给销售商</li>
+</ul>
+</li>
+<li>基于认知的信任<br />
+基于交易双方长期的关系，双方可以预测对方的行为<br />
+某些诈骗者开始利用此类型</li>
+<li>基于认同的信任<br />
+交易伙伴的价值观相同，交易的一方可以充当另一方的代理人<br />
+实际交易不会这么做，只是说信任达到一定程度</li>
+</ul>
+<h3>8.机构购买者的行为</h3>
+<ul>
+<li>购买的产品与服务可能与单个消费者相同<br />
+也用于直接消费，购买的产品和服务本身也没有差别</li>
+<li>机构购买者更加关心购买过程<br />
+<em>但也不能说媒介对机构购买者没有作用</em><br />
+机构是一群人的集合，而人容易受到媒介的影响</li>
+<li>
+机构买家的数量少，但交易量大<br />
+购买过程很长，附带的条件可能很多
+<ul>
+<li>书面协议</li>
+<li>复杂的支付条件</li>
+<li>购买流程</li>
+</ul>
+</li>
+</ul>
+<p>因此，机构买家的消费行为与个人有很大不同</p>
+<blockquote>
+<h6>个人消费者与机构买家的特征比较</h6>
+<p>见ppt<br />
+<strong>注意促销方法的差异</strong></p>
+</blockquote>
+<p>目前一些机构买家也在网上购买，且行为与个人消费者差异不大，原因在于：</p>
+<ul>
+<li>电子商务的购物环境暂时还没有能较好地支持机构买家的购物特征</li>
+<li>机构购买者在网上的购物还处在开端、逐步接受的过程<br />
+机构的购买需要在内部履行一定的程序，但适合电商环境下购物的流程规定还没有制定</li>
+<li>机构买家是一个集体，但代表集体发生购买行为的是少数人，执行采购时，代表人的购买行为会类似个体购买者</li>
+</ul>
+<h4>电子商务机构采购行为模型</h4>
+<p>见ppt</p>
+<ul>
+<li>个体影响因子</li>
+<li>关系环境影响因子<br />
+购买者以及机构内部决策者、建议者的地位、威望与授权<br />
+这在个体消费者中不存在<br />
+<em>五种角色在机构消费者中得到了充分体现</em></li>
+<li>组织影响<br />
+现有系统（采购IT系统）与电商系统的衔接</li>
+<li>电商能做的仍然集中在原先的部分，只能通过推销适应其决策过程</li>
+</ul>
+<h3>9.与客户相关应用中的智能代理</h3>
+<ul>
+<li>使用代理的原因<br />
+客户、产品、供应商和信息数量膨胀，使得互相匹配的过程时间不允许，不经济，<em>甚至不可能</em></li>
+</ul>
+<p><strong>智能代理</strong>：计算机程序，感知环境并自动完成规定的任务，用来帮助用户（客户、供应商等）完成常规的任务、搜索和获取信息、支持决策过程和充当某些方面的专家</p>
+<h4>智能代理的分类</h4>
+<ul>
+<li>非智能代理</li>
+<li>智能代理</li>
+</ul>
+<p>另一种分类思路与消费者的决策过程相对应</p>
+<ul>
+<li>需求确认<br />
+提供产品信息和鼓励购买，帮助确认需求</li>
+<li>产品推荐<br />
+帮助顾客寻找满足需求的产品和服务</li>
+<li>商家推荐</li>
+<li>谈判</li>
+<li>购买和交货</li>
+<li>产品/服务评价</li>
+</ul>
+<p><em>软件开发中的需求分析与客户的价值主张并不等同，客户需求是价值主张的</em><strong><em>子集</em></strong><em>，只是价值主张的一部分</em> </p>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

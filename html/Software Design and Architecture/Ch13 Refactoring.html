@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ch13 Refactoring</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #000;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+h6 {
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #000;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>Ch13 Refactoring</h1>
+<h2>一、重构概述</h2>
+<h3>1.重构的原因</h3>
+<blockquote>
+<ul>
+<li>产生自软件的演化，最初用来做软件的<strong>维护</strong>  
+</li>
+<li>重构由敏捷开发从维护手段转化到开发手段</li>
+</ul>
+</blockquote>
+<ul>
+<li>一次完成正确设计很困难</li>
+<li>对问题的理解不深刻</li>
+<li>无法理解用户需求</li>
+<li>实现未能预计到演化的需要</li>
+<li>初始设计有缺陷</li>
+<li>系统逐渐演变，越来越差</li>
+</ul>
+<h3>2.重构的含义</h3>
+<p>有规律地改变软件系统，<strong>改进内部结构</strong>，但<strong>不改变软件的外部行为</strong></p>
+<h4>重构的动机</h4>
+<ul>
+<li>有一些现成的代码，但不够好</li>
+<li>修改内部结构，保持外部行为</li>
+</ul>
+<p><em>问题：</em></p>
+<ul>
+<li>在演化时很容易，但开发阶段没有现成代码</li>
+<li>怎样才算变得更好？</li>
+</ul>
+<h4>重构的时机</h4>
+<ul>
+<li>
+增加了新的功能的代码
+<ul>
+<li>不是增加新需求，而是添加完代码之后重构</li>
+<li>目的是使代码在未来更易维护</li>
+</ul>
+</li>
+<li>需要修改bug时</li>
+<li>需要同行评审时</li>
+</ul>
+<h3>3.怎样的代码需要重构</h3>
+<p><strong>Bad smells</strong><br />
+代码中不好的地方，有些人以一些固定的重构方法与smells相关联</p>
+<h3>4.重构的过程</h3>
+<p>简单设计+设计驱动</p>
+<ul>
+<li>做一些小小的变化<br />
+简单重构</li>
+<li>通过所有测试，确保所有测试依然通过</li>
+<li>如果通过，做下一项重构</li>
+<li>如果不通过，解决问题或撤销重构<br />
+这样系统仍然可运作</li>
+</ul>
+<h3>5.重构的障碍</h3>
+<h4>复杂性</h4>
+<ul>
+<li>修改设计很困难</li>
+<li>理解代码很困难<br />
+质量不高的代码往往很难读懂</li>
+</ul>
+<h4>可能引进错误</h4>
+<ul>
+<li>运行测试</li>
+<li>构建测试</li>
+<li>先清理，后增加功能</li>
+</ul>
+<h4>文化因素</h4>
+<ul>
+<li><em>“报酬用于增加新功能而不是改进代码”</em></li>
+<li><em>“只要系统没有崩溃，就不要修复”</em></li>
+<li><em>“自己的软件，里面有什么问题我知道”</em></li>
+</ul>
+<h2>二、Bad smells</h2>
+<h3>1.参考书目</h3>
+<p><strong>Refactoring: Improving the Design of Existing Code</strong><br />
+by Martin Fowler (et al.),1999, Addison-Wesley</p>
+<ul>
+<li>22种坏味道</li>
+<li>72种办法</li>
+</ul>
+<h3>2.具体的Bad smells</h3>
+<h4>重复代码</h4>
+<ul>
+<li>同一个类中，两个方法的代码出现了相同代码<br />
+解决方法：抽取方法</li>
+<li>两个相关类中的相同代码<br />
+解决方法：方法上拉到父类、构建模版方法</li>
+<li>两个无关类中的相同代码<br />
+解决方法：重复度特别高的抽取父类、抽取方法由一个类调用另一个、将方法替换为方法对象</li>
+</ul>
+<h4>太长的方法</h4>
+<ul>
+<li>试图做太多的事情，或是很难做出统一的抽象或边界定义<br />
+总之内聚度太差  </li>
+<li>通常200行以上的代码<em>可能</em>太长  </li>
+<li>解决方法：抽取方法，将方法分解为多个方法</li>
+</ul>
+<h4>太大的类</h4>
+<ul>
+<li>类中的部分和方法太多</li>
+<li>超过50个方法或属性<em>可能</em>太大</li>
+<li>抽取类或抽取子类</li>
+<li><strong>例外</strong><br />
+类库中的类大一点没关系，因为这些类通常不会修改<br />
+自己的类，如果修改的范围可控，也没什么关系</li>
+</ul>
+<h4>分散的修改</h4>
+<ul>
+<li>一个类因为多种原因、多种方式被修改<br />
+一个类的秘密太多，且不相关</li>
+<li>在演化的程序中容易出现</li>
+<li>低内聚的表现</li>
+<li>解决方法：拆成多个类或抽取方法</li>
+</ul>
+<h4>“霰弹枪”</h4>
+<ul>
+<li>在一些逻辑上相同<br />
+需要变更时产生大量的简单修改</li>
+<li>一个秘密被分散到了多个地方<br />
+因而要将秘密重新收回</li>
+<li>解决方法：移动方法或域</li>
+</ul>
+<h4>数据类</h4>
+<ul>
+<li>一些类只有属性和get、set方法<br />
+持有大量数据，但不做操作<br />
+最后变成结构化程序设计的风格</li>
+<li>未必有问题</li>
+<li>解决方法：封装除去某些不需要的方法，尤其是集合属性、将行为移动到数据类中</li>
+</ul>
+<h4>太长的参数列表</h4>
+<ul>
+<li>印记耦合与可读性的取舍</li>
+<li>方法可能太长</li>
+<li>解决方法：将方法分解或转而传递整个对象作为参数</li>
+</ul>
+<h4>特征嫉妒</h4>
+<ul>
+<li>方法不访问所在类的属性，而访问其它类的</li>
+<li>方法和行为不集中</li>
+<li>解决方法：抽取方法，将其转移到数据所在类</li>
+<li><em>例外</em><br />
+迭代器、访问者、策略模式</li>
+</ul>
+<h4>数据团</h4>
+<ul>
+<li>一些数据自觉不自觉地同时出现<br />
+参数中、代码中都会出现</li>
+<li>考虑数据团是否存在很高耦合，需要封装</li>
+<li>解决方法：抽取方法、封装对象</li>
+</ul>
+<h4>原始类型偏执</h4>
+<ul>
+<li>大量使用原始类型而不是对象</li>
+<li>解决方法：创建一些小类<br />
+在可修改性上有好处，但可读性会显著降低</li>
+</ul>
+<h4>switch选择结构</h4>
+<ul>
+<li>大段的switch</li>
+<li>解决方法：以多态解决判断问题，用子类代替类型码，有必要时引入空对象</li>
+</ul>
+<h4>平行继承树</h4>
+<ul>
+<li>多种差异性采用继承的方法解决会产生排列组合的影响</li>
+<li>解决方法：移动方法和域，最好移除整个继承结构，最好干脆使用聚合替代</li>
+</ul>
+<h4>Lazy class</h4>
+<ul>
+<li>多次重构后，一个类不再承担职责</li>
+<li>解决方法：去除这个类</li>
+</ul>
+<h4>过分的通用性</h4>
+<ul>
+<li>不要给未来的变化留太多东西<br />
+只是敏捷的方法学</li>
+<li>解决方法：全部去掉</li>
+</ul>
+<h4>Temporary field</h4>
+<ul>
+<li>解决方法：引入类似空对象的类</li>
+</ul>
+<h4>消息链</h4>
+<ul>
+<li>对象的级联调用</li>
+<li>解决方法：使用委托或临时变量</li>
+</ul>
+<h4>Middle man</h4>
+<ul>
+<li>过多的indirection</li>
+<li>解决方法：去除middle man，将委托替换为继承</li>
+<li>是否插入中介，与实际使用场景有关，需要具体判断</li>
+</ul>
+<h4>过于亲密</h4>
+<ul>
+<li>类与类之间的关系过于密切<br />
+内聚上可能出了问题，一个类被强行分割</li>
+<li>解决方法：设法将其合并，或将双向关系变成单向的</li>
+</ul>
+<h4>带有不同接口的候选类</h4>
+<ul>
+<li>两个看似不相干的对象其实是一个东西</li>
+<li>解决方法：抽象出超类，或更名</li>
+</ul>
+<h4>不完整类库</h4>
+<ul>
+<li>使用类库时，类库没有提供某些方法<br />
+导致加工后的代码到处出现</li>
+<li>解决方法：在本地对类进行继承</li>
+</ul>
+<h4>拒绝馈赠</h4>
+<ul>
+<li>一个类继承父类，但父类的某些方法不需使用</li>
+<li>违反了LSP</li>
+<li>解决方法：重新抽象，方法下推或将继承转换为委托</li>
+</ul>
+<h4>注释</h4>
+<ul>
+<li>注释太多也不好<br />
+极限编程的方法论：<em>代码是最好的注释？</em></li>
+</ul>
+<h3>3.IDE对重构的支持</h3>
+<ul>
+<li>Eclipse</li>
+<li>Visual Studio</li>
+</ul>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

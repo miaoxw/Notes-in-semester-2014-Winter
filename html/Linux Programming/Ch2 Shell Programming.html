@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ch2 Shell Programming</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #000;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+h6 {
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #000;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>Ch2 Shell Programming</h1>
+<p><strong>Shell:</strong><strong><em>A command interpreter and programming environment</em></strong></p>
+<ul>
+<li>用户和操作系统之间的接口</li>
+<li>作为核外程序而存在</li>
+</ul>
+<h2>一、各种不同的Shell</h2>
+<ul>
+<li>ash</li>
+<li>ash.static</li>
+<li>bsh</li>
+<li>bash</li>
+<li>sh</li>
+<li>csh</li>
+<li>tcsh</li>
+<li>ksh</li>
+</ul>
+<h2>二、Shell的双重角色</h2>
+<ul>
+<li>
+命令解释程序
+<ul>
+<li>Linux的开机启动过程</li>
+<li>
+Shell的工作步骤
+<ul>
+<li>打印提示符</li>
+<li>得到命令行</li>
+<li>解析命令</li>
+<li>查找文件</li>
+<li>准备参数</li>
+<li>执行命令</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+独立的程序设计语言解释器
+<ul>
+<li>KISS<br />
+Keep it <em>simple and stupid</em></li>
+<li>重定向与管道</li>
+</ul>
+</li>
+</ul>
+<h2>三、脚本</h2>
+<p>脚本能在命令行直接输入<br />
+<em>但仅执行一次</em></p>
+<h3>1.编写脚本文件</h3>
+<ul>
+<li>注释<br />
+<code>#This is comment</code><br />
+第一行的<code>#!/bin/bash</code>用于指示此脚本由bash执行</li>
+<li>退出码<br />
+<code>exit 0</code></li>
+<li><code>;</code>的作用</li>
+</ul>
+<h3>2.执行脚本文件</h3>
+<ul>
+<li><code>sh script_file</code></li>
+<li><code>chmod +x script_file(chown,chgrp optionally)</code><br />
+<code>./script_file</code></li>
+<li><code>source script_file</code><br />
+或者<code>.script_file</code></li>
+</ul>
+<p>第三种方法与前两种有所不同，前两种新开一个shell执行脚本，而方法三在当前终端直接执行<br />
+<em>如在配置环境变量时，前两种方法可能会发生配不进去的问题</em></p>
+<h2>四、用户环境</h2>
+<ul>
+<li>
+.bash_profile, .bash_logout, .bashrc  
+
+<ul>
+<li>.bash_profile在用户登录时被读取，其中包含的命令被bash执行</li>
+<li>.bashrc在启动一个shell时执行</li>
+<li>.bash_logout在登录退出时读取执行</li>
+</ul>
+</li>
+<li>alias/unalias<br />
+给命令提供别名/取消别名，由shell记录</li>
+<li>
+环境变量<br />
+/etc/profile文件中也能配置环境变量，但由于它在系统启动时执行，这个文件对Linux的所有用户都会产生作用，并且修改此脚本后，只有重启才能产生效果
+<ul>
+<li><code>export</code> command</li>
+<li><code>export</code>, <code>env</code> and <code>set</code> command<br />
+不使用<code>export</code>则设置用户变量</li>
+</ul>
+</li>
+</ul>
+<h2>五、变量</h2>
+<h3>1.用户变量</h3>
+<p>用户在shell脚本里定义的变量</p>
+<h4>变量的赋值和使用</h4>
+<pre><code>var=value
+echo $var
+</code></pre>
+
+<h5>read命令</h5>
+<p><code>read var</code>或<code>read</code></p>
+<ul>
+<li>类似于<code>INPUT</code>语句的功能，将用户的输入赋值给变量</li>
+<li>可以以-t设置超时</li>
+<li>以-p设置提示内容</li>
+<li>以-n指定接受字符数量</li>
+<li>以-s用于输入密文</li>
+<li><strong>read不指定变量时存储到默认变量reply中</strong></li>
+</ul>
+<h4>引号的用法</h4>
+<ul>
+<li><strong>单引号</strong>内的所有字符保持字符本身的意思<br />
+包括转义符'\'</li>
+<li>除了$, `, /外，双引号内的<strong>所有字符保持本身含义</strong></li>
+<li>没有任何引号时，shell尽最大可能解析</li>
+</ul>
+<h4>转义符</h4>
+<p>还包括'\'和换行</p>
+<h3>2.环境变量</h3>
+<p>shell环境提供的变量，通常以大写字母命名</p>
+<ul>
+<li>$HOME<br />
+当前用户的登录目录</li>
+<li>$PATH</li>
+<li>$PS1<br />
+命令行提示符，通常为'$'</li>
+<li>$PS2<br />
+辅助提示符，提示后续输入，通常为'&gt;'</li>
+<li>$IFS<br />
+输入区分隔符，通常是空格、Tab或换行符</li>
+</ul>
+<h3>3.参数变量和内部变量</h3>
+<p>调用脚本时如果带有参数，对应参数和额外产生的变量</p>
+<blockquote>
+<h6>例：一个调用</h6>
+<pre><code>b.sh -i 30
+</code></pre>
+
+</blockquote>
+<ul>
+<li>$#<br />
+传递到脚本程序的参数个数<br />
+上例为2</li>
+<li>$0<br />
+脚本程序名<br />
+上例为b.sh</li>
+<li>$1, $2, ...<br />
+每个传入的参数<br />
+-i与30</li>
+<li>$*<br />
+一个由全体参数组成的清单，由$IFS分隔开<br />
+上例为b.sh -i 30</li>
+<li>$@<br />
+$*的变体，不使用$IFS，返回参数列表<br />
+上例与$*没有区别，但直接将分隔符变成空格</li>
+</ul>
+<h2>六、条件测试</h2>
+<h3>1.退出码</h3>
+<h3>2.test命令</h3>
+<ul>
+<li><code>test expression</code>  </li>
+<li>另一种写法：<code>[ expression ]</code><br />
+中括号内的空格不可省略，因为<code>[</code>本身就是一个命令<br />
+<em><code>[[</code>同样在条件测试的位置出现，它比<code>[</code>和<code>test</code>更强大，多了一些C/C++的逻辑语法，如&amp;&amp;和||</em></li>
+</ul>
+<h4>test命令支持的条件测试</h4>
+<ul>
+<li>
+字符串比较<br />
+=两边尽量加空格，变量名尽量用双引号包围
+<ul>
+<li>str1=str2</li>
+<li>str1!=str2</li>
+<li>-z str<br />
+字符串为空则结果为真</li>
+<li>-n str<br />
+字符串不为空则结果为真</li>
+</ul>
+</li>
+<li>
+算术比较  
+
+<ul>
+<li>exp1 -eq exp2<br />
+等于</li>
+<li>exp1 -ne exp2<br />
+不等</li>
+<li>exp1 -gt exp2<br />
+大于</li>
+<li>exp1 -ge exp2<br />
+大于等于</li>
+<li>exp1 -lt exp2<br />
+小于</li>
+<li>exp1 -le exp2<br />
+小于等于</li>
+</ul>
+</li>
+<li>
+与文件有关的条件测试<br />
+此处所有文件都可以带路径
+<ul>
+<li>-e file<br />
+文件存在则为真</li>
+<li>-d file<br />
+是子目录则为真</li>
+<li>-f file<br />
+是普通文件则为真</li>
+<li>-s file<br />
+文件长度不为零则为真</li>
+<li>-r file<br />
+文件则读则为真</li>
+<li>-w file<br />
+文件可写则为真</li>
+<li>-x file<br />
+文件可执行则为真</li>
+</ul>
+</li>
+<li>
+逻辑操作
+<ul>
+<li>!exp</li>
+<li>exp1 -a exp2</li>
+<li>exp1 -o exp2</li>
+</ul>
+</li>
+</ul>
+<h3>3.条件语句</h3>
+<h4>if语句</h4>
+<ul>
+<li>
+<p>形式</p>
+<pre><code>if [ expression ]
+then
+    statements
+elif [ expression ]
+then
+    statements
+elif ...
+    ...
+else
+    statements
+fi
+</code></pre>
+
+</li>
+<li>紧凑形式<br />
+;在同一行上分割不同命令的分隔符<br />
+在非if语句条件下也适用</li>
+</ul>
+<h4>case语句</h4>
+<pre><code>case str in
+    str1|str2) statements;;
+    str2|str4) statements;;
+    *) statements;;
+esac
+</code></pre>
+
+<p>每个执行的语句后面一定是双分号</p>
+<h2>七、重复语句</h2>
+<p>它们都可以用break直接跳出循环</p>
+<h3>1.for语句</h3>
+<pre><code>for var in list
+do
+    statements
+done
+</code></pre>
+
+<p>适用于对一系列字符串做循环处理，有几个字符串就重复几次循环</p>
+<h3>2.while语句</h3>
+<pre><code>while contidion
+do
+    statements
+done
+</code></pre>
+
+<h3>3.until语句</h3>
+<pre><code>until condition
+do
+    statements
+done
+</code></pre>
+
+<p>通常不建议使用until语句</p>
+<h3>4.select语句</h3>
+<pre><code>select item in itemlist
+do
+    statements
+done
+</code></pre>
+
+<p>用于生成菜单列表</p>
+<p><em>select语句中的#?提示符也是可以改的，在$PS3中修改</em></p>
+<h2>八、命令表和语句块</h2>
+<h3>1.命令组合</h3>
+<ul>
+<li>分号串联<br />
+命令顺次执行</li>
+<li>
+条件组合
+<ul>
+<li>AND命令表<br />
+<code>statement&amp;&amp;statement&amp;&amp;...</code><br />
+在前一个命令执行成功后才执行后一个命令</li>
+<li>OR命令表<br />
+<code>statement||statement||...</code><br />
+前一个命令若失败，执行后一个命令</li>
+</ul>
+</li>
+</ul>
+<h3>2.语句块</h3>
+<pre><code>{
+    statement1
+    statement2
+}
+</code></pre>
+
+<p>或</p>
+<pre><code>{ statement1;statement2 }
+</code></pre>
+
+<ul>
+<li>在某些只接受一条命令的情况下提供多条命令  </li>
+<li>单行书写时，大括号一定要用空格包围<br />
+不加空格的大括号用在解析第10个及以后的参数时，如${10}<br />
+<em>$()又不一样</em></li>
+</ul>
+<h2>九、函数</h2>
+<h3>1.形式</h3>
+<pre><code>function func()//括号内一定没有东西
+{
+    statements
+    return value
+}
+</code></pre>
+
+<p>其中function关键字可以省略</p>
+<h3>2.局部变量</h3>
+<ul>
+<li>在函数体内直接定义变量，变量默认是全局的用户变量</li>
+<li>因此需要使用<code>local</code>关键字<br />
+<code>local a=5</code></li>
+<li>在函数体中，$1、$2等等变量会被参数所覆盖，但$0仍不会被覆盖</li>
+</ul>
+<h3>3.函数调用</h3>
+<ul>
+<li><code>func arg1 arg2 ...</code></li>
+<li>使用双引号时，以引号内整体作为一个参数</li>
+</ul>
+<h3>4.返回值</h3>
+<ul>
+<li><code>return</code></li>
+<li>如果没有显式地return，以最后一条执行语句的结果作为返回值<br />
+通常执行成功返回0，执行失败时返回错误码</li>
+<li>返回值可以以$?获取</li>
+</ul>
+<blockquote>
+<h6>例：一个函数</h6>
+<p>见ppt</p>
+</blockquote>
+<h2>十、其它</h2>
+<h3>1.杂项命令</h3>
+<ul>
+<li><code>break</code></li>
+<li><code>continue</code></li>
+<li><code>exit</code></li>
+<li><code>return</code></li>
+<li><code>export</code><br />
+将变量定义为环境变量</li>
+<li><code>set</code></li>
+<li><code>unset</code><br />
+从环境中将变量删除<br />
+这与将变量置为空的效果不同</li>
+<li><code>trap</code><br />
+trap之后跟随一条命令，如：<br />
+<code>trap 'echo something' INT</code><br />
+意为脚本在收到INT信号（<code>Ctrl+C</code>）时执行<code>echo something</code></li>
+<li><code>:</code><br />
+空命令，等同于<code>pass</code></li>
+<li><code>.</code>或<code>source</code><br />
+在当前shell中执行命令<br />
+<em>对<code>:</code>的重定向输出可以用于建立一个新文件，或将其内容清空</em></li>
+</ul>
+<h3>2.捕获命令输出</h3>
+<ul>
+<li>$(command)</li>
+<li>`command`</li>
+</ul>
+<blockquote>
+<h6>例：</h6>
+<ul>
+<li><code>echo $PWD</code></li>
+<li><code>echo $(pwd)</code></li>
+</ul>
+<p>虽然它们的结果相同，但执行机制完全不同</p>
+</blockquote>
+<h3>3.算术扩展</h3>
+<ul>
+<li><code>$(())</code><br />
+可以获得算术表达式的结果，括号内是表示算术表达式的字符串<br />
+<strong>只能做整数运算，浮点数不被接受</strong></li>
+<li><code>expr</code>命令也可用于进行计算，但一些命令需要转义<br />
+<code>$(expr $x + 5)</code></li>
+</ul>
+<h3>4.参数扩展</h3>
+<blockquote>
+<h6>例：文件的批处理</h6>
+<p>见ppt</p>
+</blockquote>
+<ul>
+<li>${param:-default}<br />
+如果param为空，就把它设置为default的值</li>
+<li>${#param}<br />
+取param长度</li>
+<li>${param%word}<br />
+从尾部取起，删除与word匹配的最短部分</li>
+<li>${param%%word}<br />
+删除与word匹配的最长部分</li>
+<li>${param#word}<br />
+从头部取起，删除与word匹配的最短部分</li>
+<li>${param##word}<br />
+删除与word匹配的最长部分  </li>
+</ul>
+<p><em>以上四个命令都可以在word中继续使用通配符</em></p>
+<blockquote>
+<h6>例：将文件更换扩展名</h6>
+<pre><code>&quot;${file%.*}&quot;.obj
+</code></pre>
+
+</blockquote>
+<h3>5.即时文档</h3>
+<p>在脚本中向一条命令传送输入数据<br />
+定义一个结束符，只有在捕获到结束符（串）时输入才被认为结束</p>
+<blockquote>
+<h6>例：</h6>
+<pre><code>#!/bin/bash
+cat&gt;&gt;file.txt&lt;&lt;!CAT!INPUT!
+Hello, this is a here document.
+!CATINPUT! 
+</code></pre>
+
+</blockquote>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

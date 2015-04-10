@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>03 数据仓库2</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #000;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+h6 {
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #000;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>03 数据仓库2</h1>
+<h2>三、数据仓库的基本结构</h2>
+<p>本章讨论数据仓库的关键技术</p>
+<h3>1.数据的ETL（抽取、转换、装载）</h3>
+<h4>数据源</h4>
+<h5>多数据源</h5>
+<p>数据仓库的数据来源于多个数据源</p>
+<ul>
+<li>不同格式的数据  
+</li>
+<li>不同数据操作平台</li>
+<li>不同物理位置</li>
+</ul>
+<h5>数据源可以是递归的</h5>
+<ul>
+<li>可以是另一个数据仓库（数据集市）</li>
+<li>基于本数据仓库的分析型应用</li>
+</ul>
+<h5>数据源的抽取</h5>
+<p>数据抽取软件</p>
+<h5>常见数据源</h5>
+<ul>
+<li>关系数据库系统<br />
+Oracle, Sybase, SQL Server, DB2等</li>
+<li>面向对象数据库系统<br />
+Objectstore等</li>
+<li>桌面数据库系统<br />
+Foxbase, Foxpro等</li>
+<li>文件系统中的数据文件</li>
+<li>其它数据源，如Word, Excel等</li>
+</ul>
+<h4>ETL过程</h4>
+<blockquote>
+<p><strong>异构数据源——E——解析、校正、标准化、增补——匹配——合并——L——数据仓库</strong></p>
+<ul>
+<li>解析以发现可能的关联</li>
+<li>
+数据库本身并不能保证数据的正确性，数据的组合也可能会发生原本隐藏的问题，因此必须做校正处理，修正错误的数据
+<ul>
+<li>从原有的操作型应用中选择合理的增补数据</li>
+<li>
+以各种策略去猜<br />
+猜得越准确，代价越大
+</li>
+</ul>
+</li>
+<li>使得数据在编码标准下一致</li>
+<li>ETL是一个约定俗称的叫法<br />
+<em>但ETL未必按照这个顺序进行</em><br />
+转换与装载服务器分离时，两者的操作互斥；实际操作中可能会将两部分合并，转变成<strong><em>ELT</em></strong>的方式</li>
+</ul>
+</blockquote>
+<h4>数据的抽取与刷新</h4>
+<h5>数据抽取</h5>
+<p>将数据源中的数据通过网络进行抽取，加工转换后形成仓库中的数据<br />
+首次数据仓库的建立</p>
+<ul>
+<li>
+数据抽取的重要性
+<ul>
+<li>数据的抽取是数据进入仓库的入口</li>
+<li>屏蔽了数据结构和物理位置的复杂性</li>
+</ul>
+</li>
+<li>数据抽取的实现方法
+不同的数据源可能需要不同的抽取方法</li>
+<li>
+转换和集成的复杂性
+<ul>
+<li>要实现变化<br />
+包括数据库系统、操作系统、硬件乃至基于硬件的数据结构的变化</li>
+<li>
+避免从在线窗口进行数据抽取  
+
+<ul>
+<li>效率考量  
+</li>
+<li>在线窗口是不可靠的，可能令错误的数据进入数据仓库</li>
+</ul>
+</li>
+<li>来自操作型环境中的输入关键字需要被重建和转换<br />
+某些关键字被局限在某个DB中</li>
+<li>非关键字数据需要重新格式化</li>
+<li>检查正确性</li>
+<li>数据源的合并</li>
+<li>关键字的解析</li>
+<li>必须定义一个明确的顺序<br />
+锁的机制只局限在一个数据库中，在数据仓库中不适用</li>
+<li>效率</li>
+<li>编码的转换</li>
+<li>理解逻辑与数据间的关系</li>
+<li>……</li>
+</ul>
+</li>
+</ul>
+<h5>数据刷新</h5>
+<ul>
+<li>修正过时的数据，保存不变的数据</li>
+<li>过程与抽取类似，但数据量更小</li>
+<li>复杂性比数据抽取更高</li>
+<li>数据仓库系统必须感知到OLTP数据库中数据的变化情况，并及时反映数据的变化情况</li>
+<li>
+一般的刷新方法<br />
+四种刷新方式可以同时使用，以满足不同需要<br />
+先考虑日志文件，不行再用DELTA文件或时间戳，最后以映像文件保底
+<ul>
+<li>
+时间戳			
+<ul>
+<li>适用情况<br />
+数据库中的记录有时间属性，根据修改时间标志来实现数据仓库中数据的动态刷新</li>
+<li>
+缺点<br />
+大多数数据库系统中的数据不含时间戳
+</li>
+</ul>
+</li>
+<li>
+DELTA文件<br />
+向数据库进行操作时记录DELTA文件，用以做数据库调试和移植，以及一些特殊的操作（如回滚）
+<ul>
+<li>适用情况<br />
+基于OLTP的操作性应用程序形成了DELTA文件记录该应用所作的数据修改操作</li>
+<li>优点<br />
+避免对整个数据库的对比扫描，具有较高的刷新效率</li>
+<li>缺点<br />
+现在应用不再记录DELTA文件，类似的机制集成到了数据库中</li>
+</ul>
+</li>
+<li>
+映像文件
+<ul>
+<li>实现方法<br />
+上一次刷新后对数据库做一次快照<br />
+本次刷新前再做一次快照<br />
+比较两个快照的不同从而确定刷新操作</li>
+<li>优点<br />
+对数据库和应用无特别要求，普适性好<br />
+<em>对于一些遗留系统可能比较有效</em><br />
+保底的方法</li>
+<li>缺点<br />
+占用大量系统资源<br />
+可能较大地影响原有数据库系统的性能</li>
+</ul>
+</li>
+<li>
+日志文件<br />
+原理与DELTA文件相同，区别在于谁记录了修改
+<ul>
+<li>实现方法<br />
+根据OLTP的数据库日志信息来实现数据仓库的数据刷新</li>
+<li>优点<br />
+日志是OLTP数据库的固有机制<br />
+不会影响原有数据库的性能<br />
+具有比DELTA文件和映像文件更高的刷新效率</li>
+<li>缺点<br />
+无法应用于无日志文件机制的遗留数据库系统</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>数据抽取与刷新本质上的操作是相同的</p>
+<h5>数据周期</h5>
+<p>从操作型数据环境数据变化起，到此变化反映到数据仓库中消耗的时间<br />
+<strong>通常不会低于24小时</strong>，原因：</p>
+<ul>
+<li>操作型数据环境与数据仓库结合得越紧密，所需技术就越昂贵、越复杂</li>
+<li>数据稳定期的要求<br />
+<em>数据在进入数据仓库前的调整十分简单，一旦进入数据仓库再做改动，就要同时调整操作性环境和数据仓库中的内容</em></li>
+<li>战略系统不太在乎最近一段时间的少量数据</li>
+</ul>
+<p>数据周期对不同的数据单元也有不同</p>
+<h4>ETL工具</h4>
+<p>分为两类</p>
+<ul>
+<li>产生源代码的软件</li>
+<li>产生参数化的运行时模块的软件</li>
+</ul>
+<p>什么适合就用什么，没有太大限制</p>
+<h3>2.存储和管理</h3>
+<p>数据仓库的组织管理方式决定了它有别于传统数据库的特性，也决定了其对外数据表现形式</p>
+<ul>
+<li>数据量很大</li>
+<li>并行处理</li>
+<li>针对决策支持查询的优化</li>
+<li>支持多维分析的查询模式</li>
+</ul>
+<h4>数据仓库中的数据</h4>
+<ul>
+<li>各个部门当前及历史上的细节性业务数据</li>
+<li>为了进行分析决策操作而生成的分析性数据</li>
+</ul>
+<h4>数据仓库中数据的管理</h4>
+<ul>
+<li>统一、集成、单一的庞大数据集合</li>
+<li>需要借助成熟的数据库技术对其进行存储管理</li>
+</ul>
+<h4>数据仓库的数据组织形式</h4>
+<ul>
+<li>简单堆积文件</li>
+<li>轮转综合文件<br />
+按时间统计的数据非常常见，达到一定规模后写入更大时间粒度的数据，清空小规模的分析性数据  
+</li>
+</ul>
+<p>以上两种方法主要应用于经常变化的数据</p>
+<ul>
+<li>简化直接文件<br />
+每隔一段时间对数据库进行一次快照，对<strong>全体数据</strong>进行操作</li>
+<li>连续文件</li>
+</ul>
+<h4>数据仓库中的快照</h4>
+<h5>快照的内容</h5>
+<ul>
+<li>关键字<br />
+通常用复合关键字</li>
+<li>时间单元<br />
+用以区分快照描述事情发生的时刻<br />
+全局的时间记录标准要保持一致<br />
+时间单元可以被隐式、间接记录</li>
+<li>主要数据</li>
+<li>可选的二级数据<br />
+附带信息，<em>可能有利于解释当前的主要数据</em><br />
+大多数情况下不会关注</li>
+</ul>
+<h5>快照的生成</h5>
+<p>由一些<strong>离散活动</strong>的发生而触发，或由规律性的<strong>时间推移</strong>而触发</p>
+<h4>数据仓库管理系统</h4>
+<ul>
+<li>关系型数据库适当改进即可作为数据仓库管理系统</li>
+<li>安全、归档、备份、维护、恢复等工作直接由DBMS的功能来实现</li>
+</ul>
+<h3>3.数据目标</h3>
+<h4>原子层和集成数据</h4>
+<h5>原子层</h5>
+<ul>
+<li>数据量最大，也是最重要的数据存储</li>
+<li>逻辑上是其它所有分析应用数据的来源</li>
+</ul>
+<p>特点：</p>
+<ul>
+<li>保持历史继承性</li>
+<li>拥有数据仓库最低细节（粒度）的数据</li>
+<li>原子层的构建是迭代的<br />
+数据的收集本身是迭代的<br />
+分析人员的主观意愿一直在变化</li>
+<li>数据结构面向企业<br />
+整个企业所有分析人员的集合，而不是某个部门，某个个人</li>
+<li>原子层本身可以是集成的<br />
+搜集自不同的数据源</li>
+<li>原子层是静态的</li>
+</ul>
+<h5>集成数据</h5>
+<h6>粒度</h6>
+<p>数据仓库中数据综合程度的度量</p>
+<ul>
+<li>影响数据仓库中数据量的多少</li>
+<li>影响数据仓库能够回答询问的种类</li>
+</ul>
+<h6>样本数据库</h6>
+<p>从数据仓库中取得的真实档案数据或轻度综合数据的一个子集，即<strong>从原子层抽样</strong></p>
+<ul>
+<li>仓库中的一部分数据子集</li>
+<li>周期性刷新<br />
+原子层在不断变化，需要让新数据有机会成为样本中的数据成员</li>
+<li>不能用于一般的分析目的，只能用于分析统计<br />
+比如库存量的统计就非常适合做这种采样</li>
+</ul>
+<h6>多重粒度</h6>
+<p>低粒度，高细节与高粒度，低细节<br />
+细节性查询只有低粒度高细节可以完成，宏观查询两者都可以完成，但此时明显是高粒度、低细节的数据更快、更高效<br />
+虽然细节性查询所占比例非常小，但不能否认这是有意义的查询<br />
+所以将两种粒度的数据同时存储，分别用于响应不同的查询</p>
+<ul>
+<li>
+大粒度数据（集成数据）
+<ul>
+<li>快速存储设备</li>
+<li>提高性能</li>
+</ul>
+</li>
+<li>
+小粒度数据
+<ul>
+<li>低速存储设备</li>
+<li>满足细节查询</li>
+</ul>
+</li>
+</ul>
+<h6>多维度，多层次</h6>
+<p>数据仓库是<strong>多维度</strong>，<strong>多层次</strong>的</p>
+<ul>
+<li>维度是观察数据对象的角度</li>
+<li>层次是数据对象的综合程度</li>
+</ul>
+<h5>数据集市</h5>
+<p>当前数据仓库面向某一问题域的子集</p>
+<h5>操作数据存储（ODS）</h5>
+<p>弥补数据仓库滞后性的数据结构，有时被认为是数据仓库的一部分<br />
+为了支持战术决策支持，存放更新的操作数据</p>
+<h6>特点</h6>
+<ul>
+<li>面向特定分析应用<br />
+不同于数据仓库，操作数据存储不需要面向所有应用，因为不是所有决策都是战术性的</li>
+<li>完整性</li>
+<li>当前有效</li>
+<li>可变</li>
+<li>详尽</li>
+</ul>
+<blockquote>
+<h6>DB-ODS-DW的模型见ppt11页</h6>
+<ul>
+<li>整个数据仓库的内容过多</li>
+<li>数据库无时无刻不在运作</li>
+<li>战术性决策可能有很多个，ODS也就可能有很多个</li>
+</ul>
+</blockquote>
+<h5>缓冲区</h5>
+<ul>
+<li>数据流的中间站</li>
+<li>无特定过程</li>
+</ul>
+<h3>4.数据的访问和表现</h3>
+<p>多通过第三方的工具软件完成</p>
+<h3>5.元数据</h3>
+<p>关于数据的数据，描述了数据的结构、内容、编码、索引等内容<br />
+<strong>通过元数据可以将数据仓库和复杂的数据源系统的变化隔离，是数据仓库开发和维护的一个关键因素，也是保证数据抽取质量的依据</strong></p>
+<p>元数据记录以下内容：</p>
+<ul>
+<li>数据仓库程序员所知道的数据结构</li>
+<li>DSS分析员所知道的数据结构</li>
+<li>数据仓库的源数据</li>
+<li>数据进入数据仓库时发生的转换</li>
+<li>数据模型</li>
+<li>数据模型和数据仓库的关系</li>
+<li>抽取数据的历史记录</li>
+</ul>
+<h4>关于数据源的元数据</h4>
+<p>现有业务系统的数据源的描述信息<br />
+对不同平台上的数据源的物理结构和含义的描述</p>
+<ul>
+<li>数据源中所有物理数据结构</li>
+<li>数据项的业务定义</li>
+<li>数据进入数据仓库时发生的转换</li>
+<li>数据项更新的频率<br />
+频率来自对数据库的监视，或是数据仓库建立时的明确定义</li>
+<li>数据项的有效值<br />
+以及验证有效值的方法，用于ETL时的查错<br />
+一些复杂的计算逻辑</li>
+<li>其它系统中具有相同业务含义的数据项清单</li>
+</ul>
+<h4>关于数据模型的元数据</h4>
+<p><em>简单地说就是关系型数据库的数据字典</em></p>
+<h4>关于数据仓库映射的元数据</h4>
+<p>数据进入数据仓库的转换过程<br />
+往往用一定的表达式或算法表示</p>
+<ul>
+<li>数据源系统</li>
+<li>数据处理过程<br />
+还要包含对已经处理的元素的记录</li>
+<li>数据的刷新</li>
+</ul>
+<h4>关于数据仓库使用的元数据</h4>
+<p>数据仓库中信息使用情况的描述</p>
+<ul>
+<li>有什么数据<br />
+从哪里来的，如何按主题查看数据仓库的内容</li>
+<li>提供已有的可重复利用的查询语言信息</li>
+</ul>
+<h4>元数据的管理</h4>
+<ul>
+<li>一般存放于数据仓库中<br />
+<em>可以任意存放</em></li>
+<li>受元数据管理系统的管理</li>
+</ul>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

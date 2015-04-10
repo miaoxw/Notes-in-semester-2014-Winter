@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ch12 Design Patterns(4)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #000;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+h6 {
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #000;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>Ch12 Design Patterns(4)</h1>
+<h2>一、递归数据类型</h2>
+<h3>1.Composite</h3>
+<h4>目的</h4>
+<ul>
+<li>Compose objects into tree structures to represent part-whole hierarchies<br />
+未必是树状结构，只要是递归结构，就都能使用</li>
+<li>Composite lets clients treat individual objects and compositions of objects in a uniform way</li>
+</ul>
+<h4>结构</h4>
+<ul>
+<li>子结点中一部分递归，一部分不递归</li>
+<li>有侧重<strong>透明性</strong>与<strong>安全性</strong>的两种结构</li>
+<li>将各个具体的Decorator去除，Composite与装饰者模式就很接近</li>
+</ul>
+<h3>2.Interpreter</h3>
+<h4>目的</h4>
+<p>定义一个语言的语法，符合语法树的规则</p>
+<h4>动态结构</h4>
+<ul>
+<li>Context提供一个操作环境</li>
+<li>本质与Composite没有区别</li>
+<li>同样是调用持有的属性的interpret方法<br />
+父节点的interpret方法只可能在TerminalExpression中被使用</li>
+</ul>
+<h4>参与者</h4>
+<ul>
+<li>Client</li>
+<li>Context</li>
+<li>Expression</li>
+</ul>
+<h2>二、数据类型</h2>
+<h3>1.空对象——不确定委托</h3>
+<h4>目的</h4>
+<p>避免直接使用<code>null</code>来表达不存在的对象</p>
+<ul>
+<li>减少对空值的测试</li>
+<li>实现默认行为</li>
+</ul>
+<h4>解决方案</h4>
+<ul>
+<li>在源类下继承普通类与空类</li>
+<li>空类实现默认行为，同时也具备演化的能力</li>
+</ul>
+<h3>2.不可变模式</h3>
+<h4>解决方案</h4>
+<ul>
+<li>只在构造函数中对值修改</li>
+<li>确保所有方法没有副作用</li>
+<li>如果需要返回一个修改的值，返回一个新的实例</li>
+<li>更极端的情况可以考虑单例模式</li>
+</ul>
+<h3>3.只读模式</h3>
+<h3>4.实体</h3>
+<p>代表一个持久化的业务对象</p>
+<h3>5.VO</h3>
+<ul>
+<li>完全模拟了网络包<br />
+未必只是一个对象</li>
+<li>包含create和update两种操作</li>
+<li>VO由实体创建</li>
+</ul>
+<h2>三、对象的创建问题</h2>
+<h3>1.简单的对象创建</h3>
+<ul>
+<li>规则类型的创建与撤销语言可以轻易地解决，但面对复杂类型，语言的机制本身无能为力</li>
+<li>构造函数就是语言提供的创建对象的接口</li>
+</ul>
+<h4>构造函数的约定</h4>
+<ul>
+<li>能创建的实例数量不受限制</li>
+<li>一次只能创建一个类型</li>
+<li>实例化与初始化相对简单</li>
+</ul>
+<h4>方法</h4>
+<ul>
+<li>创建模式</li>
+<li>耦合模式</li>
+<li>内聚模式</li>
+</ul>
+<h3>2.复杂的对象创建</h3>
+<p>构造函数无法达成问题时，就要自行提供新的构造</p>
+<h4>基本思路</h4>
+<ul>
+<li>消灭语言的构造函数<br />
+将其变为private</li>
+<li>自定义新的构造函数<br />
+只有定义为static的，才有可能被得到调用</li>
+<li>在构造函数的实现上满足各种条件</li>
+</ul>
+<h4>一些对象只允许创建一个实例</h4>
+<p>单例模式</p>
+<h4>限制对象创建的数量</h4>
+<p>在单例模式基础上修改</p>
+<h4>创建的对象类型有差异</h4>
+<ul>
+<li>由于new无法多态，因此策略模式无法在这里使用</li>
+<li>语言没有多类型的构造函数<br />
+因而自定义一个多类型的构造函数单独存放<br />
+即为<strong>工厂模式</strong></li>
+</ul>
+<h5>解决方法</h5>
+<ul>
+<li>将构造的职责委托给真正的对象进行</li>
+<li>将构造方法外置</li>
+</ul>
+<h5>目的</h5>
+<p>使实例化延迟到子类中进行</p>
+<h5>注意事项</h5>
+<ul>
+<li>Factory Method实际传递factory message</li>
+<li>创建对象方法的对象中还包含大量其它功能</li>
+</ul>
+<h5>抽象工厂模式</h5>
+<h6>目的</h6>
+<p>提供一个创建有差异性对象的对象</p>
+<h6>解决方式</h6>
+<ul>
+<li>要构造一个新的系列，就增加一个新的方法</li>
+<li>AbstractFactory<br />
+Declares an interface for operations that create abstract products</li>
+<li>ConcreteFactory<br />
+Implements the operations to create concrete product objects: usually instantiated as a Singleton</li>
+<li>AbstractProduct<br />
+Declares an interface for a type of product object; Concrete Factories produce the concrete products</li>
+<li>ConcreteProduct<br />
+Defines a product object to be created by the corresponding concrete factory</li>
+</ul>
+<h4>极其复杂的实例化与初始化</h4>
+<ul>
+<li>如运行时实例化与大量不同值的初始化  </li>
+<li>完全从头开始代价非常高</li>
+</ul>
+<p>使用<strong>原型模式</strong></p>
+<h2>四、设计模式总结</h2>
+<h3>1.目标</h3>
+<ul>
+<li>生产性语言<br />
+模仿建筑的永恒之道，以各种设计模式拼凑出整个建筑物来</li>
+<li>在计算机领域中完全达不到生产性语言的程度</li>
+</ul>
+<h3>2.实际目的</h3>
+<ul>
+<li>弥补载体缺陷<br />
+由于四人帮的设计模式从Smalltalk的研究中产生，语言的缺陷自然被发现</li>
+<li>提高质量</li>
+<li>解决特定问题</li>
+</ul>
+<h3>3.不要过度使用设计模式</h3>
+<ul>
+<li>一些设计模式违反了设计原则<br />
+这是受语言限制产生的问题</li>
+<li>设计模式的使用会产生代价</li>
+</ul>
+<h3>4.注意设计模式的代码细节</h3>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

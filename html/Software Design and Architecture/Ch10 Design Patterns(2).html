@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ch10 Design Patterns(2)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #000;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+h6 {
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #000;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>Ch10 Design Patterns(2)</h1>
+<h2>一、信息隐藏</h2>
+<h3>1.信息隐藏的秘密：内部实现与外部行为</h3>
+<p>以家庭影院为例，见ppt</p>
+<h4>层次结构面向对象</h4>
+<ul>
+<li>对象应当是平等的，实际上很难产生包含关系的层次结构</li>
+<li>模块的接口具有非结构化特征<br />
+各接口独立，由多个类的不同接口组合</li>
+</ul>
+<h4>Facade模式</h4>
+<h5>实现方式</h5>
+<ul>
+<li>逻辑上实现了一个很大的类<br />
+包含很多细节<br />
+实际是聚合关系，代码实现时没有区别，只在语义上有区分</li>
+<li>实现上将一个模块分解成多个类<br />
+小类都作为其成员变量</li>
+<li>所有方法都是委托出去的</li>
+</ul>
+<h5>解决的问题</h5>
+<ul>
+<li>给模块或子系统提供整体接口，代替原先零碎、复杂的接口</li>
+<li>提供更高层次的接口，使整个模块使用起来更容易<br />
+隐藏了内部实现</li>
+</ul>
+<h5>解决方案</h5>
+<ul>
+<li>没有具体的solution</li>
+<li>只是一种结构示意</li>
+</ul>
+<h5>注意事项</h5>
+<ul>
+<li>部分类的整体性是Facade模式的特征</li>
+<li>
+Facade与Controller有所不同
+<ul>
+<li>控制器用于将UI和逻辑解耦<br />
+底下不是复杂结构，只是一对一的转发，通常只发生在UI与逻辑层中</li>
+<li>Facade用于聚合复杂结构<br />
+应用中多见于数据层的<strong>聚合</strong></li>
+</ul>
+</li>
+<li>不是所有模块都能使用Facade模式的<br />
+并非所有模块都能够聚合</li>
+<li>UML 2.0的复合类就对应于一个Facade</li>
+</ul>
+<h3>3.另一个秘密：变更</h3>
+<h4>策略模式</h4>
+<ul>
+<li>持有多个候选算法以解决<strong>一个</strong>问题的对象</li>
+<li>此处算法的概念很宽泛，不妨理解为多种行为</li>
+</ul>
+<h4>注意事项</h4>
+<ul>
+<li>策略模式中，使用<strong>聚合关系</strong>，而非关联<br />
+策略本身并不独立，只是因预防变化而将其从Context中抽取出来</li>
+<li>多个差异性，就建立多棵策略树</li>
+<li>对行为组的差异性，仍然采用单策略树，但包含整组方法</li>
+<li>对象集部分属性及与其关联行为的的差异性，将这些属性和行为共同抽取出来</li>
+<li>对象集一个行为需要的协作对象的差异性，将此行为建立策略树</li>
+<li>对象集的行为因为属性的取值存在差异性，使用<strong>状态模式</strong><br />
+见下</li>
+</ul>
+<h4>使用时机</h4>
+<ul>
+<li>多个相关的类，只在单个行为上有不同</li>
+<li>一个类定义多种行为，且执行中使用多个判断条件</li>
+<li>需要多种差异算法</li>
+<li>一些数据不希望对外暴露</li>
+</ul>
+<p>前三个都是典型的差异性特征</p>
+<h2>二、共性与差异性</h2>
+<h3>1.特征图</h3>
+<ul>
+<li>Required features</li>
+<li>Optional features</li>
+<li>Open/closed</li>
+<li>Alternative features</li>
+<li>n of m features</li>
+</ul>
+<h4>共性</h4>
+<p>需求是肯定的，不会变化</p>
+<h4>差异性</h4>
+<ul>
+<li>从需求上看，功能可有可无，可多可少</li>
+<li>简单的if通常不能有效使用</li>
+<li><strong>能处理差异性，就能处理可变更性</strong></li>
+</ul>
+<h3>2.以汽车为例</h3>
+<h4>多态（继承）处理差异性</h4>
+<ul>
+<li>公共部分放在父类</li>
+<li>差异部分放在子类</li>
+<li>有几种差异性，就有几层继承结构</li>
+<li>只能处理若干选一的问题<br />
+多选多需要进行人为处理，这就是其局限性</li>
+</ul>
+<h4>聚合处理差异性</h4>
+<ul>
+<li>整体负责共性</li>
+<li>部分负责差异性<br />
+由于<strong>策略模式</strong>解决的就是差异性的问题，因此策略模式在这里也可以使用</li>
+</ul>
+<p><em>继承会导致类结构过于庞大，因此实现上更倾向于使用聚合而不是继承</em></p>
+<h3>3.状态模式</h3>
+<h4>使用时机</h4>
+<ul>
+<li>对象的行为因状态的改变而改变</li>
+<li>多选判断时</li>
+</ul>
+<h4>效果</h4>
+<ul>
+<li>状态变化本地化</li>
+<li>状态转移更明显</li>
+<li>状态对象可以共享</li>
+</ul>
+<h4>Strategy与State的区别</h4>
+<h5>n选1与n选m</h5>
+<p>状态模式也可以包含多种状态，此时称为<em>fuzzy state</em></p>
+<h5>状态由谁转换</h5>
+<p><strong><em>转换的信息在哪里，转换的动作就在哪里</em></strong></p>
+<h5>如何转换状态</h5>
+<p>大量if语句必然是无法消除的，只是希望将其转移，避免重复耦合，使风险可控</p>
+<ul>
+<li>固定规则</li>
+<li>配置文件</li>
+</ul>
+<h5>创建与销毁策略</h5>
+<p>根据实际情况进行判定，1..1与0..1、n..m的基数都会产生不同策略</p>
+<h3>4.桥接模式</h3>
+<p>接口与实现都存在差异时使用</p>
+<h4>实现方式</h4>
+<ul>
+<li>将接口与实现以<strong>聚合</strong>的方式<strong>绑定</strong>起来<br />
+实现可以轻易地变化</li>
+<li>接口的不同通过继承来解决</li>
+</ul>
+<h4>解决的问题</h4>
+<ul>
+<li>以往通过继承将实现与接口绑定在一起<br />
+但这种<em>永久绑定</em>不够灵活</li>
+<li>将实现与抽象单独独立开来<br />
+本质仍然是策略，只不过在其基础上又封装了接口的变化</li>
+</ul>
+<h4>效果</h4>
+<ul>
+<li>将接口与实现相分离<br />
+<em>Abstraction</em>与<em>Implemention</em></li>
+<li>提高可扩展性</li>
+<li>对client隐藏细节</li>
+</ul>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

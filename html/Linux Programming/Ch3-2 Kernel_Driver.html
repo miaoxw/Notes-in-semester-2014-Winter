@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ch3-2 Kernel_Driver</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #000;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+h6 {
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #000;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>Ch3-2 Kernel Driver</h1>
+<h2>一、Linux内核</h2>
+<h3>1.什么是内核</h3>
+<ul>
+<li>操作系统是一系列程序的集合，其中最重要的部分构成了内核</li>
+<li>所有操作系统都有内核</li>
+</ul>
+<h3>2.单内核与微内核</h3>
+<h4>单内核</h4>
+<p>单内核是一个很大的进程，内部可以分为若干模块，运行时是一个独立的二进制文件，模块间通讯通过直接调用函数实现</p>
+<h4>微内核</h4>
+<p>微内核中大部分内核作为独立的进程在特权下运行，通过消息传递进行通讯</p>
+<h3>3.Linux内核的能力</h3>
+<ul>
+<li>内存管理</li>
+<li>文件系统</li>
+<li>进程管理</li>
+<li>多线程支持</li>
+<li>抢占式</li>
+<li>多处理器支持</li>
+</ul>
+<h3>4.Linux内核区别于其他UNIX商业内核的优点</h3>
+<ul>
+<li>单内核+模块支持</li>
+<li>免费/开源</li>
+<li>支持多种CPU，硬件支持能力非常强大</li>
+<li>Linux开发者都是非常出色的程序员</li>
+<li>通过学习Linux内核的源码可以了解现代操作系统的实现原理</li>
+</ul>
+<h3>5.Linux内核层次结构</h3>
+<ul>
+<li>内核直接与硬件控制模块对接</li>
+<li>包含进程控制、内存管理、虚拟文件系统与网络协议</li>
+<li>所有功能封装成系统调用，提供给上层</li>
+</ul>
+<h3>6.Linux内核源代码的获取</h3>
+<h4>https://www.kernel.org</h4>
+<ul>
+<li>提供Linux标准内核，是最原始的版本</li>
+<li>下载到的版本与具体使用的Linux发行版本无关<br />
+<em>通常各发行版Linux会对内核进行修改</em></li>
+</ul>
+<h4>apt-get</h4>
+<pre><code>apt-cache search linux-source
+apt-get install linux-source-3.2
+</code></pre>
+
+<p>下载位置通常在/usr/src</p>
+<h4>从Ubuntu的源码库获取内核源码</h4>
+<pre><code>git clone git://kernel.ubuntu.com/ubuntu/ubuntu-hardy.git
+</code></pre>
+
+<p>下载整个repo，可以看到所有修改历史</p>
+<h4>后续操作</h4>
+<ul>
+<li>
+<p>解压  
+</p>
+<pre><code>tar jxvf ~/linux-3.2-tar.bz2
+</code></pre>
+
+</li>
+<li>
+<p>清除先前编译产生的目标文件</p>
+<pre><code>make clean
+</code></pre>
+
+</li>
+<li>
+<p>配置内核</p>
+<pre><code>make menuconfig
+</code></pre>
+
+</li>
+<li>
+<p>编译内核</p>
+<pre><code>make
+#通常不用，虽然内核源码中提供了此命令，因为默认的make会将内核全部编译，且没有压缩机制
+make zImage
+make bzImage            #推荐使用以上两种方式生成内核压缩包
+make modules            #编译不总是使用的功能为模块，文件名为*.ko
+</code></pre>
+
+</li>
+<li>
+<p>启用新内核</p>
+<pre><code>make install            #慎用！因为直接将内核复制到/boot，如果发生问题将不可逆
+#通常另外配置引导菜单
+</code></pre>
+
+</li>
+<li>
+<p>初始化程序的建立</p>
+<ul>
+<li>
+<p>initrd</p>
+<pre><code>mkinitrd /boot/initrd.img $(uname -r)
+</code></pre>
+
+</li>
+<li>
+<p>initramfs</p>
+<pre><code>mkinitramfs -o /boot/initrd.img 2.6.24-16
+update-initramfs -u
+</code></pre>
+
+</li>
+</ul>
+<p>以上两组命令使用一个即可</p>
+</li>
+</ul>
+<h4>Debian与Ubuntu的简便办法</h4>
+<pre><code>make-kpkg                   #用于make menuconfig之后
+</code></pre>
+
+<h5>好处</h5>
+<ul>
+<li>把后面所有的部分自动做完</li>
+<li>编译好的内核打成deb安装包</li>
+<li>可以复制到其它机器安装</li>
+</ul>
+<blockquote>
+<h6>补充：<code>sudo</code>与<code>fakeroot</code></h6>
+<ul>
+<li>打deb包时，包内文件通常需要提升到root权限<br />
+此时可以让一个普通用户<em>假装</em>成root，使用<code>fakeroot</code>命令</li>
+<li><code>sudo</code>执行的命令真正获取到了root权限</li>
+<li><code>fakeroot</code>命令<strong>创建一个虚拟环境</strong>，在这个环境中拥有root权限<br />
+不会对实际环境产生任何影响</li>
+</ul>
+</blockquote>
+<h2>二、驱动</h2>
+<h3>1.驱动程序</h3>
+<ul>
+<li>许多常见的驱动的源代码集成在内核源码中<br />
+如键盘、鼠标等等</li>
+<li>其它驱动以模块的形式存在</li>
+<li>所有驱动必须以内核态运行</li>
+<li>编译驱动需要内核头文件的支持<br />
+可以没有内核的源码，但驱动与内核是一体的，必须调用内核的内部函数<br />
+起码要获知内核提供的函数，需要安装内核源码头文件包</li>
+</ul>
+<h3>2.加载模块</h3>
+<h4>底层命令</h4>
+<ul>
+<li><code>insmod</code><br />
+insmod &lt;module.ko&gt; [module parameters]<br />
+<em>只有超级用户才能使用此命令</em></li>
+<li><code>rmmod</code></li>
+</ul>
+<h4>高层命令</h4>
+<ul>
+<li><code>modprobe</code><br />
+<code>modprobe -r</code>用于释放模块</li>
+</ul>
+<h3>3.模块依赖</h3>
+<ul>
+<li>一个模块A引用另一个模块B所导出的符号，我们就说模块B被模块A引用<br />
+如果要装载模块A，必须要先装载模块B</li>
+<li>否则，模块B导出的符号的引用就不可能被链接到模块A中  </li>
+</ul>
+<p>这种模块间的相互关系就叫做<strong>模块依赖</strong></p>
+<h4>模块的依赖</h4>
+<ul>
+<li>自动按需加载</li>
+<li>自动按需卸载</li>
+</ul>
+<h4>模块相关命令</h4>
+<ul>
+<li>moddep<br />
+查询模块依赖的所有其它模块</li>
+<li>
+lsmod<br />
+列出已经装载的模块列表<br />
+与<code>cat /proc/modules</code>等价
+<ul>
+<li>/proc<br />
+/proc是Linux中一个特殊的目录，其目录内部的内容本质上是一块内存，提供了<strong>Linux内核到用户的访问渠道</strong>，向用户开放部分内核信息</li>
+</ul>
+</li>
+<li>modinfo</li>
+</ul>
+<h3>4.模块之间的通讯</h3>
+<p>可以共享变量、数据结构，也可以调用对方提供的函数</p>
+<blockquote>
+<h6>例：模块间的通讯实例</h6>
+<p>包含add_sub、test两个模块</p>
+<ul>
+<li>通常提供一个包含所有函数声明的头文件供其它模块使用</li>
+<li><code>EXPORT_SYMBOL</code><br />
+告知系统对应的函数提供给其它模块使用</li>
+<li><code>EXPORT_SYMBOL</code>导出的函数，<strong>整个内核</strong>中都不能有函数与之重名</li>
+<li>使用导出函数的模块直接使用相关函数即可</li>
+<li><code>printk</code>也是以同样的方式提供给其它模块的<br />
+因此内核中的导出函数是我们唯一可以调用的</li>
+<li>模块的编译<br />
+test模块在编译时需要额外提供符号表，并在EXTRA_CFLAGS中添加新的标志位</li>
+</ul>
+</blockquote>
+<h4>符号表的导出</h4>
+<ul>
+<li>使用<code>EXPORT_SYMBOL</code>和<code>EXPORT_SYMBOL_GPL</code></li>
+<li>只能导出函数和全局变量<br />
+临时变量不能导出</li>
+<li>模块只能使用内核或其它模块导出的符号</li>
+<li>/proc/kallsyms中显示了所有导出的符号</li>
+</ul>
+<h3>5.Linux内核模块与应用程序的区别</h3>
+<ul>
+<li>运行<br />
+应用程序由用户态运行，占用用户空间的地址<br />
+内核模块占用内核地址</li>
+<li>入口<br />
+应用程序由main()作为入口<br />
+内核模块的入口由module_init()指定</li>
+<li>出口<br />
+应用程序没有出口<br />
+内核模块的入口由module_exit()指定</li>
+<li>运行<br />
+应用程序可以直接运行<br />
+内核模块的运行需要insmod加载</li>
+<li>调试<br />
+应用程序使用gdb调试<br />
+内核模块使用kdbug, kdb, kgdb等工具进行调试</li>
+</ul>
+<h4>注意点</h4>
+<ul>
+<li>不能使用C库开发驱动程序</li>
+<li>驱动程序没有内存保护机制<br />
+由于内核级别高于系统，驱动出错无法由系统提供任何提示<br />
+可以访问任何物理硬件层面的东西，一旦出错会<em>死得很难看</em><br />
+必须千万小心</li>
+<li>小内核栈<br />
+内核需要尽可能少地占用系统资源，能减少调用层次就要尽量减少<br />
+<em>能不递归，就不递归</em></li>
+<li>并发上的考虑<br />
+驱动中的执行顺序需要以另一种思维考虑<br />
+由于完全无法控制系统以几个进程调用驱动，各函数的运行顺序几乎无法控制<br />
+必须考虑大量线程随机运行时驱动的运行情况是否正确</li>
+</ul>
+<h3>6.最简单的内核模块</h3>
+<pre><code>#include &lt;linux/kernel.h&gt;
+#include &lt;linux/module.h&gt;
+#include &lt;linux/init.h&gt;
+
+static int __init hello_init(void)
+{
+    printk(KERN_INFO &quot;Hello world\n&quot;);
+    return 0;
+}
+
+static void __exit hello_exit(void)
+{
+    printk(KERN_INFO &quot;Goodbye world\n&quot;);
+}
+
+module_init(hello_init);
+module_exit(hello_exit);
+</code></pre>
+
+<ul>
+<li>在内核中需要输出内容到屏幕时，可以使用内核封装好的<code>printk()</code><br />
+语法与printf类似，只是在所有参数前面多了一个<code>KERN_INFO</code><br />
+<code>printk</code><em>没有浮点数的支持</em><br />
+<code>KERN_INFO</code>可以省略，用于通知用户输出内容的类型</li>
+<li><code>static</code>限定此函数仅在当前文件中可以调用<br />
+无法通过链接被其它文件调用</li>
+<li><code>__init</code>与<code>__exit</code>是内核编程独有的关键字</li>
+</ul>
+<h3>7.内核模块的编译</h3>
+<ul>
+<li>自定义的makefile文件依赖于Linux系统自带的源代码/头文件及其makefile</li>
+<li>需要提供-C参数提供内核源码路径与-M提供当前路径</li>
+</ul>
+<h3>8.与硬件打交道</h3>
+<p><em>不很困难，但很繁琐</em><br />
+以S3C2440的LED灯驱动为例讲解</p>
+<ul>
+<li>硬件提供什么接口，就以相应的方式调用<br />
+<em>事实上很多硬件厂商本身并不提供任何接口手册,需要</em><strong><em>猜</em></strong><br />
+需要给出物理地址和设置值的说明</li>
+<li><code>ioremap</code>将内存地址与新的物理存储单元重新绑定映射</li>
+</ul>
+<h3>9.模块的参数传递</h3>
+<ul>
+<li>参数在模块加载时传递</li>
+<li>参数使用module_param宏来声明<br />
+module_param(变量名称,类型,访问许可掩码)</li>
+<li>支持很多参数类型<br />
+<strong>但不包括浮点类型</strong></li>
+</ul>
+<h3>10./proc</h3>
+<ul>
+<li>内核模块和系统交互的主要方式之一<br />
+<em>另一种是系统调用</em></li>
+<li>/proc是一个<strong>伪文件系统</strong><br />
+就是内存里的内容</li>
+<li>可以通过/proc使用标准Unix系统I/O调用<strong>访问进程地址空间</strong></li>
+<li>修改某些文件可以改变内核参数</li>
+<li>/proc下的文件能查找到的大小都是0</li>
+<li>大部分文件的时间戳信息会被随时刷新</li>
+</ul>
+<h4>/proc的系统调用</h4>
+<ul>
+<li>create<em>proc</em>entry()<br />
+创建一个文件</li>
+<li>proc_symlink()<br />
+创建符号链接</li>
+<li>proc_mknod()<br />
+创建设备文件</li>
+<li>proc_mkdir()<br />
+创建目录</li>
+<li>remove_proc_entry()<br />
+删除文件或目录</li>
+</ul>
+<h3>11.驱动的类型</h3>
+<ul>
+<li>字符设备<br />
+习惯上用于I/O量较小的设备</li>
+<li>块设备<br />
+习惯上用于I/O量较大的设备</li>
+<li>
+网络接口设备  
+
+<ul>
+<li>字符设备与块设备都会在/dev中产生一个设备文件，但网络设备不会</li>
+<li>网络设备会在<code>ifconfig</code>中产生新的网络接口，以网络编程的方式访问该设备</li>
+</ul>
+</li>
+</ul>
+<p>驱动编写的形式可以任意选定，只在应用程序使用时有所不同</p>
+<h3>12.字符设备驱动的编写</h3>
+<p>字符设备驱动数量较多，形式相对简单</p>
+<h4>文件操作——字符设备驱动的对上接口</h4>
+<p>各种I/O的文件操作在驱动中需要重新实现，由操作系统将相应的应用程序调用转接到驱动上</p>
+<ul>
+<li>read</li>
+<li>write</li>
+<li>flush</li>
+<li>ioctl<br />
+<em>只规定参数的形式，具体的命令如何使用，完全由驱动自行定义</em></li>
+</ul>
+<h4>支持操作类型的定义</h4>
+<pre><code>struct file_operations scull_fops=
+{
+    .owner=THIS_MODULE;
+    .llseek=scull_llseek;
+    .read=scull_read;
+    .write=scull_wtire;
+    .ioctl=scull_ioctl;
+    .open=scull_open;
+    .release=scull_release;
+}
+</code></pre>
+
+<ul>
+<li>此结构体的类型由系统定义</li>
+<li>内部各字段由系统定义</li>
+<li>owner表明当前驱动的所有者<br />
+可以使用宏</li>
+<li>其它各字段的值为函数指针</li>
+</ul>
+<h4>两个基本结构</h4>
+<p>即使设备本身并不实际存在于磁盘上，NFS仍然以文件的方式对其进行统一处理</p>
+<h5>file结构体</h5>
+<h5>inode结构体</h5>
+<p>除了标记普通文件的域外，还有两个字段用来特别标记设备文件</p>
+<ul>
+<li><code>dev_t i_rdev</code><br />
+标记设备号</li>
+<li><code>struct cdev *i_cdev</code><br />
+用于设定设备参数</li>
+</ul>
+<h3>13.字符设备驱动程序的初始化加载过程</h3>
+<h4>申请设备号</h4>
+<ul>
+<li>一个字符设备或者块设备都有一个主设备号和次设备号<br />
+两者统称设备号</li>
+<li>主设备号用来表示特定的驱动程序</li>
+<li>此设备号用来表示使用该驱动程序的各设备</li>
+</ul>
+<h5>申请和释放设备号</h5>
+<ul>
+<li>int register_chrdev_region(dev_t first,unsigned int count,char *name)<br />
+向系统申请一个设备号，以first为设备号起始值，申请count个，标识名为name<br />
+标识名会出现在用户查询时出现在/proc/devices和/proc/sysfs中</li>
+<li>int alloc_chrdev_region(dev_t *dev,unsigned int firstminor,unsigned int count,char *name)<br />
+与第一种不同，由系统自动分配空闲的设备号<br />
+要求系统提供firstminor以上的count个设备号</li>
+<li>void unregister_chrdev_region(dev_t first,unsigned int count)<br />
+将这些设备号释放</li>
+</ul>
+<p><em><code>dev_t</code>中同时定义了主设备号和从设备号，需要获知具体的主、从设备号时，可以使用系统提供的宏<code>MAJOR</code>和<code>MINOR</code></em></p>
+<h4>定义文件操作结构体file_operations</h4>
+<p>前面已经讲过，此处略过</p>
+<h4>创建并初始化定义结构体cdev</h4>
+<p>此结构体是所有字符设备的抽象，包含了大量字符设备共有的特性</p>
+<h5>cdev结构的初始化</h5>
+<pre><code>struct cdev *my_cdev=cdev_alloc();
+my_cdev-&gt;ops=&amp;my_fops;
+</code></pre>
+
+<p>或者直接使用函数：</p>
+<pre><code>void cdev_init(struct cdev *cdev,struct file_operations *fops)
+</code></pre>
+
+<p>在<strong>手动获取到cdev空间后</strong>对其进行初始化，这在驱动编写中十分常见</p>
+<h4>将cdev注册到系统，并和对应的设备号绑定</h4>
+<ul>
+<li>将设备注册到系统中<br />
+int cdev_add(struct cdev *dev,dev_t num,unsigned int count)</li>
+<li>释放一个已经注册的设备<br />
+void cdev_del(struct cdev *dev)</li>
+</ul>
+<h4>在/dev文件系统中用<code>mknod</code>创建设备文件，并将该文件绑定到设备号上</h4>
+<pre><code>mknod /dev/${device}0 c $major 0
+</code></pre>
+
+<p>即可将其绑定</p>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

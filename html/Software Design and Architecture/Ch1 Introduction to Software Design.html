@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ch1 Introduction to Software Design</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #000;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+h6 {
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #000;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>Ch1 Introduction to Software Design</h1>
+<p>设计思想四大主题：<strong>模块化、信息隐藏、抽象、分解</strong><br />
+<em>（此处2-4节是最根本的东西）</em></p>
+<h2>一、什么是软件设计</h2>
+<p><strong>（广义）</strong>设计是一种规划活动，建造真正的东西之前所要做的规划活动<br />
+规划内容：结构<br />
+软件设计：开发软件之前所做的规划活动，做出软件的组织结构，满足客户的期望，并符合某些约束。  
+</p>
+<blockquote>
+<p><strong><em>SRS-&gt;产品</em></strong></p>
+</blockquote>
+<p>设计需要考虑功能和审美以及其它方面，<em>本课更多地考虑审美</em></p>
+<h2>二、设计的目标与衡量标准</h2>
+<h3>什么是好的设计</h3>
+<ul>
+<li>效用、坚固、美感（《De Architectura》）<br />
+美感？<br />
+仍然来用于衡量设计的好坏</li>
+<li>简洁性、结构清晰、一致性（《设计原本》）</li>
+</ul>
+<h3>设计的标准</h3>
+<p>功效是<strong>必备价值</strong>，坚固是<strong>工程价值<strong>，美感是</strong>艺术价值</strong>（<em>艺术价值在工程上反正不作为必备要求，用来判断工程师伟大与否</em>）</p>
+<p>类比：杰出建筑师<br />
+美感无法被教育，只能靠天赋，到了一定层次就有了（玄学？）</p>
+<p>坚固性是本课的重点</p>
+<p>设计师的追求：<strong>用软件功能解决用户的问题是需求分析的价值</strong></p>
+<h3><strong><em>准则1：用“好”（工程与艺术兼备）的方式实现功能，是设计的价值</em></strong></h3>
+<p>任何设计方法与技术，要么提高坚固，要么提高美感</p>
+<h2>三、外部表现与内部结构问题</h2>
+<blockquote>
+<h6>例：拆闹钟、收音机、手机……</h6>
+</blockquote>
+<p>良好的设计外部永远很简单，隐藏内部的复杂结构<br />
+<strong>核心问题：抽象与分解</strong></p>
+<p>将外部系统分解为坚固的解决方案，将内部结构抽象后展现给用户<br />
+抽象用于提升层次或屏蔽细节，在两个维度上进行</p>
+<ul>
+<li>抽象：外部表现</li>
+<li>分解：内部结构</li>
+</ul>
+<p>整个设计工作而言，其外部表现就是<em>需求</em>（效用体现的层次），内部表现就是<em>代码</em>（包括类型声明、操纵+代码组织）</p>
+<blockquote>
+<p>从不同的设计层次而言，外部表现与内部结构的不同概念见ppt</p>
+</blockquote>
+<p>总的目的：<strong>实现简单的外部表现，构造复杂、坚固、美感的内部结构</strong><br />
+内外必须分开，内部不受外部功能的影响，不使需求的变化改变软件的设计</p>
+<p><strong><em>准则2.1（分解）：设计重在内部结构，不是外在表现</em></strong><br />
+不要依据外部表现设计内部结构<br />
+应该<strong>分解外部表现</strong>，根据坚固、美感的考虑设计内部结构</p>
+<p><strong><em>准则2.2（抽象）：从设计师而不是用户的角度分析问题</em></strong>  
+</p>
+<blockquote>
+<h6>内外不分的典型</h6>
+<ul>
+<li>几个功能，几个模块<br />
+模块设计时就要考虑质量</li>
+<li>几个职责，几个类<br />
+非信息类</li>
+<li>算法逻辑就是代码逻辑<br />
+优化逻辑  
+</li>
+<li>现实特征组织就是数据特征组织<br />
+特征规范化</li>
+</ul>
+</blockquote>
+<h2>四、逻辑设计与物理设计问题</h2>
+<ul>
+<li>逻辑设计：不考虑载体介质的设计<br />
+更纯粹，更容易  
+</li>
+<li>物理设计：考虑载体介质的设计<br />
+更繁杂，更困难  
+</li>
+<li>逻辑设计最后一定要转换到物理上去  
+</li>
+<li>物理就是语言机制的局限性  
+</li>
+</ul>
+<h3>模块层面：</h3>
+<ul>
+<li>逻辑：一个模块调用（通知）另一个模块——物理：两层实际没有任何关系  
+</li>
+<li>逻辑：一个模块给另一个模块传递数据流——物理：？  
+</li>
+<li>逻辑：一个模块与另一个模块共享数据——物理：？  
+</li>
+</ul>
+<blockquote>
+<p>逻辑设计与物理设计的举例见ppt</p>
+</blockquote>
+<h3><strong><em>准则3：设计复杂度=逻辑设计复杂度+物理设计复杂度</em></strong></h3>
+<p>逻辑设计复杂度=事物自身复杂度<br />
+物理设计复杂度=事物与载体的匹配复杂度  
+</p>
+<h2>五、复杂度控制问题</h2>
+<ul>
+<li>设计的难度在于事物的复杂性与思维的有限性（7±2规则）</li>
+<li>关注点分离和层次分解（多视角）</li>
+</ul>
+<h3><strong><em>准则4：只有高层设计良好，底层设计才可能良好</em></strong></h3>
+<h2>六、决策问题</h2>
+<p>在多个解决方案中选择一个的过程</p>
+<ul>
+<li>约束满足与决策<br />
+需求越多越能为设计师指明方向（约束不是设计师的敌人）<br />
+约束会随着设计过程的深入而逐渐地出现</li>
+<li>决策的选择性<br />
+未必能找出一定最好的一个决策来</li>
+<li>决策的顺序影响<br />
+前一个决策会影响后一个，而且不可预见</li>
+<li>决策的不可逆性<br />
+前期错误决策的影响无法完全消除</li>
+</ul>
+<blockquote>
+<h6>软件设计过程的几个要点：</h6>
+<p>见ppt</p>
+</blockquote>
+<h3><strong><em>准则6：软件设计的关键就是在不确定和信息不充分的情况下进行正确的决策</em></strong></h3>
+<h2>七、总结</h2>
+<ul>
+<li>设计是一中建造之前的规划活动</li>
+<li>可以在潜意识中进行，也可能在设计板上进行</li>
+<li>可以是单人活动，也可以是团队设计</li>
+<li>
+<p>可以一次性完成，也可以迭代进行</p>
+</li>
+<li>
+<p>设计的目标：<strong>功效、坚固、美感</strong></p>
+</li>
+<li>
+<p>区分外部表现与内部结构<br />
+<em>完全依照外部表现仿制内部结构是山寨者的基本技能</em></p>
+</li>
+<li>
+<p>逻辑设计与物理设计</p>
+<ul>
+<li>逻辑设计是思维体操</li>
+<li>物理设计是现实规则</li>
+<li>聪明的设计师<strong>先进行逻辑设计，再转换为物理设计</strong></li>
+</ul>
+</li>
+<li>
+<p>复杂度是设计师的终生对手 </p>
+<ul>
+<li>分解、关注点分离是控制复杂度的主要武器</li>
+</ul>
+</li>
+<li>
+决策是设计师每天的行为
+<ul>
+<li>不确定与信息不充分是决策存在的理由</li>
+<li>优秀的设计师是一个好的决策者<br />
+<em>技术层面</em></li>
+<li>逻辑是设计师的基本思维方式</li>
+<li>经验与直觉对好的设计师至关重要</li>
+</ul>
+</li>
+</ul>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

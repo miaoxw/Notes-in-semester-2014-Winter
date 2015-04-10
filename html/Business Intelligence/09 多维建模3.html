@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>09 多维建模3</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #000;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+h6 {
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #000;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>09 Multi-dimensional Modelling</h1>
+<h2>四、案例三：订单管理</h2>
+<h3>1.订单管理的引入</h3>
+<ul>
+<li>关注的业务处理流程<br />
+报价、生成订单、安排生产计划、组织货物的装运发送、票据处理<br />
+这些环节都是值链的一部分，都会产生有价值的分析数据，对应一个分析系统</li>
+<li>
+关注的分析对象
+<ul>
+<li>数量：订购，生产，装运……</li>
+<li>收入：订购额，贴现额，净订购额……</li>
+</ul>
+</li>
+<li>最基本的订单事务事实表<br />
+为每个订单分列项建立一个记录行<br />
+包含<strong>订购量、增值总额、贴现金额、增值余额</strong>等度量值</li>
+</ul>
+<h3>2.事实表规范化方面的考虑</h3>
+<h4>事实表的规范化</h4>
+<p>将一张事实表中的多个度量值分解组装成多个事实表</p>
+<h4>事实表规范化的目的</h4>
+<p>在对事实表进行规范后，可以连同标识事实类型维度一起得到单一的一般性事实</p>
+<h4>规范化的时机</h4>
+<ul>
+<li>事实行的事实设置比较稀疏<br />
+各事实之间是排他的，多个度量值不能同时有效<br />
+<em>大多数适度粒度的事实表不存在此问题</em><br />
+<em>规范化后的事实表，空间开销会增大，时间开销也未必会减小</em></li>
+<li>不在事实之间施加运算</li>
+</ul>
+<h4>结论</h4>
+<ul>
+<li>
+<p>一般不考虑事实表的规范化<br />
+除非不同度量值的计算处于不同的粒度层次，此时需要将它们分解到不同的事实表中去  
+</p>
+<blockquote>
+<h6>例：</h6>
+<p>订单折扣无法细化到分列项事实中去</p>
+</blockquote>
+</li>
+<li>
+<p>如果可以将粗粒度的度量值分配到细粒度层次上，那么可以在细粒度层次上统一粒度层次来建立一张统一的事实表</p>
+</li>
+</ul>
+<h3>3.维度设计策略</h3>
+<ul>
+<li>可以与之前的其他维度模型共享一组公共的维度表<br />
+日期维、产品维、顾客维……</li>
+</ul>
+<h4>需要考虑的其它问题</h4>
+<h5>日期维度的角色模仿</h5>
+<ul>
+<li>订单管理事实表中存在多个日期维度<br />
+每一个日期关键字都对应订单处理过程中的某个业务处理步骤</li>
+<li>
+实现方式
+<ul>
+<li>为每个日期类型的外键建立一个独立的日期维表<br />
+几乎所有事实表都存在日期维度，每个日期维度都单独存放浪费空间，时间上也有浪费，没有必要<br />
+因此不太可能使用</li>
+<li>所有日期类型的外键共享同一个物理的日期维表</li>
+<li>单个维度同时在同一个事实表出现几次，建立多组合的维度<br />
+节省了连接的时间，但无法进行演化，添加维度变得非常困难</li>
+<li><strong>角色模仿</strong><br />
+后台只维持一个单一的日期维度表<br />
+为事实表中的每一个日期外键建立一个日期维表上的<strong>视图</strong><br />
+日期维度在单个事实表中承担不同角色<br />
+可以降低存储空间开销，同时方便使用</li>
+</ul>
+</li>
+</ul>
+<h5>维度表的属性体系结构</h5>
+<ul>
+<li>一张维表中存在若干组用于描述元组在不同方面的描述属性</li>
+<li>在许多非体系属性之外，存在一个或而多个属性体系结构</li>
+<li>
+将星形模型转化为雪花模型<br />
+能够通过子维度作为公共维度连接多个多维模型的，应当充分考虑维度的规范化
+<ul>
+<li>当前维表中有一小部分是公共维度时，可以考虑转化  
+</li>
+<li>维表的大小不能承受时，可以考虑转化</li>
+</ul>
+</li>
+</ul>
+<h5>收货顾客维度</h5>
+<h6>营销代表使用合并维度还是独立维度</h6>
+<p>取决于当前营销代表的信息与商业定义</p>
+<ul>
+<li>营销代表依附于收货地址维度时，应当合并维度</li>
+<li>营销代表与顾客关系不固定时，应当将维度分离</li>
+</ul>
+<p>结论：</p>
+<ul>
+<li>当实体间存在固定的、不随时间变化的、强烈相关的关系时，需要作为单一维度进行建模</li>
+<li>其它情况下需要分割</li>
+<li>需要考虑维度过多的情况  </li>
+</ul>
+<h5>交易维度</h5>
+<p>如果期限、打折等交易信息存在相关，则组合成一个维度</p>
+<h5>订单编号退化维度</h5>
+<ul>
+<li>来源于操作型数据环境的订单细节已经从订单标题中剥离出来，形成独立的维度<br />
+订单日期、收货顾客地址等等<br />
+不能是度量值，但订单号也不能合并到某一维度中去<br />
+<em>如果无用，可以丢弃</em></li>
+<li>订单编号用于对订单分列项进行分组，因此仍然有效<br />
+哪些货物在同一个订单中？-&gt;货物之间的关联关系</li>
+<li>偶用于数据库反向连接操作型领域</li>
+</ul>
+<h5>杂项维度</h5>
+<ul>
+<li>
+从复杂数据源中提取与事实、维度相关字段后往往还有大量在小范围内选取离散值的指示符和标志
+<ul>
+<li>不加改变地保留在事实表行中？<br />
+事实表膨胀</li>
+<li>放在本身的单独维度中？<br />
+维度膨胀</li>
+<li>全部剥离？<br />
+删除难以理解的、杂乱的、或者与分析操作无关的属性<br />
+当前分析任务中需要这些信息的场合极少</li>
+</ul>
+</li>
+<li>也可以将它们组合成一个或多个独立的杂项维度表（<em>junk dimension</em>）<br />
+在一定的开销下完成标志位的存放和处理</li>
+<li>预先为所有组合创建维度行还是为实际遇到的组合创建杂项维度行<br />
+由于杂项维度本身也不多，因此全部创建并不会浪费太大空间</li>
+<li>
+杂项维度可以维护依附在事实行上的<strong>自由注释字段</strong>  
+
+<ul>
+<li>参数化自由注释字段</li>
+<li>自由注释的数量远小于事实行<br />
+需要引入非注释行的代理关键字</li>
+</ul>
+</li>
+</ul>
+<h3>4.事实表的设计策略</h3>
+<h4>多种流通货币</h4>
+<p>使用分析工具与展现工具进行转换，转换的过程是固定的，但实际上，很多转换<em>并不是</em>固定的</p>
+<ul>
+<li>
+选择一个标准货币，建立其与其它货币的转换关系
+<ul>
+<li>不同货币间的汇率随时间变化</li>
+<li>货币之间的互兑汇率不尽相同</li>
+</ul>
+</li>
+<li>建立货币转换事实表<br />
+存放历史所有货币的汇率信息</li>
+<li>建立货币维表<br />
+货币与国家间未必一一对应，因此货币与国家不能合并维度</li>
+<li>订单事实表中需要保存标准货币和本地货币两套订单额<br />
+避免转换产生的误差</li>
+</ul>
+<h4>粒度不同的标题与分列项事实</h4>
+<ul>
+<li>订单的运费<br />
+仅适用于整份订单</li>
+</ul>
+<h5>处理方法</h5>
+<ul>
+<li>在较低层次事实表中尽可能包含所有可用的高层事实表中的事实<br />
+向下分摊</li>
+<li>将运费与其他标题级事实展现在用于整个订购的聚集表中</li>
+</ul>
+<h4>发票事务</h4>
+<h5>（装运）发票的内容</h5>
+<p>发货日期、目的地、顾客、发票总额</p>
+<ul>
+<li>具有多个分列项<br />
+对应着发送的不同商品<br />
+不同的分列项有不同的数量、价格、贴现与打折等内容</li>
+</ul>
+<h5>发票事实表的设计</h5>
+<ul>
+<li>建立对应各个分列项的事实</li>
+<li>新的维度：发货，货运人，顾客满意度</li>
+</ul>
+<h4>支持多计量单位的事实表</h4>
+<p>零售、装运、托台、汽车等转换因子</p>
+<ul>
+<li>与度量衡和货币等不同，这里的转换不受其它维度影响<br />
+只和度量值相关</li>
+<li>业务范围内的不同职能机构想看到以不同计量单位表示的相同性能指标</li>
+<li>将所有事实与不同计量单位之间的转换因子存放在<strong>同一个事实表</strong>中</li>
+<li>不同因子对应不同流程中的转换</li>
+<li>因子一般不作为维度属性，而是封装在事实表中<br />
+用户接口中看到的是因子乘积组合的结果</li>
+</ul>
+<h3>5.事实表模型的比较</h3>
+<h4>事务粒度</h4>
+<ul>
+<li>代表一个时间点</li>
+<li>每个事务事件一条记录</li>
+<li>ETL时进行插入操作</li>
+<li>事实行发生更新时不重新存取</li>
+<li>日期维度代表事务发生日期</li>
+<li>事实是事务活动</li>
+</ul>
+<h4>周期快照粒度</h4>
+<ul>
+<li>代表规律性、可预见的间隔</li>
+<li>每段时间间隔一条记录</li>
+<li>ETL时进行插入操作</li>
+<li>事实行发生更新时不重新存取</li>
+<li>日期维度代表时间段的终止日期</li>
+<li>事实是预定时间间隔的性能</li>
+</ul>
+<h4>累积快照粒度</h4>
+<ul>
+<li>代表一个不确定的时间跨度<br />
+通常是短期</li>
+<li>每个生命期一条记录</li>
+<li>ETL时进行插入与更新操作</li>
+<li>行为发生任何时候都要重新存取</li>
+<li>包含标准关键环节的多个日期维度</li>
+<li>事实是给定生命期的性能</li>
+</ul>
+<h3>6.数据仓库的实时分区</h3>
+<ul>
+<li>在数据仓库环境中，存在对实时业务数据的访问需求<br />
+因此在常规静态数据仓库的前面建立一个物理的<strong>实时分区</strong>  </li>
+<li>功能和作用等同于数据仓库中的各个主题</li>
+<li>对读写的效率都有要求<br />
+在不停地修改</li>
+</ul>
+<h4>对实时分区的约束要求</h4>
+<ul>
+<li>包括静态数据仓库最后一次更新以来出现的所有行为</li>
+<li>尽可能无缝地连接到静态数据仓库事实表的粒度与内容上</li>
+<li>能够轻松地建立索引，以总是可以不断吸纳新来的数据<br />
+不能影响效率</li>
+</ul>
+<h4>三种不同类型的实时分区</h4>
+<p>应当与数据仓库中的事实表类型一致，这样才能实现无缝拼接，也便于在ETL时进行处理</p>
+<h5>事务粒度</h5>
+<p>当天的记录，并非统计结果，提供很快加载性能的同时提供快速的查询性能</p>
+<ul>
+<li>丢弃导出值</li>
+<li>可能完全不建立索引<br />
+效率考虑，实时分区中的数据量并未大到需要索引提到查询效率的程度</li>
+<li>避免包含聚集值<br />
+进行冗余数据的增删改时，需要对所有数据复本同步进行操作，也会影响效率</li>
+</ul>
+<h5>周期快照</h5>
+<ul>
+<li>实时分区可以看作数据仓库事实表当前的热积月</li>
+<li>实时分区是当前正在开发的月份的映像，随月份的推进不断更新<br />
+半加性或全加性事实随报表不断调整</li>
+<li>月份结束时累计起来的实时分区作为最新月份加载到静态仓库</li>
+</ul>
+<h5>累积快照</h5>
+<p>与事务快照十分类似</p>
+<ul>
+<li>仅包含当天更新的分列项</li>
+<li>当天结束时，实时分区包含需要写到主要事实表上记录的最新版本</li>
+<li>无需索引和聚集</li>
+</ul>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

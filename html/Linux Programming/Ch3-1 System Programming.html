@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ch3-1 System Programming</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #000;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+h6 {
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #000;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>Ch3-1 Linux System Programming</h1>
+<p><em>——File system</em></p>
+<h2>一、文件与文件系统</h2>
+<h3>1.文件</h3>
+<p>对Linux来说，文件只是<strong>一个对象</strong>，可以像文件一样读写，有如同文件一样的属性与权限</p>
+<h3>2.文件系统</h3>
+<p>组织文件的方式</p>
+<h4>文件系统的多种含义</h4>
+<ul>
+<li>一种特定的文件格式</li>
+<li>按特定格式进行了格式化的存储介质</li>
+<li>操作系统（通常在内核中）用来管理文件系统以及对文件进行操作的机制及其实现</li>
+</ul>
+<h3>3.文件类型与结构</h3>
+<h4>文件类型</h4>
+<ul>
+<li>普通文件</li>
+<li>字符设备</li>
+<li>块设备</li>
+<li>FIFO（管道）</li>
+<li>socket（网络）</li>
+<li>符号链接</li>
+<li>目录</li>
+</ul>
+<h4>文件结构</h4>
+<p>字节流</p>
+<h3>4.Linux的文件系统</h3>
+<h4>VFS</h4>
+<ul>
+<li>文件的统一管理与抽象都由VFS实现</li>
+<li>VFS将用户的文件操作转换为对应的驱动级别的操作</li>
+</ul>
+<h4>VFS模型</h4>
+<p>打开一个文件后，VFS会在<strong>内存</strong>中创建4个对象</p>
+<ul>
+<li>超级块<br />
+用于描述当前的文件系统</li>
+<li>i-node<br />
+用于标志文件</li>
+<li>文件对象<br />
+用于描述文件打开状态</li>
+<li>目录项<br />
+用于描述文件的目录关系</li>
+</ul>
+<h4>Ext2文件系统</h4>
+<ul>
+<li>一个引导块，之后是若干个块组</li>
+<li>引导块不属于文件系统管理<br />
+由MBR或GPT负责管理<br />
+所有文件系统均如此</li>
+<li>
+每个块组中有若干个块  
+
+<blockquote>
+<p>1超级块+n组描述符+1数据块位图+1索引节点位图+n索引节点表+n数据块</p>
+</blockquote>
+</li>
+</ul>
+<h4>硬链接与软链接</h4>
+<ul>
+<li>硬链接是文件系统下的两个文件，使用同一个i-node<br />
+不能跨越文件系统，对应系统调用<code>link</code></li>
+<li>软链接存储被链接文件的文件名与路径<br />
+可跨越文件系统，对应系统调用<code>symlink</code></li>
+</ul>
+<h4><code>ls -l</code>的回顾</h4>
+<p><em>链接计数只包含硬链接</em></p>
+<h3>5.系统调用与库函数</h3>
+<p>都以C函数的形式出现</p>
+<h4>系统调用</h4>
+<ul>
+<li>Linux内核的对外接口</li>
+<li>用户程序与内核之间的唯一接口</li>
+<li>提供最小接口</li>
+</ul>
+<h4>库函数</h4>
+<ul>
+<li>依赖于系统调用</li>
+<li>提供较复杂功能</li>
+</ul>
+<h4>底层I/O系统调用</h4>
+<h5>文件描述符</h5>
+<ul>
+<li>所有类Unix系统都存在此概念</li>
+<li>直接使用数值类型代替<br />
+<code>int fd</code>，但是值非负</li>
+<li>Linux内核在打开文件时分配一个文件对象，文件描述符指向内核中的<strong>文件描述符表</strong>元素，此元素再指向文件对象</li>
+<li>每个进程启动后至少已经分配3个文件描述符<br />
+对应stdin（0）, stdout（1）, stderr（2）<br />
+定义于unistd.h</li>
+</ul>
+<h5><code>open</code>/<code>creat</code></h5>
+<ul>
+<li><code>open</code>既能打开文件也能创建文件</li>
+<li><code>creat</code>只用于创建文件</li>
+<li>如果文件打开/创建失败，返回-1</li>
+</ul>
+<h6>flags参数</h6>
+<p>文件访问模式  </p>
+<ul>
+<li>O_RDONLY<br />
+只读</li>
+<li>O_WRONLY<br />
+只写</li>
+<li>O_RDWR<br />
+读写</li>
+</ul>
+<p>前三个模式中选用一个</p>
+<ul>
+<li>O_APPEND<br />
+追加模式</li>
+<li>O_TRUNC<br />
+文件已经存在时，定位到开始位置（覆盖模式）</li>
+<li>O_CREAT<br />
+如果文件不存在，就创建一个</li>
+<li>O_EXCL<br />
+和O_CREAT一起使用时，如果文件已经存在将报错，打开失败</li>
+</ul>
+<p>这些模式可以任意选用0个或更多</p>
+<blockquote>
+<p>使用creat相当于在open中使用以下flags，因而<strong>可以完全被替代</strong>：<br />
+<code>O_CREAT|O_WRONLY|O_TRUNC</code></p>
+</blockquote>
+<h6>mode参数</h6>
+<ul>
+<li>用于定义文件创建之后的权限</li>
+<li>对应Linux中的八进制文件权限设定</li>
+<li>
+使用umask可以用于控制禁止拥有的权限  
+
+<blockquote>
+<h6>例：</h6>
+<ul>
+<li>原始权限：666<br />
+rw-rw-rw-</li>
+<li>掩码：022<br />
+----w--w-</li>
+<li><code>permission&amp;~umask</code>的结果<br />
+644，rw-r--r--</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h5><code>close</code></h5>
+<ul>
+<li>关闭时提供文件描述符作参数</li>
+<li>成功返回0，失败返回-1</li>
+<li>程序退出时应当关闭所有文件<br />
+否则文件描述符将始终占用内核的内存资源，缓存中的内容也可能发生意外</li>
+</ul>
+<h5><code>read</code>/<code>write</code></h5>
+<ul>
+<li>size_t read(int fd,void *buf,size_t count)<br />
+返回读到的字节数，已到文件末尾为0，错误为-1</li>
+<li>size_t write(int fd,const void *buf,size_t count)<br />
+返回写入的字节数，错误为-1</li>
+</ul>
+<h5><code>lseek</code></h5>
+<ul>
+<li>用于文件内的定位</li>
+<li>off_t lseek(int fildes,off_t offset,int whence)<br />
+如果定位成功，返回操作后的偏移位置；如果失败，返回-1</li>
+</ul>
+<h6>whence参数</h6>
+<ul>
+<li>SEEK_SET<br />
+偏移量从文件头计算</li>
+<li>SEEK_CUR<br />
+偏移量从当前位置计算</li>
+<li>SEEK_END<br />
+偏移量从文件尾计算</li>
+</ul>
+<h5><code>dup</code>/<code>dup2</code></h5>
+<ul>
+<li>用于复制文件描述符</li>
+<li>int dup(int oldfd)</li>
+<li>int dup2(int oldfid,int newfd)</li>
+<li>如果成功，返回新的文件描述符，否则返回-1</li>
+<li>描述符复制的主要应用是<strong>文件重定向</strong>
+将新文件描述符对应的文件关闭，再使0/1/2号文件描述符指向原有的描述符位置</li>
+</ul>
+<h5><code>fcntl</code></h5>
+<p>文件描述符控制，几乎所有控制都可由此调用完成</p>
+<ul>
+<li>int fcntl(int fd,int cmd)</li>
+<li>int fcntl(int fd,int cmd,long arg)</li>
+<li>int fcntl(int fd,int cmd,struct flock *lock)</li>
+</ul>
+<h6>cmd参数</h6>
+<ul>
+<li>F_DUPFD<br />
+使用此cmd也可以实现<code>dup</code>和<code>dup2</code>的功能</li>
+<li>
+F<em>GETFD/F</em>SETFD<br />
+获取和设置文件描述符的close-on-exec标志
+<blockquote>
+<h6>例：</h6>
+<p>ppt上的两段代码</p>
+<ul>
+<li>第二段代码内容显然</li>
+<li>
+第一段代码
+<ul>
+<li><code>fork()</code>处产生程序执行分歧，产生子进程</li>
+<li><code>fcntl</code>设定文件描述符是否会被复制一份给子进程</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</li>
+<li>F_GETFL/F_SETFL<br />
+设置文件描述符的标志（除close-on-exec）<br />
+<strong>并非所有标志都可通过F_SETFL修改</strong><br />
+只有O_NONBLOCK（非阻塞方式）, O_ASYNC（异步方式）, O_APPEND（追加模式）, O_DIRECT（直接模式，不通过缓存）, O_NOATIME（读文件不更新访问时间）可以被修改  </li>
+<li>F_GETOWN/F_SETOWN</li>
+<li>F_GETLK/F_SETLK/F_SETLKW<br />
+对文件进行加锁、解锁等操作</li>
+</ul>
+<h5><code>ioctl</code></h5>
+<ul>
+<li>参数与<code>fcntl</code>相同<br />
+用于对普通文件的设置<br />
+<em>常用于驱动程序对设备文件的设定</em></li>
+<li>命令可以由驱动程序自定义</li>
+</ul>
+<h4>标准I/O库</h4>
+<p>全部由C/C++标准库提供</p>
+<h5>文件流</h5>
+<h6>流与FILE类型</h6>
+<ul>
+<li>FILE类型的指针</li>
+<li>预定义stdin, stdout, stderr三个文件指针</li>
+</ul>
+<h6>缓存I/O</h6>
+<ul>
+<li>
+三种模式
+<ul>
+<li>全缓存<br />
+由库函数提供缓存，刷新时才写入</li>
+<li>行缓存<br />
+完成一行后写入</li>
+<li>无缓存</li>
+</ul>
+</li>
+<li>
+<code>setbuf</code>与<code>setvbuf</code>  
+
+<ul>
+<li>用于设定缓存模式</li>
+<li>void setbuf(FILE *stream,char *buf)<br />
+这里的缓存大小在stdio.h中有宏预定义，为<code>BUFSIZ</code></li>
+<li>int setvbuf(FILE *stream,char *buf,int mode,size_t size)<br />
+对于模式参数，_IOBUF对应全缓存，_IOLBF对应行缓存，_IONBF对应无缓存</li>
+</ul>
+</li>
+</ul>
+<p>注：</p>
+<p>FILE *的层次比文件描述符要高，在文件指针中，文件描述符是其一个字段</p>
+<h5>标准库函数</h5>
+<ul>
+<li>流的打开/关闭<br />
+fopen/fclose<br />
+库函数关注通用性，因此打开模式不使用比特位来设定</li>
+<li>
+流的读写<br />
+注：<em>宏定义的函数，参数不要有副作用</em>
+<ul>
+<li>getc/fgetc/getchat<br />
+getc是宏的形式，fgetc是函数的形式</li>
+<li>ungetc<br />
+将字符放回流中<br />
+<strong>撤销只能单步进行</strong>，不能连续调用</li>
+<li>putc/fputc/putchar</li>
+<li>fgets(char *s,int size,FILE *stream)</li>
+<li>gets(char *s)<br />
+不建议使用，因为不会在读取结束后追加任何结束符</li>
+<li>fputs</li>
+<li>puts</li>
+</ul>
+</li>
+<li>
+二进制流读写
+<ul>
+<li>fread(void *ptr,size_t size,size_t nmemb,FILE *stream)</li>
+<li>fwrite(const void *ptr,size_t size,size_t nmemb,FILE *stream)<br />
+文本文件本质上是对二进制文件的读写格式约定<br />
+返回值为成功读写的字节数</li>
+</ul>
+</li>
+<li>
+格式化I/O
+<ul>
+<li>scanf(const char *foramt,...)</li>
+<li>fscanf(FILE *stream,const char *format,...)</li>
+<li>sscanf(const char *str,const char *format,...)<br />
+很常用于做字符串和数字的相互转换</li>
+<li>printf/fptintf/sprintf</li>
+</ul>
+</li>
+<li>
+流的定位
+<ul>
+<li>fseek/ftell/rewind<br />
+ftell获取文件当前位置，rewind使当前位置重新指向文件头部</li>
+<li>fgetpos/fsetpos</li>
+</ul>
+</li>
+<li>流的刷新</li>
+</ul>
+<h4>流与文件描述符</h4>
+<h5>流-&gt;文件描述符</h5>
+<p>int fileno(FILE *fp)</p>
+<h5>文件描述符-&gt;流</h5>
+<p>由于此时需要在用户空间进行封装，所以需要设定打开方式<br />
+FILE *fdopen(int fildes,)</p>
+<h4>临时文件</h4>
+<ul>
+<li>char *tmpnam(char *s)<br />
+生成一个临时文件文件名，参数可以是NULL</li>
+<li>FILE *tempfile()<br />
+直接创建临时文件并打开</li>
+</ul>
+<h3>6.高级系统调用</h3>
+<p>处理文件的属性或是目录</p>
+<h4>stat/fstat/lstat</h4>
+<ul>
+<li>stat与lstat使用文件名为参数，fstat使用文件描述符为参数</li>
+<li>使用软链接时，stat寻找软链接指向文件的属性，而lstat寻找软链接本身的属性</li>
+</ul>
+<h4>struct stat</h4>
+<p>包括多个属性</p>
+<ul>
+<li>st_ino<br />
+文件的inode号</li>
+<li>st_rdev<br />
+设备号，指向具体设备</li>
+<li>st_nlink<br />
+文件硬链接的数目</li>
+<li>st_blksize</li>
+<li>st_blocks</li>
+</ul>
+<h4>文件类型与模式</h4>
+<h5>文件类型</h5>
+<p>对struct stat的st_mode进行操作</p>
+<ul>
+<li>S_ISREG()<br />
+是否为普通文件</li>
+<li>S_ISDIR()<br />
+是否为目录文件</li>
+<li>S_ISCHAR()<br />
+是否为字符设备文件</li>
+<li>S_ISBLK()<br />
+是否为块设备文件</li>
+<li>S_ISFIFO()<br />
+是否为FIFO文件（如管道）</li>
+<li>S_ISLNK()<br />
+是否为符号链接文件</li>
+<li>S_ISSOCK<br />
+是否为socket文件</li>
+</ul>
+<h5>文件权限</h5>
+<ul>
+<li>r</li>
+<li>w</li>
+<li>x</li>
+<li>SUID<br />
+在当前文件已有执行权限的前提下，SUID置为1可将执行权限提升到文件所有者的权限</li>
+<li>GUID<br />
+在当前文件已有执行权限的前提下，GUID置为1可将执行权限提升到文件所有者所在组的权限<br />
+设置在目录上时，在此目录中创建的文件自动继承目录的GID</li>
+<li>Sticky bit<br />
+粘滞位，只有目录和文件的所有者可以删除此文件</li>
+</ul>
+<p><strong>文件权限全部在struct stat的st_mode中表示</strong></p>
+<h4>权限相关函数</h4>
+<h5>int access(const char *pathname, int mode)</h5>
+<ul>
+<li>适用情况：并不想知道777是怎么分布的，只想知道当前执行的程序对此文件有没有执行权限、写权限</li>
+<li>按<strong>实际用户ID和实际组ID</strong>测试文件存取权限</li>
+<li>返回0为成功，返回-1为失败</li>
+<li>
+mode参数的宏
+<ul>
+<li>R_OK<br />
+文件可读</li>
+<li>W_OK<br />
+文件可写</li>
+<li>X_OK<br />
+文件可运行</li>
+<li>F_OK<br />
+文件存在</li>
+</ul>
+</li>
+</ul>
+<h5><code>chmod</code>/<code>fchmod</code></h5>
+<ul>
+<li>int chmod(const char *path, mode_t mode)</li>
+<li>int fchmod(int fildes, mode_t mode)</li>
+</ul>
+<h5><code>chown</code>/<code>fchown</code>/<code>lchown</code></h5>
+<p>修改文件的所有者</p>
+<ul>
+<li>int chown(const char *path, uid_t owner, gid_t group)</li>
+<li>int fchown(int fd, uid_t owner, gid_t group)</li>
+<li>int lchown(const char *path, uid_t owner, gid_t group)</li>
+</ul>
+<p>这两类函数返回0为成功，返回-1为失败</p>
+<h5><code>umask</code></h5>
+<p>mode_t umask(mode_t mask)<br />
+为进程设置文件存取权限屏蔽字，并返回以前的值</p>
+<h4>链接</h4>
+<h5>创建一个新的硬链接到已有文件</h5>
+<p>int link(const char *oldpath, const char *newpath)</p>
+<h5>删除硬链接中的一个，并且在计数归零时删除文件本身</h5>
+<p>int unlink(const char *pathname)</p>
+<h5>创建一个符号链接</h5>
+<p>int symlink(const char *oldpath, const char *newpath)<br />
+<em>软连接并不需要特别地<code>unlink</code>，只需要补充一个读取连接的函数即可</em></p>
+<p>以上三个函数返回0为成功，返回-1为失败</p>
+<h5>读取符号链接内容</h5>
+<p>int readlink(const char *path, char *buf, size_t bufsiz)<br />
+读取成功，返回向buf中写入字符数的计数，失败返回-1<br />
+<em>存入的字符串末尾</em><strong><em>没有</em></strong><em>\0</em></p>
+<h4>处理目录</h4>
+<h5>mkdir/rmdir</h5>
+<ul>
+<li>int mkdir(const char *pathname, mode_t mode)</li>
+<li>int rmdir(const char *pathname)</li>
+</ul>
+<h5>工作目录的修改</h5>
+<ul>
+<li>int chdir(const char *path)<br />
+将工作目录修改为对应路径</li>
+<li>int fchdir(int fd)<br />
+将当前目录改为文件描述符指定的目录<br />
+返回0为成功，返回-1为失败</li>
+</ul>
+<p>注：<em>当前工作目录是进程的属性，所以该函数只影响调用chdir的进程本身</em></p>
+<h6><code>getcwd</code></h6>
+<p>char 、<em>getcwd(char 、</em>buf, size、_t size)<br />
+获得当前工作目录的绝对路径</p>
+<h4>读目录</h4>
+<h5>数据结构</h5>
+<p>都在&lt;dirent.h&gt;中定义</p>
+<ul>
+<li>
+<p>DIR<br />
+目录本身的属性</p>
+<pre><code>typedef struct __dirstream DIR;
+</code></pre>
+
+</li>
+<li>
+<p>dirent<br />
+目录中每一项的属性</p>
+<pre><code>ino_t d_ino;                    /* inode number */
+char d_name[NAME_MAX + 1];      /* file name */
+</code></pre>
+
+</li>
+</ul>
+<h5>目录的操作</h5>
+<ul>
+<li>DIR *opendir(const char *name)</li>
+<li>int closedir(DIR *dir)</li>
+<li>struct dirent *readdir(DIR *dir)</li>
+<li>off_t telldir(DIR *dir)</li>
+<li>void seekdir(DIR *dir, off_t offset)</li>
+</ul>
+<blockquote>
+<h6>例：目录扫描程序</h6>
+<p>见ppt第79页</p>
+</blockquote>
+<h3>7.文件锁</h3>
+<h4>文件锁的作用</h4>
+<p>几个进程同时操作一个文件</p>
+<h4>锁的位置</h4>
+<ul>
+<li>文件锁在内核中<br />
+<em>与之相比，文件描述符表就不在内核中，存在于用户态</em></li>
+<li>文件对象是在内核态的，其内存只有内核能访问，<em>如果另外一个程序打开，也许是就不能被其他的打开了</em><br />
+<em>斜体部分由璟神脑补出来</em></li>
+<li>实际实现中，锁可以在更底层实现<br />
+如文件系统</li>
+</ul>
+<h4>文件锁的分类</h4>
+<ul>
+<li>记录锁</li>
+<li>劝告锁<br />
+检查、加锁由应用程序自己控制</li>
+<li>强制锁<br />
+检查、加锁由内核控制<br />
+影响open()、read()、write()等操作</li>
+<li>共享锁</li>
+<li>排他锁</li>
+<li>特殊类型<br />
+共享模式强制锁、租借锁</li>
+</ul>
+<h4>标志位</h4>
+<ul>
+<li>mount -o mand /dev/sdb7 /mnt</li>
+<li>超级块中的s_flags字段表示此分区是否可以加锁<br />
+inode中标记文件是否允许被加锁</li>
+<li>MS_MANDLOCK标志位</li>
+</ul>
+<h4><code>fcntl</code>记录锁</h4>
+<p>int fcntl(int fd,int cmd, struct flock *flock)</p>
+<h5>struct flock的结构</h5>
+<p>定义了锁的性质和特性</p>
+<ul>
+<li>short l_type<br />
+锁类型，包含F_RDLCK（读锁）、F_WRLCK（写锁）、F_UNLCK（取消锁）</li>
+<li>short l_whence<br />
+起始位置</li>
+<li>off_t l_start<br />
+偏移量</li>
+<li>off_t l_len<br />
+加锁的字节数<br />
+以上三个字段的含义与文件定位中的类似</li>
+<li>off\t l_pid<br />
+加锁的进程号</li>
+</ul>
+<h5>cmd参数</h5>
+<ul>
+<li>F_GETLK<br />
+取得当前锁的情况</li>
+<li>F_SETLK<br />
+进行加锁或解锁<br />
+如果无法加锁，立即返回，得到-1的返回值，错误代码为EAGAIN或EACCESS</li>
+<li>F_SETLKW<br />
+以等待的方式进行加锁或解锁<br />
+如果无法加锁，将一直等待到成功加上锁为止</li>
+</ul>
+<h4>其它封锁命令</h4>
+<h5><code>lockf</code>函数</h5>
+<p>int lockf(int fd,int cmd,off_t len)  </p>
+<ul>
+<li>锁的层次比fcntl中的锁更高，效率可能有所降低  </li>
+<li>此加锁命令与<code>fcntl</code>中的加锁命令尽量不要混用  </li>
+<li>
+cmd命令
+<ul>
+<li>F_ULOCK<br />
+解锁</li>
+<li>F_LOCK<br />
+加强制锁</li>
+<li>F_TLOCK<br />
+加建议锁</li>
+</ul>
+</li>
+</ul>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

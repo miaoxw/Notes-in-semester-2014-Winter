@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>10 多维建模4</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #000;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+h6 {
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #000;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>10 Multi-dimensional Modelling</h1>
+<h2>五、案例四：客户关系管理</h2>
+<h3>1.客户关系管理（CRM）</h3>
+<p>既包含操作处理，又包含分析处理</p>
+<h4>目标</h4>
+<ul>
+<li>将分析中心转向<strong>客户</strong>对象</li>
+<li>支持<strong>以客户为中心</strong>的分析应用</li>
+</ul>
+<p>客户事实上是维表，在正常的数据仓库中不会成为事实表，不是分析的中心，这与CRM的目标相冲突</p>
+<h4>建设步骤</h4>
+<h5>客户数据集成</h5>
+<ul>
+<li>
+客户信息中姓名和地址的集成
+<ul>
+<li>对姓名和地址进行解析，分成更细小的片断</li>
+<li>对姓名和地址进行标准化</li>
+</ul>
+</li>
+<li>
+客户数据的更新
+<ul>
+<li>新客户的识别</li>
+<li>老客户的信息更新<br />
+可能需要使用数据仓库中已有的历史数据</li>
+</ul>
+</li>
+</ul>
+<h5>客户信息的分析与挖掘</h5>
+<ul>
+<li>客户特征分类分析：新客户的发现</li>
+<li>客户赢利分析：优质客户挖掘</li>
+<li>客户行为分析：客户异常行为的发现</li>
+<li>客户需求分析</li>
+<li>
+客户反映分析
+<ul>
+<li>提供一对一服务</li>
+<li>防止已有客户的流失</li>
+</ul>
+</li>
+</ul>
+<h3>2.客户维度</h3>
+<p>CRM的基础是<strong>一致性</strong>的<strong>公共</strong>客户维度</p>
+<h4>客户维度的特点</h4>
+<ul>
+<li>特别多的元组<br />
+通常有数百万行以上</li>
+<li>特别多的属性</li>
+<li>快速变化的维度<br />
+每天的刷新都可能需要对某些元组进行增删改，当前的处理就会用到更多的元组</li>
+</ul>
+<h4>姓名与地址的解析</h4>
+<p>将姓名与地址属性尽可能地拆分成一些基本的部分</p>
+<h5>解析时的注意事项</h5>
+<ul>
+<li>统一的表示形式</li>
+<li>地址方面的差异</li>
+<li>文化方面的差异</li>
+</ul>
+<h5>过于一般的客户维度实例</h5>
+<blockquote>
+<p><em>见ppt第8页</em></p>
+<ul>
+<li>这样的数据在数据仓库中能做的事情仍然不多</li>
+<li>因此必须进一步解析，以进行分析处理</li>
+</ul>
+</blockquote>
+<h4>常见的其它客户属性——日期</h4>
+<ul>
+<li>客户维度中包含类型为日期的多个维度属性</li>
+<li>需要为客户维度建立若干个日期的维度表<br />
+包括出生日期、首次购买日期、最后一次购买日期等等</li>
+</ul>
+<p><strong><em>参考：日期维度支架</em></strong></p>
+<h4>常见的其它客户属性——客户分类属性</h4>
+<p>有些可能长时间不会变化，有些会随周期变化，有些甚至会随时变化</p>
+<ul>
+<li>性别</li>
+<li>种族</li>
+<li>年龄（分级）</li>
+<li>收入（分级）</li>
+<li>状况（新潮、活跃、不活跃、封闭……）</li>
+<li>崭新程度（最后一次购买日期）</li>
+<li>频率与强度（购买事务总数目与净购买总量）<br />
+以及据此挖掘获得的客户分类属性</li>
+<li>客户的统计特征<br />
+购买行为、支付行为、产品喜好、挑剔度、违约概率等</li>
+</ul>
+<h4>常见的其它客户属性——聚集事实属性</h4>
+<p>可以将用户最关心的聚集性能度量指标设计为客户维表中的属性</p>
+<ul>
+<li>消费总额</li>
+<li>平均消费额</li>
+<li>单笔消费最高额</li>
+<li>……</li>
+</ul>
+<h4>低基数属性集的维度支架</h4>
+<h5>低基数属性</h5>
+<p>只有少量几个取值的属性，包括枚举、布尔等类型</p>
+<h5>支架维度</h5>
+<ul>
+<li>将一组低基数属性单独构成客户维度的一个维度<br />
+从而使整个模型呈雪花状<br />
+可以起到节约空间的作用  </li>
+<li>支架维度的数据一般是从外部数据提供者获得的</li>
+<li>客户维度与支架维度具有相差悬殊的粒度</li>
+<li>具有不同的管理与加载次数</li>
+<li>可以节省客户维度表的存储空间</li>
+<li>如果用户的查询工具坚持使用星型结构，那么可以通过视图定义来隐藏维度支架</li>
+</ul>
+<h4>大型变化客户维度</h4>
+<p>在数据仓库的维度模型中，部分维度属性是会随时间而发生变化的，若只是将这些变化的维度属性值作简单的修正，即在维度表中只保留该维度属性的当前值，这会直接影响到对事实表中该维度属性所对应的事实数据元组的访问，特别是无法根据维度属性值的变化情况来进行分析处理</p>
+<h5>维度表的划分</h5>
+<h6>稳定维度</h6>
+<h6>渐变维度</h6>
+<p>某些属性虽然会变化，但概率并不高<br />
+渐变维度有保持历史完整性的义务，当前的数据仓库就不能简单地用抹掉的方式进行修改</p>
+<ul>
+<li>
+渐变维度的处理方法
+<ul>
+<li>改写属性值<br />
+如果当前的分析应用并不需要历史信息，或是修改可以<em>逆推</em>，那么这么做是可行的<br />
+容易实现，但不能对旧属性的任何历史数据进行维护，无法保证历史一致性</li>
+<li><strong>添加维度行</strong><br />
+准确跟踪渐变属性的<strong>主要方法</strong><br />
+引入新的行用来反映新的属性值<br />
+原先事实表中的数据仍然与旧的维度保持连接<br />
+增加了维度行的膨胀<br />
+可以引入生效或截止日期</li>
+<li>添加维度列<br />
+使用纬度列保存旧的属性值<br />
+可以跟踪的变化数目受维表的最大维度数目限制
+不适合跟踪维度属性大量变化</li>
+<li>类型6（2+3+1）<br />
+将前三种混合使用，既使用行，又使用列，又同时改写属性值<br />
+虽然查询效率大大提高，但空间消耗太大</li>
+</ul>
+</li>
+</ul>
+<h6>快变维度</h6>
+<ul>
+<li>
+快变维度的处理办法
+<ul>
+<li>微型维度<br />
+将分析频率高或变化频率大的属性拆成独立的微型维度<br />
+本质上，将微型维度抽出只适用于原维表中快变属性不多的情况</li>
+<li>预设波段<br />
+将属性转换为按波段变化的范围，即进行离散化处理<br />
+从而取值限定在小范围内，以减少维度表中的数据量</li>
+</ul>
+</li>
+</ul>
+<h3>3.商务客户体系结构</h3>
+<h4>深度不变体系</h4>
+<ul>
+<li>层数不变、可以预见的客户维度</li>
+<li>很容易处理</li>
+</ul>
+<h4>深度可变体系</h4>
+<p>层数不固定的客户维度</p>
+<h5>桥接表——自顶向下</h5>
+<ul>
+<li>客户维度对应客户体系桥中的子客户关键字</li>
+</ul>
+<h5>桥接表——自底向上</h5>
+<ul>
+<li>客户维度对应客户体系桥中的父客户关键字</li>
+</ul>
+<p>两种方式看起来都像具有单值关键字的常规事实表一样的可选视图定义</p>
+<h5>体系桥接连表样本行数的计算</h5>
+<pre><code>用每层的取值数目乘以层深度（从顶层开始计数），然后将乘积相加起来
+</code></pre>
+
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

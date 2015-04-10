@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ch14 Large-scale Software Design Based on Software Reuse</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #000;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+h6 {
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #000;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>Ch14 Large-scale Software Design Based on Software Reuse</h1>
+<p><em>不会考</em></p>
+<h2>一、软件复用基础</h2>
+<h3>1.关于复用的实践</h3>
+<ul>
+<li>将来的代码只有15%左右是新代码<br />
+理论上的复用率为85%</li>
+<li>复用在实践中表现出了很好的效果<br />
+提高了30%~35%的生产效率</li>
+<li>现代软件开发没有不做复用的</li>
+</ul>
+<h3>2.软件复用的定义</h3>
+<h4>机会主义复用</h4>
+<ul>
+<li>复用完全依赖于个人，知道多少，就复用多少<br />
+与程序员个人的代码范围有关</li>
+<li>复用的过程不可重复，不可复制</li>
+<li>不是好的实践</li>
+</ul>
+<h4>系统化复用</h4>
+<ul>
+<li>系统化服用带有强制性<br />
+以组织为主，有一定的组织过程与规定，以复用价值为标准</li>
+<li>复用基本的构建单位，在需求和体系结构上有相似性<br />
+需求和体系结构上有相似性才是复用价值</li>
+<li>在生产力、质量、业务表现等方面上取得一些好处</li>
+</ul>
+<h3>3.复用的类型</h3>
+<h4>传统——代码复用</h4>
+<ul>
+<li>^C&amp;^V</li>
+<li>函数的复制</li>
+<li>类库</li>
+<li>OO的开发</li>
+</ul>
+<h4>趋势</h4>
+<ul>
+<li>基于构件的开发<br />
+对详细设计的复用</li>
+<li>框架的复用<br />
+带有体系结构的复用</li>
+<li>产品线<br />
+到需求层次的复用</li>
+</ul>
+<h3>4.简单的软件复用过程</h3>
+<ul>
+<li>Create<br />
+找到一些值得复用的部分，对其进行进一步优化</li>
+<li>Support<br />
+将可复用部分分类存放</li>
+<li>Reuse<br />
+复用与下一个产品</li>
+</ul>
+<h3>5.复用的成本-收益分析</h3>
+<pre><code>软件成本=复用部分成本*复用比例+新开发成本*新开发比例
+
+两部分的比例之和为1
+</code></pre>
+
+<ul>
+<li>
+<p>复用代码的成本包含将代码集成进来的成本，和开发复用部分的分摊成本  
+</p>
+<pre><code>CFReuse=b+E/n
+</code></pre>
+
+<ul>
+<li>要复用得有效益，b必须小于1</li>
+<li>b值最乐观的估计值为0.08，在复用需求时产生</li>
+<li>如果只做代码复用，b值大约为0.85</li>
+<li>体系结构级别的复用，b值在0.2左右</li>
+<li>E值大于1<br />
+要使其可复用，需要更大的成本</li>
+<li>分摊成本的E值通常为1.5</li>
+<li>n低于4，复用通常没有效益</li>
+</ul>
+</li>
+</ul>
+<h4>结论</h4>
+<ul>
+<li>复用级别越高越好</li>
+<li>复用比例越高越好</li>
+</ul>
+<h2>二、构件模型与CBSE</h2>
+<p>详细设计级别的复用，将软件的小模块或某几个类集中起来，做成可复用的形式</p>
+<h3>1.CBSE的动机</h3>
+<ul>
+<li>将软件各个部分拼装起来，实现拼装式生产</li>
+<li>目前在局部领域是可以实现的</li>
+</ul>
+<h3>2.基于构件的系统</h3>
+<pre><code>Application+Components+Glue/Addware
+</code></pre>
+
+<ul>
+<li>“胶水”主要是适配器、包装器、委托器和Mediator</li>
+<li>Application是无法买到的构件，需要自己开发</li>
+<li>目前的开发中，构件所占比例达到了80%</li>
+</ul>
+<h3>3.构件</h3>
+<ul>
+<li>独立生产、独立购买、独立部署的单位</li>
+<li>可以由第三方进行组装</li>
+<li>是一个黑盒<br />
+确保第三方不能修改此部分代码，通常提供说明书</li>
+</ul>
+<h3>4.构件环境</h3>
+<ul>
+<li>各构件接口不同</li>
+<li>胶水代码多了之后非常困难</li>
+<li>由此提出通用构件模型</li>
+</ul>
+<h4>通用构件模型</h4>
+<ul>
+<li>构件实现、文档化、部署的标准定义</li>
+<li>明确了接口如何定义，以及各元素如何被包括在接口定义中</li>
+<li>所有框架中都会自带一个构件模型<br />
+这也是学习框架的很大时间消耗所在</li>
+</ul>
+<h3>5.CBSE的流程</h3>
+<p>见ppt</p>
+<h3>6.构件模型的设计</h3>
+<p>略</p>
+<h2>三、框架</h2>
+<h3>1.框架</h3>
+<ul>
+<li>暗含着一个特定的体系结构和构件模型</li>
+<li>可重用的应用程序或子系统部分</li>
+<li>被表示为一组抽象类和这些类中对象的协作方式<br />
+通常使用继承或反射机制</li>
+</ul>
+<h3>2.框架与重用</h3>
+<ul>
+<li>体系结构</li>
+<li>设计模式</li>
+<li>构件</li>
+<li>类库</li>
+</ul>
+<h3>3.框架的部分</h3>
+<ul>
+<li>框架核心<br />
+通常是必须的部分，一定会出现在程序中</li>
+<li>框架的库</li>
+<li>没有用过的库</li>
+<li>加上一些自己写的代码，就成为应用程序</li>
+</ul>
+<h3>4.通用化的处理方式</h3>
+<ul>
+<li>共性变成抽象类</li>
+<li>差异部分提供参数化配置</li>
+<li>参数化配置的部分通常很小</li>
+<li>大量地使用继承和接口</li>
+</ul>
+<h3>5.Hooks与Hot Spots</h3>
+<ul>
+<li>Hooks</li>
+<li>Hot Spots</li>
+<li>Frozen Spots</li>
+</ul>
+<h3>6.框架限定在特定的领域</h3>
+<ul>
+<li>框架只解决一个领域的一类问题</li>
+<li>没有通用的框架</li>
+<li>一个人在一个领域内达到能归纳出共性与差异性时，才可能写款监管i啊</li>
+</ul>
+<h2>四、产品线</h2>
+<h3>1.产品线</h3>
+<ul>
+<li>一系列软件系统</li>
+<li>有一些共同点<br />
+具有复用价值</li>
+<li>为了满足特定的任务或特定市场领域中的需求</li>
+<li>构造一系列核心技术来创建新的软件</li>
+<li>一次开发，多次销售</li>
+</ul>
+<h4>共性</h4>
+<p>一批软件的相同特征</p>
+<ul>
+<li>相同的体系结构</li>
+<li>相同的业务领域</li>
+</ul>
+<h4>核心资产</h4>
+<ul>
+<li>体系结构</li>
+<li>构件</li>
+<li>一系列开发工具</li>
+<li>装配说明书<br />
+如何选择构件，如何选择接口，如何组合</li>
+</ul>
+<h3>2.产品线开发</h3>
+<p>见ppt</p>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

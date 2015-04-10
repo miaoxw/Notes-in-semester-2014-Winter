@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>02 数据仓库1</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #000;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+h6 {
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #000;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>02 数据仓库1</h1>
+<h2>一、从数据库到数据仓库</h2>
+<h3>1.事务处理应用中的数据库技术</h3>
+<ul>
+<li>数据库技术的进步</li>
+<li>数据量的变化</li>
+</ul>
+<h3>2.操作型/分析型</h3>
+<p>操作型处理与分析型处理，以及它们处理数据的数据也有很大区别</p>
+<h4>操作型处理</h4>
+<ul>
+<li>也叫事务处理</li>
+<li>
+由于主要是为企业特定的应用服务的，也叫联机事务处理
+<ul>
+<li>对一个或一组记录进行查询和修改 </li>
+<li>查询简单，执行频率高<br />
+可能并发进行</li>
+<li>更关心响应时间、数据安全性、完整性等指标（前台的）</li>
+</ul>
+</li>
+</ul>
+<h4>分析型处理</h4>
+<ul>
+<li>也叫信息型处理，用于辅助决策</li>
+<li>对<strong>大量</strong>事务型数据进行统计、归纳和分析<br />
+<strong>绝对不会</strong>考虑修改数据</li>
+<li>需要访问大量历史数据</li>
+<li>执行频率和对响应时间的要求不高<br />
+没有频率上的需求，执行时间长一些也没关系<br />
+<em>但并不是说所有的分析型处理执行频率都不高</em>  
+</li>
+</ul>
+<p>数据的作用：事务处理和分析处理，不同的处理需要不同的数据信息</p>
+<h4>操作型数据</h4>
+<ul>
+<li>所有细节性数据</li>
+<li>通常由数据库管理系统负责存储与管理 </li>
+</ul>
+<h4>分析型数据</h4>
+<ul>
+<li>分析处理所需的综合性数据<br />
+直接使用操作型数据数据是可行的，但时间上不能接受</li>
+<li>可以事先计算一些过去的操作型数据的综合以供今后使用</li>
+</ul>
+<blockquote>
+<h6>操作型数据与分析型数据的各项特性对比：见PPT</h6>
+<h6>注：</h6>
+<ol>
+<li>人的分析需求是无法事先确定的，思维十分发散，因此存取请求无法被事先预知</li>
+<li>分析型数据不会被改写，是只读操作</li>
+</ol>
+</blockquote>
+<h3>3.信息系统的发展历史</h3>
+<ul>
+<li>事务处理系统（TPS）<br />
+面向数据库</li>
+<li>信息管理系统（MIS）<br />
+面向统计报表，供低层管理人员完成管理业务</li>
+<li>主管信息系统（EIS）<br />
+此时需要外部数据<br />
+理论上EIS可以完成分析应用</li>
+<li>决策支持系统（DSS）<br />
+应用某些算法，对数据进行分析，使其产生某些结果，提供给主管人员</li>
+<li>OLAP/DM<br />
+面向数据仓库<br />
+现代商务智能蕴含的主要相关技术</li>
+</ul>
+<h4>决策支持系统</h4>
+<ul>
+<li>数据库技术一直力图胜任完成各种类型的处理任务</li>
+<li>
+为进行分析型数据的处理，关系数据库放宽了对冗余的限制<br />
+<em>分析型数据本质上就是冗余</em><br />
+<strong>数据只为职员服务，不为老板服务</strong>
+<ul>
+<li>统计、综合数据的应用逻辑分散杂乱，分析功能有限</li>
+<li>OLTP和DSS在同一个数据库系统中有明显冲突</li>
+</ul>
+</li>
+</ul>
+<h4>事务处理系统不适合做分析型应用的原因</h4>
+<ul>
+<li>性能特性不同<br />
+事务处理与分析处理的性能需求无法兼顾</li>
+<li>
+数据集成问题<br />
+分析处理需要全面而正确的数据，而事务处理只需要与当前业务有关的细节数据，这造成大部分企业内部的数据不是集成的
+<ul>
+<li>事务处理应用的分散性</li>
+<li>“蜘蛛网”问题</li>
+</ul>
+<blockquote>
+<h5>例：公司所有员工的相关数据</h5>
+<ul>
+<li>人事系统持有所有员工的数据A</li>
+<li>营销部有一套考勤系统，认为营销部的人员数据可以迁移过来（A'，格式可能会有改变）</li>
+<li>营销部人员里又有VIP人员A''，这部分人的数据从哪里获取？A？A'？</li>
+<li>这时又要将网络部（A'''）和营销部的人员数据合并管理（A''''）</li>
+</ul>
+<p>加上更多的数据，数据血缘就此混乱，再也无法判断哪份数据是权威的<br />
+<em>外部数据加到哪里去？</em>即使完成一次静态集成，之后的数据操作仍然会有损一致性，无法动态集成。 </p>
+</blockquote>
+<ul>
+<li>
+数据不一致问题<br />
+这些数据在局部运行良好，一旦到了整体，就会发生混乱
+<ul>
+<li>数据类型、单位不一致</li>
+<li>同名异义、同义异名现象</li>
+<li>因数据的重复抽取而带来的数据不一致</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+历史数据问题  
+
+<ul>
+<li>事务处理只需要当前数据，但分析处理更看重历史数据</li>
+<li>历史数据在事务处理系统和分析系统中需要存储的东西也不同（实例见PPT）</li>
+</ul>
+</li>
+<li>
+数据的动态集成问题
+<ul>
+<li>集成数据必须以一定的周期进行刷新，但传统的事务处理环境并不具备动态集成能力</li>
+</ul>
+</li>
+<li>
+数据的综合问题
+<ul>
+<li>事务处理需要当前的细节性操作数据，而分析处理需要大量总结性、分析型数据</li>
+</ul>
+</li>
+<li>
+数据的访问问题
+<ul>
+<li>事务处理需要多种不同类型的数据访问操作，数据要求实时性</li>
+<li>分析处理的访问操作以读为主，不需要实时性，但需要定期更新</li>
+</ul>
+</li>
+</ul>
+<p>因此，事务处理环境中直接构建分析处理用用是不合适的。<strong>必须要将综合性分析数据从传统事务处理和细节性操作数据分离出来，按照分析性处理的需要重新进行组织，建立单独的分析处理环境。</strong></p>
+<h3>4.数据仓库出现的原因</h3>
+<ul>
+<li>提高两个系统的性能</li>
+<li>提高操作性数据库的事务吞吐量</li>
+<li>两个系统中的数据结构、内容和用法可以不同</li>
+</ul>
+<p>建立数据仓库<strong>不是</strong>要替代传统的事务处理系统和数据库，而是在新的领域中更加适应分析型处理的需要。<br />
+数据仓库正成为信息集成的主要手段之一。</p>
+<h2>二、数据仓库及其四大特征</h2>
+<h3>1.数据仓库</h3>
+<ul>
+<li>
+多种定义
+<ul>
+<li>来自W. H. Inmon<br />
+数据集合，用于支持决策制定，面向主题、集成、非易失、时变的特性</li>
+<li>
+来自Tim Shelter<br />
+信息岛上商业数据的集成
+<ul>
+<li><strong>信息岛</strong>：不兼容的相关信息 </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3>2.数据仓库的特征</h3>
+<h4>面向主题</h4>
+<p>与面向应用相对应，数据仓库中把当前的数据按照关联性排列拼装</p>
+<ul>
+<li>
+面向应用的数据组织（数据库）<br />
+数据库所支持的操作需要用到什么数据，就把它们固化在数据库中，没关系的一概不要
+<ul>
+<li>
+组织特点
+<ul>
+<li>表达数据流程</li>
+<li>和业务中的单据或文档对应<br />
+原始的纸质形式能够满足业务需求，那电子化之后也就能满足</li>
+<li>逻辑、数据不完全分离<br />
+从数据库的结构中就能看出逻辑，因为数据格式是由逻辑决定的</li>
+<li>和部门、组织相关<br />
+原因不在于部门的独立性，而在于执行相关流程的主体的独立性</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>主题<br />
+对应企业中某一宏观分析领域中涉及的分析对象</li>
+<li>
+面向主题<br />
+数据仓库内的信息是按主题进行组织的，为按主题进行决策的过程提供信息
+<ul>
+<li>传统数据库中存放原始、基础数据</li>
+<li>特定领域的数据需要做必要的抽取、加工和总结</li>
+<li>数据仓库中的主题会因用户的主观要求变化而变化<br />
+数据仓库要面向<strong>分析、决策人员的主观要求</strong>，主观要求因人、因时而异<br />
+只要分析、决策人员还能提出新的分析对象，数据仓库的开发就不会完结<br />
+<em>因此数据仓库的开发不适合外包开发，需要一个内部团队长时间跟踪，因为无法被定制化开发</em></li>
+</ul>
+</li>
+<li>
+抽取主题  
+
+<ul>
+<li>按照管理人员的分析要求来确定主题</li>
+<li>每个主题都包含了有关该主题的所有信息，<strong>但又抛弃了与分析无关或不需要的数据</strong><br />
+将原本分散在各个操作型处理系统中的有关信息集中在一个主题中，形成有关该主题的完整一致的描述</li>
+<li>
+不同主题之间有重叠的内容
+<ul>
+<li>是逻辑上的，而不是物理上的</li>
+<li>是细节上的，不是统计信息的</li>
+<li>可以反映不同主题之间直接和间接的联系<br />
+<em>重叠往往体现一个操作，由操作性数据环境来执行</em><br />
+<strong><em>如果发现一个主题与其它主题毫无关联，往往是漏掉了其它有意义的主题</em></strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h6>例：从ppt中的子系统抽取主题</h6>
+<ul>
+<li>商品<br />
+固有信息、采购信息、销售信息、库存信息……<br />
+来源于原有的操作型数据环境</li>
+<li>供应商</li>
+<li>顾客</li>
+<li>
+每个主题所需数据的物理存储
+<ul>
+<li>多维数据库（MDDB）<br />
+用多维数组形式存储数据<br />
+专门用于应对数据仓库</li>
+<li>
+关系数据库<br />
+这里的数据是存在冗余的，但数据仓库是只读的，因此冗余数据是可以保证一致性的<br />
+分析操作很少会用到细节数据中的某一细节
+<ul>
+<li>用一组关系来组织数据存储，一组关系有一个公共的关键字</li>
+<li>关系中存放经过一定处理的综合性数据</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h4>集成</h4>
+<p>全部数据放置在同一个地方<br />
+目标是形成完整、一致的数据汇总</p>
+<h5>集成的方法</h5>
+<ul>
+<li>统一<br />
+消除不同数据源之间数据不一致的现象</li>
+<li>综合<br />
+对原有数据进行综合和计算</li>
+</ul>
+<h4>非易失</h4>
+<p>访问与操作型数据没有任何关系</p>
+<ul>
+<li>数据仓库的数据与操作型数据环境隔离</li>
+<li>
+数据仓库中的数据是<em>抽取</em>形成的分析性数据，不具有原始性，主要做查询操作，一般不做更新
+<ul>
+<li>需要新的分析决策时，可能需要新的数据抽取和更新操作</li>
+<li>丢弃过时的数据</li>
+</ul>
+</li>
+<li>数据仓库的存储管理比DBMS要简单</li>
+</ul>
+<h4>时变</h4>
+<p>数据仓库随时都是一个只读的备份，每隔一段时间完成一次对数据仓库的刷新</p>
+<ul>
+<li>
+数据仓库的数据带有时间属性，以一定时间段（或事件）为单位进行统一更新<br />
+滞后性一定存在
+<ul>
+<li>增加新的数据内容</li>
+<li>删去旧的数据内容</li>
+<li>更新与时间有关的综合数据</li>
+</ul>
+</li>
+</ul>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

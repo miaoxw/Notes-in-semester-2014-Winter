@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>补1：企业、商业模式与产品开发</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #000;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+h6 {
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #000;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>补充知识：企业、商业模式与产品开发</h1>
+<blockquote>
+<h6>例：樱花的商业开发</h6>
+<p>卖花？卖树苗？卖成树？ </p>
+<p>推广？  
+</p>
+<ul>
+<li>在公园等地提供景观树，获取门票分成</li>
+<li>举办樱花节，在会展地提供餐饮、小商品、娱乐等服务</li>
+</ul>
+</blockquote>
+<h2>一、商业模式及相关概念</h2>
+<h3>1.企业与企业的目标</h3>
+<h4>企业</h4>
+<p>从事生产、流通、服务等经济活动，以生产或服务满足社会需要，实行自主经营、独立核算、依法设立的营利性经济组织。</p>
+<ul>
+<li>企业要盈利，不能持久地亏损<br />
+为企业提供利润是员工价值所在</li>
+<li>提供社会所需要的东西<br />
+盈利通过为社会提供产品、服务来转换</li>
+</ul>
+<p><em>企业还会泛指，概念此时接近组织</em><br />
+企业应用、继承、架构、建模</p>
+<ul>
+<li>公司、学校、社会团体、政府机构、军队……</li>
+<li>更多地从规模角度来看</li>
+</ul>
+<p><em>本课程中使用第一种概念</em></p>
+<h4>企业的资源</h4>
+<p>企业一切能够网罗到的发展元素<br />
+分布在企业<strong>内外</strong>的对企业生存与发展构成直接关系的经济元素与非经济元素</p>
+<ul>
+<li>人、财、物、产、供、销</li>
+<li>品牌、商誉、技术、企业文化、企业资产、企业制度</li>
+<li>信息、管理、客户关系</li>
+<li>政府政策、国家法律等（国际、国内）<br />
+两免三减半等税收政策<br />
+<em>软件企业对政府的税收贡献很小</em></li>
+</ul>
+<p>企业要将资源合理有效地组织到位，涉及商业模式  
+</p>
+<h4>企业的目标</h4>
+<ul>
+<li>盈利性的经济组织</li>
+<li>企业通过提供产品或服务换取收入<br />
+<strong>利润</strong>是企业追求的主要目标</li>
+<li>企业的目标是为了保证投资人、客户、员工、社会大众的利益最大化</li>
+</ul>
+<h4>企业的分类</h4>
+<p>（略）</p>
+<h2>二、商业模式促进新技术产业化</h2>
+<h3>1.起源、概念、外延、内涵</h3>
+<ul>
+<li>起源于50年代，但直到90年代才开始被广泛使用与传播</li>
+<li>
+商业模式<br />
+一个完整的产品、服务和信息流体系，包括每一个参与者和其在其中起到的作用，以及每一个参与者的潜在利益和相应的收益来源和方式。  
+
+<ul>
+<li>参与者要获取相应的利益</li>
+<li>参与者要发挥作用</li>
+<li>完整的过程</li>
+</ul>
+</li>
+<li>关注点：企业在市场中与用户、供应商、其它合作的关系，<strong>尤其是彼此间的物流、信息流和资金流</strong></li>
+<li>商业模式是商业策略的一个组成部分</li>
+<li>将商业模式实施到公司的组织结构（机构设置、工作流、人力资源等）及系统（IT架构和生产线等）中去则是<strong>商业运作</strong>（Business Operations）的一部分</li>
+</ul>
+<h3>2.两种不同理解</h3>
+<ol>
+<li>简单地用来指公司如何从事商业的具体方法和途径，<strong>泛指</strong>一个公司从事商业的方式</li>
+<li>强调模型方面的意义，指这种方式的概念化，提出了一些要素以及之间关系构成的参考模型（Reference Model），用以描述公司的商业模式</li>
+</ol>
+<p><em>课程按照第二种理解描述，但社会通常使用第一种理解方式</em></p>
+<h3>3.容易混淆的方面</h3>
+<h4>商业模式与战略的联系与区别</h4>
+<ul>
+<li>战略：使企业适应环境所带来的机遇与挑战，实现长期目标的有意识的计划</li>
+<li>
+战略的类型
+<ul>
+<li>波特一般性战略</li>
+<li>一体化战略</li>
+<li>加强型战略</li>
+<li>多元化战略</li>
+<li>防御型战略</li>
+<li>合并战略</li>
+<li>……</li>
+</ul>
+</li>
+<li>
+区别
+<ol>
+<li>商业模式目标更明确（从创造的价值中获取利益），为战略提供支撑</li>
+<li>商业模式认为资金不成问题，来自自有资金或风投</li>
+<li>商业模式和战略对知识的假定不同，战略可变，商业模式一般不变</li>
+</ol>
+</li>
+</ul>
+<h4>商业模式与业务流程的联系与区别</h4>
+<ul>
+<li>业务建模是在操作层面上的业务流程设计</li>
+<li>商业模式是在公司战略层面上对商业逻辑的定义<br />
+业务与业务流程</li>
+</ul>
+<h4>商业模式与其要素的联系与区别</h4>
+<ul>
+<li>商业模式包含5个方面，9个要素，每个要素仅仅是商业模式的重要组成部分</li>
+<li>通常人们所说的商业模式往往只是部分要素，是对商业模式模型的<strong>不完全</strong>理解或者<strong>误解</strong></li>
+</ul>
+<h4>商业模式的要素</h4>
+<h5>市场（为谁创造价值）</h5>
+<ul>
+<li>消费者目标群体<br />
+即公司瞄准的消费者群体。这些群体具有共性，公司能够针对这些共性创造价值<br />
+定义消费者群体的过程也被称为<strong>市场划分</strong><br />
+<em>电子商务只是手段，获取利润才是目标</em></li>
+</ul>
+<blockquote>
+<h6>例：蔬菜配送的市场定位</h6>
+<p>社区？</p>
+<ul>
+<li>城市（农村自给自足）</li>
+<li>年龄：中青年（老人自己逛菜场）</li>
+<li>收入：中高-&gt;居住的楼盘、职业等因素可用于推断</li>
+<li>时间：紧张</li>
+<li>文化：接受过较好的教育（易于接受新事物）</li>
+</ul>
+</blockquote>
+<pre><code>消费者分布
+区域（本地、地区、全国、国际）
+种类（政府、企业、个体消费者）
+层次（一般大众、多层次、细分市场）
+</code></pre>
+
+<h5>收益方式（价值的实现途径）</h5>
+<ul>
+<li>
+收入模型<br />
+公司通过各种收入流来创造财富的途径
+<ul>
+<li>价格：固定/灵活</li>
+<li>销售量：高/中/低</li>
+<li>
+销售渠道：单一渠道/多渠道/灵活渠道
+<blockquote>
+<h6>例：社区电子商务的<em>可能</em>收入来源（继承自上一个蔬菜配送的例子）</h6>
+<ol>
+<li>广告</li>
+<li>差价</li>
+<li>服务收费</li>
+<li>会员费（？）</li>
+<li>流量分成 </li>
+<li>延伸商品</li>
+<li>数据分析</li>
+<li>……</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h5>产品（价值的载体）</h5>
+<ul>
+<li>
+价值主张<br />
+产品和服务为消费者提供的价值<br />
+价值主张确认了公司对消费者的实用意义
+<ul>
+<li>产品/服务/解决方案</li>
+<li>标准化/个性化的产品</li>
+<li>宽/窄的产品范围</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h6>例：社区电子商务可提供的价值主张</h6>
+<ul>
+<li>商品<br />
+食品、日用消费品</li>
+<li>服务<br />
+充值、送货、维修、家政</li>
+</ul>
+</blockquote>
+<ul>
+<li>
+分销渠道<br />
+公司用来接触消费者的各种途径，阐述公司如何开拓市场<br />
+涉及到公司的市场和分销策略
+<ul>
+<li>直销/中介</li>
+<li>单一渠道/多渠道</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h5>例：还是上面那个</h5>
+<p>直销、代理商（物业、其它公司）</p>
+</blockquote>
+<ul>
+<li>
+客户关系<br />
+公司同客户群体之间所建立的联系<br />
+<em>客户关系管理</em>与此相关
+<ul>
+<li>交易型、关系型</li>
+<li>直接、间接</li>
+</ul>
+</li>
+</ul>
+<h5>内部基础（提供价值的资源和活动安排）</h5>
+<ul>
+<li>
+企业内部价值链<br />
+资源和经营活动的组织与安排
+<ul>
+<li>标准化、柔性化生产系统</li>
+<li>研发系统的强弱</li>
+<li>供应链管理的效率</li>
+</ul>
+</li>
+<li>
+核心能力<br />
+与价值链有关，但它是从价值链中特别提炼出来的<br />
+公司执行商业模式所需的能力和资格
+<ul>
+<li>技术、专利</li>
+<li>品牌、成本、质量优势</li>
+</ul>
+</li>
+<li>
+成本结构<br />
+所使用的工具和方法的货币描述
+<ul>
+<li>固定、变化成本比例</li>
+<li>经营杠杆的高低  
+</li>
+</ul>
+</li>
+</ul>
+<p><em>从成本上来看，全由优秀人才组成的人员结构是不合理的，因为成本太高，尽管这可能构成企业的核心能力，也未必能产生良好的效果</em></p>
+<blockquote>
+<p>对于上例的社区电子商务需要的信息系统，企业有没有<strong>开发能力</strong>？需求分析能力、技术能力、计划安排与控制……<br />
+要将电子商务推广开来，需要<strong>营销</strong>的能力——可行的计划、执行力（最终还是要归结到人上去）</p>
+<p>无论如何，软件开发<strong><em>绝不是</em></strong>最重要的能力，其它方面也不能忽略</p>
+</blockquote>
+<h5>协作网络</h5>
+<p>合作伙伴网络：公司同其它公司之间为有效地提供价值并实现其商业化而形成的合作关系网络</p>
+<ul>
+<li>上下游伙伴</li>
+<li>互补/竞争关系<br />
+互补与竞争可能会相互包含、相互转化<br />
+<em>竞争不等于老死不相往来</em></li>
+<li>联盟、非联盟</li>
+</ul>
+<blockquote>
+<h6>例：社区电子商务的合作伙伴</h6>
+<ul>
+<li>农民</li>
+<li>收购中介<br />
+农民分布广泛，企业直接前去采购不合适<br />
+可能还要分若干层次</li>
+<li>物流<br />
+可以自己来做，也可以雇佣<br />
+<strong>成本</strong>永远是首要考虑方面</li>
+<li>物业</li>
+<li>超市、厂家<br />
+采购酱醋等</li>
+<li>支付通道<br />
+银行……</li>
+<li>……</li>
+</ul>
+</blockquote>
+<h3>商业模式的核心部分</h3>
+<p>由客户价值、企业资源、盈利方式构成的三维立体模式</p>
+<ul>
+<li>客户价值主张</li>
+<li>资源和生产过程</li>
+<li>盈利公式<br />
+包含收入和成本两部分</li>
+</ul>
+<h3>商业模式的成功特征</h3>
+<h4>成功的商业模式要能提供独特价值</h4>
+<p>这里的价值不是为客户提供的价值主张，而是商业模式本身</p>
+<ul>
+<li>新的思想<br />
+思想上的创意，<em>但这并不是必须的</em></li>
+<li>产品和服务独特性的组合<br />
+向客户提供额外价值，或使客户用更低的价格获得同样的利益，或用同样的价格获得更多的利益</li>
+</ul>
+<h4>成功的商业模式难以模仿</h4>
+<p>通过确立自己的与众不同，提高行业准入门槛，保证利润来源不受侵犯  
+</p>
+<blockquote>
+<h6>例：Dell的直销模式</h6>
+<p>直销本身的模式很容易模仿<br />
+直销背后是一套完整的、极难复制的资源和生产流程</p>
+</blockquote>
+<h4>成功的商业模式脚踏实地、量入为出、收支平衡</h4>
+<ul>
+<li>钱怎么赚</li>
+<li>为什么客户看重企业的产品和服务</li>
+</ul>
+<h3>常见的商业模式</h3>
+<h4>店铺模式</h4>
+<ul>
+<li>最为古老</li>
+<li>具有潜在消费者群的地方开设店铺，展示产品或服务</li>
+</ul>
+<h4>饵与钩模式</h4>
+<ul>
+<li>以极低的价格出售基本商品，以高价出售耗材或服务</li>
+</ul>
+<p><em>还有其它模式</em></p>
+<h2>二、商业模式促进新技术产业化</h2>
+<ul>
+<li>技术创新产业化需要商业模式支持<br />
+新技术推向市场需要由商业模式实现</li>
+<li>技术进步可以催生新的商业模式<br />
+<em>如亚马逊、阿里巴巴</em></li>
+<li><strong><em>商业模式是技术和其经济价值的桥梁</em></strong></li>
+</ul>
+<blockquote>
+<h6>案例1：施乐复印机</h6>
+<ul>
+<li>
+上世纪50年代
+<ul>
+<li>商业模式：饵与钩模式，耗材高利润</li>
+<li>技术：干热复印技术，复印质量差</li>
+<li>质量差导致复印量很少</li>
+</ul>
+</li>
+<li>市场潜在需求巨大</li>
+<li>
+发明电子影印技术的914复印机
+<ul>
+<li>技术领先，复印质量好</li>
+<li>成本高达2000美元</li>
+<li>施乐前身哈罗德是小公司</li>
+<li>IBM、柯达、GE拒绝合作推广<br />
+ 认为用户难以接受</li>
+</ul>
+</li>
+<li>
+商业模式：不卖只租，承担全部风险
+<ul>
+<li>结果每天复印量就超过2000张</li>
+<li>
+此商业模式获得巨大成功
+<ul>
+<li>12年内获得平均41%的年增长率，形成垄断</li>
+<li>1972年成为全球性企业，年收入25亿美元</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h6>案例2：Adobe</h6>
+<ul>
+<li>
+施乐成立PARC
+<ul>
+<li>巨大成功</li>
+</ul>
+</li>
+<li>相同商业模式的激光打印机也获得巨大成功</li>
+<li>
+之后商业模式没有任何变化
+<ul>
+<li>商业模式、客户、产品、合作、新技术不能商业化</li>
+<li>很多技术发明者、管理者离开施乐，分离出30多家公司，包括<strong>3COM</strong>、<strong>Adobe</strong></li>
+</ul>
+</li>
+<li>Adobe成立于1983年，核心技术为页面语言技术</li>
+<li>
+设想的商业模式：集成出版系统
+<ul>
+<li>与施乐相似</li>
+<li>问题：时间长，核心技术在整个系统中价值不突出</li>
+</ul>
+</li>
+<li>
+Jobs建议的商业模式
+<ul>
+<li>专注于字体和图形库</li>
+<li>出售授权</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p><strong><em>只有技术和商业模式良好的结合，才能获得优厚的经济产出</em></strong></p>
+<h2>三、商业模式创新与互联网时代商业模式</h2>
+<h3>1.商业模式创新方法</h3>
+<ul>
+<li>寻找假设与前提</li>
+<li>探讨假设与前提是否绝对正确，有无可能推翻</li>
+<li>更改、推翻、颠覆已有的行业认识与假设</li>
+<li>持之以恒</li>
+</ul>
+<h3>2.突破、推翻假设与前提</h3>
+<h4>成功可能带来失败</h4>
+<p>成功使企业认为“假设与前提”依然有效，而忽视商业模式创新<br />
+企业的误判可能令企业付出巨大代价</p>
+<blockquote>
+<h6>例：柯达彩色胶卷</h6>
+<p>错误地估计了胶片向数码相机转变的速度</p>
+</blockquote>
+<ul>
+<li>正确识别外部环境的变化，特别是潜在的变化</li>
+<li>常识可能导致误判假设与前提依然正确</li>
+<li>企业商业模式创新源自个人、团队创新，个人、团队的成见、理性、惯性成为企业创新的障碍</li>
+</ul>
+<blockquote>
+<h6>案例</h6>
+<ul>
+<li>假设“任何媒体都要有一定内容”<br />
+电视台需要提供内容，而内容的制作需要成本<br />
+<em>分众媒体没有内容，只有广告</em><br />
+时间碎片化<br />
+这些碎片时间对大多数人来说都是垃圾时间</li>
+<li>假设“咖啡厅是让人休闲的”<br />
+<em>85度C</em></li>
+</ul>
+</blockquote>
+<h3>3.商业模式创新的路径</h3>
+<h4>复制</h4>
+<p>最容易被见到</p>
+<h5>跨国界复制</h5>
+<ul>
+<li>商业模式成功的特征之一是难以模仿<br />
+但一些理念还是可以被移植的<br />
+<em>山寨、跟随</em><br />
+积累到一定程度，才能获得创新需要的基础</li>
+<li>商业模式是一个庞大、复杂的系统，复制困难</li>
+<li>复制国外的<strong>先进概念、理念、方法</strong></li>
+</ul>
+<h5>跨行业复制</h5>
+<ul>
+<li>同行业复制不是创新，也不可能取得巨大成功</li>
+<li>复制其他行业就是借鉴其他行业的商业模式，将其应用到本行业，这是一种创新</li>
+<li>跨行业复制，便于跨行业联盟</li>
+</ul>
+<h4>与客户、合作伙伴协作</h4>
+<ul>
+<li>全球80%的创新来自与合作伙伴的合作</li>
+<li>从与客户的交流中发现价值</li>
+</ul>
+<h4>关注产业经济、政府政策、支持重点</h4>
+<p>这种方式带有导向性，能够提供帮助，<strong>但也可能产生误导</strong><br />
+<em>写个东西到政府捞钱（？）</em></p>
+<h3>4.商业模式创新重点</h3>
+<ul>
+<li>客户的价值和需求</li>
+<li>收入模式</li>
+<li>成本</li>
+<li>可复制性和可扩张性</li>
+</ul>
+<p>以上几条对应于商业模式的内部基础</p>
+<ul>
+<li>控制力和定价权</li>
+<li>产业布局能力</li>
+<li>……</li>
+</ul>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

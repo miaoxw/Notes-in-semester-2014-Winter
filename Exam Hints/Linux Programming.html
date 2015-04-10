@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Linux Programming</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #000;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+h6 {
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #000;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>Revision</h1>
+<p><em>注：考试内容与复习内容并不一一对应</em></p>
+<ul>
+<li>课程介绍直接跳过</li>
+<li>
+Ch1不作为重点，不占很多分值，可能会涉及一点内容
+<ul>
+<li>分区结构不考<br />
+此部分内容经常更改，因此考察没有必要</li>
+<li>Linux概念要有个印象</li>
+<li>历史不考</li>
+<li>分为内核和外围库是常识性内容</li>
+<li>主流的发布版本需要知道一些</li>
+<li>应用程序不考</li>
+<li>系统安装需要知道基本流程</li>
+<li>文件系统需要知道一些主流的名字</li>
+<li>如何分区不考</li>
+<li>MBR到GPT和GPT的功能不考</li>
+<li>Boot loader不考<br />
+脚本的写法不考</li>
+<li>应用程序如何安装<em>大部分情况</em>下不考</li>
+<li>环境变量的配置不考</li>
+<li>基本命令需要过一遍<br />
+考试时难免会用到某个不常用命令</li>
+<li>文件分哪些类型需要知道</li>
+<li>目录结构<em>一般</em>不考</li>
+<li>文件权限要好好看</li>
+<li>编辑器有哪些不考</li>
+<li>进程、线程的概念要知道</li>
+<li>系统都由内核和核外程序组成，其分工要了解</li>
+</ul>
+</li>
+<li>
+Ch1(2)
+<ul>
+<li>重定向要掌握</li>
+<li>管道要看</li>
+<li>了解主要的环境变量</li>
+</ul>
+</li>
+<li>
+Ch2 Shell programming<br />
+容易出大题
+<ul>
+<li>Shell作为核外程序存在</li>
+<li>shell的种类要知道，最起码要了解bash</li>
+<li>shell的双重角色不考</li>
+<li>linux的哲学方式不考</li>
+<li>脚本的基本概念不考</li>
+<li>如何写脚本<br />
+起码要读懂，写脚本要能表达大体意思<br />
+用变量最起码要加$，不要用其它高级语言冒充</li>
+<li>脚本的执行方式要知道</li>
+<li>用户环境不考</li>
+<li>脚本的语法需要看一看</li>
+<li>变量会考，但$@之类偏门变量一般不会考</li>
+<li>参数扩展要看一眼<br />
+写脚本时很实用</li>
+<li>即时文档不考</li>
+</ul>
+</li>
+<li>
+Ch3-1
+<ul>
+<li>怎样选库的概念要了解，但考试时不用自己来选</li>
+<li>编译的常用命令要知道<br />
+具体的详细参数不用太详细了解</li>
+<li>语言类型不考</li>
+<li>主要命令的用途要知道</li>
+<li>编译、链接的过程需要看一遍<br />
+可能会带到，但占的分值不高</li>
+<li>编译器的具体流程不考</li>
+<li>除了-E、-Wall都要知道，下一页的也都要知道</li>
+<li>扩展名看一眼</li>
+<li>调试部分不考</li>
+<li>make看一眼，IDE都不考</li>
+<li>makefile只需要能读懂，不用自己写<br />
+不会是大项目的复杂makefile</li>
+<li>make的具体参数在干什么要知道</li>
+</ul>
+</li>
+<li>
+Ch3-2
+<ul>
+<li>文件和文件系统是什么要知道</li>
+<li>linux下的文件类型要知道</li>
+<li>VFS的概念要知道</li>
+<li>VFS中四类文件对象非常重要<br />
+分别表示的内容也要知道</li>
+<li>硬链接和软连接区别要知道</li>
+<li>权限要清楚</li>
+<li>I/O的缓存类型要清楚</li>
+<li>各个系统调用要掌握<br />
+除了fcntl可以水一点点，ioctl不要求</li>
+<li>文件描述符的概念要清楚</li>
+<li>系统调用的代码要会写</li>
+<li>权限的宏记不住没关系，但要有点概念，可以写数字</li>
+<li>fcntl中的命令要掌握常用的<br />
+重点掌握文件锁的部分，置标志的部分就算了</li>
+<li>C库部分函数要尽可能地多掌握一点<br />
+平台无关，且很稳定，所以要求比系统调用更高</li>
+<li>设置缓存的方式要知道  
+</li>
+<li>文件的打开关闭读写定位刷新都要掌握</li>
+<li>读写时缓存的不同效果要知道<br />
+不需要写出代码，但要知道概念，对实验结果有印象</li>
+<li>查文件信息的函数要知道</li>
+<li>该权限、设链接、获得绝对路径要知道</li>
+<li>文件锁的特殊类型没有要求</li>
+</ul>
+</li>
+<li>
+Ch3-3 Kernel
+<ul>
+<li>要知道分出内核来的原因</li>
+<li>linux内核的基本特征要清楚</li>
+<li>内核的编译问题简单浏览即可  驱动的基本只是
+可能会问一下make menuconfig是用来干嘛的</li>
+<li>mk-kpkg可以不看</li>
+<li>如何建立第一个用户态应用程序不用看</li>
+<li>内核配置到boot loader中不考</li>
+<li>驱动的基本知识要看一下</li>
+<li>加载模块的命令要知道</li>
+<li>模块的相关shell命令要清楚</li>
+<li>内核编程与普通应用程序编程的不同要知道</li>
+<li>内核编程的注意点要知道</li>
+<li>驱动模块的具体代码要读得懂，不需要写</li>
+<li>内核的makefile并不要求</li>
+<li>模块参数的传递方式要知道</li>
+<li>/proc与/dev下的文件的特殊性要知道</li>
+<li>驱动的三种类型要知道</li>
+<li>写字符驱动要完成的步骤，步骤的内容，对应的数据结构中的内容要清楚<br />
+至于具体的调用，要知道其名字</li>
+</ul>
+</li>
+</ul>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

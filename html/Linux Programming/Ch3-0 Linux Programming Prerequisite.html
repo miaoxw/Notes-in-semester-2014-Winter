@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ch3-0 Linux Programming Prerequisite</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #000;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+h6 {
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #000;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>Ch3-0 Linux Programming Prerequisite</h1>
+<h2>一、Programming Principle</h2>
+<h3>1.Abstract VS Concrete</h3>
+<p>从大规模软件质量保障的层面上来讲，代码正越来越抽象</p>
+<ul>
+<li>将本质（算法等）抽象出来，将具体问题封装</li>
+<li><em>Meta Programming</em><br />
+写产生代码的代码</li>
+<li>Linux下很多命令的处理方式也很抽象</li>
+<li>抽象使得代码的正确性提高<br />
+具体环境中的问题在抽象环境中更容易表现出来</li>
+<li>抽象使项目的整体开销降低<br />
+因为问题更容易表现，测试成本得到降低</li>
+</ul>
+<h3>2.API的调用与选择</h3>
+<ul>
+<li>库与库之间的功能往往很类似<br />
+如果只调用WIN32 API，理论上讲是可以实现所有功能的，<em>只是写得复杂一点</em><br />
+使用更高层的库，功能可能减少，但调用更方便</li>
+<li>库的层次越高，调用的接口越令人舒适<br />
+开发周期更短，但效率更低</li>
+<li>只要运行效率能够忍受，通常都会使用高层库</li>
+<li>软件公司通常推自己的私有库</li>
+<li>选库时，能调通用库的尽量用通用库</li>
+<li>即使是写底层程序，仍然是在做调用（硬件接口）</li>
+</ul>
+<blockquote>
+<h6>接口的层次</h6>
+<pre><code>硬件——驱动——内核——Windows API/Linux系统调用——C Library/STL/...——Java/.Net
+</code></pre>
+
+<ul>
+<li>API/系统调用是用户态程序能够调用到的最底层</li>
+<li>如果全部调用标准库，那么代码就是跨平台的<br />
+而且效率也没差多少</li>
+<li>Java和.Net因为增加了一层虚拟机，所以效率差别达到数量级水平</li>
+<li>MFC的层次比API要高，但它由API直接产生</li>
+</ul>
+</blockquote>
+<h2>二、编程工具</h2>
+<h3>1.编辑工具</h3>
+<p>vim、emacs</p>
+<h4>习惯</h4>
+<ul>
+<li>代码缩进<br />
+tab用空格代替（？）<br />
+避免不同编辑器造成的不同显示效果</li>
+<li>{}的位置（？）<br />
+令代码紧凑，同屏内容显示的越多，理解就越快</li>
+<li>中文<br />
+要想通用，编码格式改成UTF-8</li>
+</ul>
+<h3>2.编译、链接</h3>
+<ul>
+<li>gcc/g++  </li>
+<li>新兴的<em>clang</em></li>
+</ul>
+<h3>3.调试</h3>
+<p>gdb<br />
+gdb存在大量的前端</p>
+<h3>4.make命令</h3>
+<p>用于自动编译链接的脚本</p>
+<h3>5.版本控制工具</h3>
+<ul>
+<li>CVS（好老）</li>
+<li>SVN</li>
+<li>Git</li>
+<li>hg（？）</li>
+</ul>
+<h2>三、编程语言</h2>
+<h3>1.高级语言</h3>
+<ul>
+<li>C/C++、Java、Fortran</li>
+<li>ELF二进制格式<br />
+Executable and Linkable Format  </li>
+</ul>
+<h3>2.脚本</h3>
+<ul>
+<li>shell脚本</li>
+<li>Perl, Ruby, Python, tck/tk, sed, awk<br />
+使用此类脚本可以跨平台使用<br />
+脚本通常解释执行</li>
+</ul>
+<h3>3.开发工具</h3>
+<ul>
+<li>gcc</li>
+<li>gdb</li>
+<li>二进制工具<br />
+as, ld, ar, ldd<br />
+一般不直接调用，而由gcc作为前端选择调用<br />
+ldd用于查询库的依赖</li>
+<li>make</li>
+</ul>
+<h3>4.编译、链接的过程</h3>
+<h4>最简单的编译链接过程</h4>
+<pre><code>编译——链接——执行
+</code></pre>
+
+<ul>
+<li>逐个文件分别编译<br />
+单文件——单文件<br />
+还可细分</li>
+<li>所有目标文件一起链接<br />
+多文件——单文件</li>
+</ul>
+<h4>展开的过程</h4>
+<ul>
+<li>
+编译细分为预处理、编译到asm和编译到目标文件
+<ul>
+<li>带#的“代码”统统都是预处理</li>
+</ul>
+</li>
+<li>多输入、单输出的过程只发生在链接阶段</li>
+<li>编译时操作与运行时操作</li>
+<li>静态链接与动态链接<br />
+-lm参数含义：在系统中寻找libm系列的库文件，似乎优先载入动态库</li>
+</ul>
+<h3>5.库与头文件</h3>
+<ul>
+<li>静态库</li>
+<li>动态库/共享对象(so)</li>
+</ul>
+<h3>6.其它语言</h3>
+<ul>
+<li>Java<br />
+编译到字节码，仅此而已<br />
+Java没有链接的问题，因为它<strong>不需要</strong><br />
+<em>可以理解为所有.class文件都是动态链接库</em></li>
+<li>.Net平台<br />
+编译到CLR</li>
+<li>VC++及Delphi  </li>
+</ul>
+<h3>7.编译的具体过程</h3>
+<p>（略）</p>
+<h3>8.常用命令</h3>
+<ul>
+<li>gcc -c<br />
+编译</li>
+<li>gcc<br />
+链接或编译+链接</li>
+<li>g++<br />
+简单地更换前端</li>
+</ul>
+<h3>9.gcc的选项</h3>
+<pre><code>gcc [options] [filename]
+</code></pre>
+
+<ul>
+<li>-E<br />
+仅预处理</li>
+<li>-S<br />
+只预处理、编译</li>
+<li>-c<br />
+只预处理、编译、汇编</li>
+<li>-o<br />
+制定输出文件名</li>
+<li>-g<br />
+产生调试工具必需的符号信息</li>
+<li>-O/On<br />
+优化程度控制</li>
+<li>-Wall<br />
+显示所有警告信息</li>
+<li>-Idir<br />
+指定额外的头文件搜索路径<br />
+没有空格<br />
+<em>需要指定多个路径时使用多个-I选项</em></li>
+<li>-Ldir<br />
+指定额外的库文件搜索路径</li>
+<li>-lname<br />
+链接时搜索指定的库文件</li>
+<li>-DMACRO[=DEFN]<br />
+定义<code>MACRO</code>宏的值为DEFN<br />
+对应有-UMACRO的选项用于解除定义<br />
+<em>但是选项中宏的定义/解除定义发生在代码预处理之前，解除定义往往起不到效果</em></li>
+</ul>
+<h3>10.文件扩展名</h3>
+<ul>
+<li>.c</li>
+<li>.i</li>
+<li>.cc, .cp, .cpp, .c++, .C, .cxx</li>
+<li>.ii</li>
+<li>.h</li>
+<li>.H, .hh</li>
+<li>……</li>
+</ul>
+<h3>11.gdb</h3>
+<p><em>不想用就算了</em></p>
+<p>GNU DeBug</p>
+<ul>
+<li>调试时-g是必备选项</li>
+<li>建议关闭优化选项<br />
+可能导致指令与代码无法对应，从而无法正确定位错误位置</li>
+</ul>
+<h4>gdb的功能</h4>
+<ul>
+<li>设置断点</li>
+<li>监视变量值</li>
+<li>单步执行</li>
+<li>修改变量值</li>
+</ul>
+<h4>gdb命令</h4>
+<ul>
+<li>file<br />
+打开要调试的文件</li>
+<li>break/tbreak<br />
+设置断点<br />
+行号、函数名、地址<br />
+tbreak设置临时断点</li>
+<li>run</li>
+<li>list</li>
+<li>next<br />
+执行一条语句，不进入函数内部</li>
+<li>step<br />
+执行一条语句，进入函数内部</li>
+<li>display</li>
+<li>print<br />
+临时显示表达式的值</li>
+<li>kill</li>
+<li>quit</li>
+<li>shell</li>
+<li>make</li>
+</ul>
+<h3>12.make&amp;makefile</h3>
+<p>多文件项目可使用IDE，也可以手动使用make</p>
+<h4>make&amp;makefile</h4>
+<ul>
+<li>makefile描述模块间的依赖关系</li>
+<li>make命令根据makefile对程序进行管理和维护</li>
+<li>make判断被维护文件的时序关系<br />
+实际项目非常大，编译需要的时间很长；修改部分代码后，并不需要对全局所有代码都再编译一遍<br />
+普通的shell脚本无法满足增量编译的需求</li>
+<li>定义整个工程的编译规则</li>
+<li>自动化编译</li>
+</ul>
+<h4>增量编译</h4>
+<p>执行makefile时，判断当前已有的可执行文件与目标代码是否比源代码时间晚，如果符合这一条件，就认为代码没有修改过；否则就需要重新编译一次<br />
+<em>因此需要注意系统时间</em></p>
+<h4>make命令</h4>
+<pre><code>make [-f Makefile] [option] [target]
+</code></pre>
+
+<p>make查找的脚本名默认为Makefile，如果非此名称，就需要以-f选项手动指定  </p>
+<ul>
+<li><code>#make target</code></li>
+<li><code>#make</code></li>
+<li><code>#make clean</code></li>
+</ul>
+<h5>安装软件时的各项操作</h5>
+<ul>
+<li><code>./ configure</code>与<code>make distclean</code>互为逆操作</li>
+<li><code>make [all]</code>与<code>make clean</code>互为逆操作</li>
+<li><code>make install</code>与<code>make uninstall</code>互为逆操作</li>
+</ul>
+<h4>makefile的规则结构</h4>
+<pre><code>target ...: prerequisties ...
+    command
+    ...
+</code></pre>
+
+<ul>
+<li>prerequisties之后必须换行</li>
+<li>命令前必须以Tab缩进</li>
+<li>target是一个目标文件，可以是目标代码，也可以是可执行文件</li>
+<li>prerequisties是要生成target所需要的文件或目标</li>
+<li>command是make需要执行的命令<br />
+可以是任意的shell命令</li>
+<li>默认隐含了目标all，依赖于第一个目标</li>
+</ul>
+<h4>伪目标</h4>
+<ul>
+<li>伪目标只是一个标签，显式地指明这个“目标”才能让它生效</li>
+<li>
+<p>伪目标不能与文件名重名，但可以使用标记<code>.PHONY</code>显式指明一个目标是伪目标  
+</p>
+<pre><code>.PHONY.clean
+clean:
+    ...
+</code></pre>
+
+</li>
+<li>伪目标一般没有依赖文件<br />
+<em>但也可以指定</em></li>
+<li>伪目标同样可以作为默认目标，只要放在第一个</li>
+</ul>
+<h4>多目标</h4>
+<p>当多个目标依赖于同一个文件，并且生成命令大体类似，就可以使用自动化变量<code>$@</code>表示目前规则中所有目标的集合</p>
+<pre><code>bigoutput littleooutput:text.g
+    generate text.g -$(subset output,,$@)&gt;$@
+</code></pre>
+
+<p>等价于：</p>
+<pre><code>bigoutput:text.g
+    generate text.g -big&gt;bigoutput
+
+littleoutput:text.g
+    generate text.g -little&gt;littleoutput
+</code></pre>
+
+<h4>预定义变量</h4>
+<ul>
+<li>$&lt;<br />
+第一个依赖文件</li>
+<li>$?<br />
+比目标新的依赖文件</li>
+<li>$+<br />
+所有的依赖文件，包含重复值</li>
+<li>$^<br />
+所有的依赖文件，去除了重复</li>
+<li>$*<br />
+不包含扩展名的目标文件名称</li>
+<li>$@<br />
+目标的完整名称</li>
+<li>$%<br />
+目标为归档文件成员时为档案名</li>
+</ul>
+<blockquote>
+<p>更多变量参见<em><a href="http://blog.chinaunix.net/uid-25100840-id-1751135.html" title="make的自动变量和预定义变量">http://blog.chinaunix.net/uid-25100840-id-1751135.html</a></em></p>
+</blockquote>
+<h4>多目标扩展</h4>
+<pre><code>&lt;targets...&gt;:&lt;target-pattern&gt;:&lt;prereq-patterns&gt;
+    &lt;commands&gt;
+    ...
+</code></pre>
+
+<blockquote>
+<h6>例子</h6>
+<p>见ppt</p>
+<ul>
+<li>目标从<code>$object</code>中提取</li>
+<li>%.o表明要所有以.o结尾的目标，即<code>$object</code>集合的模式</li>
+<li>依赖模式%.c取模式%.o中的o，并为其加上.c的后缀，依赖目标因此成为foo.c bar.c</li>
+</ul>
+</blockquote>
+<h4>使用函数</h4>
+<p>语法：</p>
+<pre><code>$(function arguments)
+${function arguments}
+</code></pre>
+
+<ul>
+<li>字符串处理<br />
+字符串替换：<code>$(subset from,to,text)</code><br />
+去除前后空格：<code>$(strip string)</code></li>
+<li>文件名操作函数<br />
+取目录名：<code>$(dir names)</code><br />
+去除扩展名：<code>$(basename names)</code>  </li>
+<li>foreach
+<code>$(foreach var,list,text)</code><br />
+将list中的每一个参数进行处理后放入var</li>
+<li>if<br />
+<code>$(if condition,then-part)</code><br />
+<code>$(if condition,then-part,else-part)</code></li>
+<li>call函数<br />
+<code>$(call expression,param1,param2,...)</code><br />
+将表达式中的$(1)等变量做替换</li>
+</ul>
+<h3>12.软件设计原则</h3>
+<h4>清晰原则</h4>
+<ul>
+<li>尽量少用花哨的编程技巧</li>
+<li>问题并不复杂时，尽量不要用这些技巧，以后会造成软件维护困难</li>
+</ul>
+<h4>吝啬原则</h4>
+<ul>
+<li>能把软件写小就不要写大</li>
+<li>功能上，可以分在不同软件中的功能不要集成在一起</li>
+<li>稳定性、清晰性、性能指标等的要求</li>
+</ul>
+<h4>扩展原则</h4>
+<ul>
+<li>能给用户定制的参数尽量给用户定制</li>
+<li>有助于延长软件的生命周期</li>
+</ul>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

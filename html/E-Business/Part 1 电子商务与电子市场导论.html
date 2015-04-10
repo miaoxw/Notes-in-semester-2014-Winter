@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Part 1 电子商务与电子市场导论</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #000;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+h6 {
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #000;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>Part 1 电子商务与电子市场导论</h1>
+<p>电子商务的最大目标：经济——即盈利</p>
+<h2>一、电子商务导论</h2>
+<h3>1.产品如何从原材料到达最终客户？</h3>
+<pre><code>消费者——零售商—（据推测）—批发商——……——生产商——供应商（很多个）——……——（原材料）
+</code></pre>
+
+<p>批发商与零售商本身不生产，只是中介<br />
+商品的生产商上游还有原材料的供应商，供应商可能直接生产，也可能销售生产资料，并且可以进一步追溯供应商的上游<br />
+零售商到消费者之间是企业对消费者的（B2C），而之前的部分，全部都是企业对企业的（B2B）<br />
+若生产商直接绕过批发商和零售商，这样的销售过程称为直销<br />
+采购、销售与生产<br />
+B2C只占到电子商务的很小一部分（25%），更大部分发生在企业之间<br />
+电子商务不仅包含零售的过程，也包含零售商、批发商、生产商内部商务过程的电子化  
+</p>
+<p>*<strong>生产商内部的过程更为复杂，对于批发商、生产商之类，无非就是简单的进销存</strong></p>
+<hr />
+<p>每件商品由不同部分组成，不同部分又可进一步细分，这样就构成了一个树状的物料表（BOM）</p>
+<blockquote>
+<p>以杯子为例：</p>
+<ul>
+<li>
+杯子
+<ul>
+<li>
+杯盖
+<ul>
+<li>盖（注塑成型，此为加工工艺）需要注塑机、模具等工具，以塑料颗粒为原材料，采购而来</li>
+<li>密封圈（采购标准件）</li>
+</ul>
+</li>
+<li>
+杯体
+<ul>
+<li>
+杯体
+<ul>
+<li>内壳（下料、卷压成型）——两部分通过焊接组合（需要焊机），最后打磨</li>
+<li>外壳（同上）</li>
+</ul>
+</li>
+<li>喷漆（购买）</li>
+<li>标签（定制，也即直接买入，但这里的买入与标准件不同，只能适应买方要求）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>括号内内容属于生产的过程，决定产品是如何被生产出来的</strong></p>
+</blockquote>
+<p>物料表加上生产过程就成为生产的BOM<br />
+对生产企业而言，此过程主要在ERP系统中完成，需要控制所有与生产相关的过程（材料、人员、设备……）</p>
+<p>*<strong>但是ERP不处理设计过程</strong></p>
+<hr />
+<blockquote>
+<h6>销售环节</h6>
+<ul>
+<li>杯子的生产不是为了自己使用，而是销售出去之后，创造效益，产生利润</li>
+</ul>
+<h6>采购</h6>
+<h6>制造</h6>
+<ul>
+<li>与产品有关，也由工艺与流程有关</li>
+<li>有工艺的流程</li>
+</ul>
+<h6>仓库</h6>
+<ul>
+<li>储存成品、外购品、半成品</li>
+<li>仓库是一个逻辑概念，但是一定会有物理的储存位置（即使是临时堆放）</li>
+</ul>
+<h6>财务</h6>
+<ul>
+<li>以上四部分及它们之间的联系都需要进行核算，财务部门与这些部门都有关系</li>
+<li>核算成本</li>
+</ul>
+<p><em>（还会有人力资源等其它部门）</em></p>
+</blockquote>
+<p><strong>面向订单的生产</strong>
+物料成本和时间成本根据BOM表和生产数量进行计划展开</p>
+<p><strong>（面向库存的生产）</strong>
+这样的传统模式下，成品在仓库的驻留时间最短，需要的流动资金最少，但需要准确的订单，而且还大部分情况下做不到</p>
+<p>计划展开时需要一定的数量作为基础，此时的数量来自于生产的计划安排<em>（售出10000个与生产10000个的区别）</em><br />
+生产完成后，成品放置在仓库中，占用了流动资金<br />
+这是由销售的不确定性和/或积极性决定的<br />
+销售采购财务制造仓库等环节纯粹是企业内部事务，但<strong>销售和采购<strong>还会与外部发生关系，成为内外交流的</strong>界面</strong><br />
+这样的交互是必定会产生的</p>
+<pre><code>ERP的发展历程：
+MRP（物料资源计划）-&gt;MRPⅡ（生产资源计划）-&gt;ERP
+</code></pre>
+
+<p>由于外部是企业不可控制的，与企业相对独立，因此<strong>外部的自治性</strong>要成为最大的考量（大部分情况下无法强迫外界接受某个标准）</p>
+<hr />
+<h3>2.电子商务的概念</h3>
+<h4>狭义概念（E-Commerce）</h4>
+<p>通过包括互联网在内的计算机网络来实现商品、服务和/或信息的购买、销售、与交换的过程</p>
+<ul>
+<li>包括商品、交易、环境、过程四个方面</li>
+<li>还可以从其它多个角度以不用观点看待</li>
+</ul>
+<h4>广义概念（E-Business）</h4>
+<p>除了买卖商品和服务外，也包括客户服务、商业伙伴之间的协作，机构内部的电子交易</p>
+<ul>
+<li>如与密封圈制造商之间的协作</li>
+<li>软件开发也是生产的过程，时常会用到第三方的支持（DB、中间件等等），此时就需要了解它们提供的某些特性</li>
+<li>尽管可以认为是一个黑盒子，但它所提供的服务需要被清晰地了解，包含接口及其禁忌（看说明、演示代码等等）</li>
+<li>再比如需要工程师的技术支持</li>
+</ul>
+<h4>完全与不完全的电子商务</h4>
+<h5>电子商务设计三个方面</h5>
+<ul>
+<li>商品（产品、服务、信息）</li>
+<li>参与者（代理人）</li>
+<li>交易过程</li>
+</ul>
+<p>有一个维度是数字化的，就可以认为是电子商务。</p>
+<blockquote>
+<h6>例：</h6>
+<p>自动售货机也是电子商务，因为交易过程是数字化的。</p>
+</blockquote>
+<h4>因特网与非因特网电子商务</h4>
+<ul>
+<li>
+<p>因特网电子商务<br />
+通过因特网完成的，可能包含非因特网电子商务<br />
+<em>包含非因特网的情形：企业的一部分通过因特网与对外交流</em></p>
+</li>
+<li>
+<p>非因特网电子商务<br />
+内部专用网完成</p>
+</li>
+</ul>
+<h4>跨组织信息系统与电子市场的区别</h4>
+<ul>
+<li>
+跨组织信息系统：基本固定，静态
+<ul>
+<li>客户与供应商的关系预先确定，并适用于今后一段时间</li>
+<li>基于封闭式或开放式网络，为网络预先建立</li>
+<li>前期协议主要确定将要交换的商务文档内容、格式及付款方式</li>
+<li>预先达成协议确定网络和应用系统</li>
+<li>存在统一的交易准则规范各方的行为，参与方确知系统使用方法、交易提交时间以及对方收到的时间</li>
+</ul>
+</li>
+<li>
+电子市场：动态
+<ul>
+<li>客户与供应商的关系在交易时建立，并仅适用本次交易<br />
+客户与供应商之间达成协议，供应商同意在一段时间内向客户提供产品或服务</li>
+<li>开放式网络，涉及在线服务提供商</li>
+<li>销售商和在线服务提供商共同决定交易的方式</li>
+<li>电子市场预先构建，客户和销售商各自决定使用何种网络连接电子市场，每次参与交易的网络可能不同</li>
+<li>没有预先制定的统一准则</li>
+</ul>
+</li>
+</ul>
+<h2>二、电子商务框架、内容和分类</h2>
+<h3>1.电子商务框架与内容</h3>
+<blockquote>
+<h4>电子商务框架</h4>
+<ul>
+<li>电子商务应用<br />
+直销、求职等</li>
+<li>
+政策支持领域
+<ul>
+<li>人、买方、卖方、中间担保认证</li>
+<li>公共政策<br />
+声明、交易准则等直接相关的政策，国家层面的税收、法律政策、隐私保护，技术标准</li>
+<li>市场营销与广告：基于媒介对消费者的巨大影响力<br />
+例子数不胜数</li>
+<li>支持服务：物流、支付、内容提供、安全……<br />
+往往需要在政策导引下与人合作实现</li>
+<li>业务伙伴</li>
+</ul>
+</li>
+<li>
+基础设施（软件、硬件、网络）<br />
+<em>我们往往集中在某一个方面上的某一小点进行工作</em> 
+<ul>
+<li>普通商务服务/基础设施</li>
+<li>信息发布基础设施</li>
+<li>多媒体和网络出版基础设施</li>
+<li>网络基础设施</li>
+<li>接口基础设施  
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3>2.电子商务分类</h3>
+<h4>按交易性质或交易参与者之间的关系分类：</h4>
+<ul>
+<li>B2B<br />
+参与者都是企业或组织（产品不用于直接消费），一般用于再生产</li>
+<li>B2C<br />
+企业面向个体消费者提供产品、服务的零售商业模式（消费者也可能是组织体，但用于直接消费）</li>
+<li>B2B2C<br />
+可以理解为B2B+B2C两部分的连接，但由中间商与消费者进行交易，上游供应商直接为消费者提供产品与服务，用于扩大受众面</li>
+<li>C2B<br />
+App store销售形式</li>
+<li>C2C<br />
+早期形式</li>
+</ul>
+<h4>按技术分类：</h4>
+<ul>
+<li>P2P<br />
+端到端技术</li>
+<li>mobile commerce<br />
+移动商务，无线环境下完成<br />
+如果交易针对特定时间、区域的人，就被称为<strong>区位商务</strong>（location-based commerce，大众点评？）</li>
+<li>intrabusiness commerce<br />
+企业内部的电子商务，如教育培训</li>
+<li>B2E<br />
+企业对员工的电子商务</li>
+<li>collaborative commerce</li>
+</ul>
+<h3>3.电子商务的学科交叉性</h3>
+<ul>
+<li>多学科交叉的特征</li>
+</ul>
+<h3>4.数字化革命推动电子商务</h3>
+<p>起源包含了技术可能性和必要性</p>
+<ul>
+<li>数字经济<br />
+通信网络的发达、应用多样化、设备的普及<br />
+也被称为网络经济、新经济</li>
+<li>数字网络和基础通信</li>
+</ul>
+<h3>5.商业环境推动电子商务发展</h3>
+<h4>现状</h4>
+<ul>
+<li>数字革命为电子商务发展提供了必须的技术</li>
+<li>组织应用电子商务的主要推动力来自商业环境</li>
+<li>当前商业环境是高度竞争、以客户为中心<br />
+主要影响因素有市场、经济、法律、社会和技术因素</li>
+</ul>
+<h5>当前商业环境的特征</h5>
+<ul>
+<li>环境更复杂，机遇更多，挑战更多</li>
+<li>竞争更激烈</li>
+<li>决策过程需要加速或者更频繁</li>
+<li>制定决策需要考虑的因素更多<br />
+如市场、竞争、环保等</li>
+<li>制定决策需要更多的信息</li>
+</ul>
+<h4>压力来源</h4>
+<ul>
+<li>电子商务的原动力：经营压力<br />
+经营压力的来源：市场、技术、社会</li>
+<li>市场方面<br />
+经济全球化、竞争全球化、劳动力成本变化、消费者需求多样化和日益强大……</li>
+<li>技术方面<br />
+技术创新、信息爆炸、电子商务……</li>
+<li>社会方面<br />
+社会责任、政府法规、管制的放松、预算紧缩、政府补贴变更、伦理道德变更……</li>
+</ul>
+<h4>企业反应</h4>
+<ul>
+<li>战略系统</li>
+<li>敏捷系统</li>
+<li>持续改进</li>
+<li>业务流程再造（BPR）</li>
+<li>商业联盟</li>
+<li>电子市场</li>
+<li>缩短周期和产品上市时间</li>
+<li>员工授权</li>
+<li>供应链改进</li>
+<li>大规模定制</li>
+<li>企业内部的自动化和精细化</li>
+<li>知识管理</li>
+</ul>
+<h4>电子商务对企业的支持</h4>
+<ul>
+<li>支持缩短经营周期和产品上市时间</li>
+<li>支持员工授权和相互协作</li>
+<li>支持供应链改进（缩短）</li>
+<li>支持批量化定制</li>
+<li>支持变更管理</li>
+</ul>
+<h2>三、电子商务的商业模式</h2>
+<h3>1.概念</h3>
+<ul>
+<li>电子商务是一种商业模式</li>
+<li>商业模式是企业实施赖以生存的业务活动的方法</li>
+<li>商业模式决定企业在价值链中的位置</li>
+<li>价值链是企业为实现其经营目标，在生产过程的各个阶段实施的增值活动</li>
+</ul>
+<p><strong><em>考题</em></strong>  
+</p>
+<blockquote>
+<p>电子商务是对商业模式的创新，<strong>电子商务=商务+电子</strong>，以电子的形式实现新的商务模式。<br />
+商务是目的，电子是手段。<br />
+<strong>商务的电子化，而非电子的商务化</strong></p>
+</blockquote>
+<p><em>补：商业模式</em></p>
+<h3>2.电子商务的商业模式——原子模式</h3>
+<p>电子商务是互联网模式下的创新，但由若干个基本模式组合</p>
+<h4>电子商务的原子商业模式</h4>
+<ul>
+<li>直销</li>
+<li>中介</li>
+<li>内容提供商</li>
+<li>全服务提供商</li>
+<li>公共基础设施</li>
+<li>价值网集成商</li>
+<li>虚拟社区</li>
+<li>综合服务商</li>
+</ul>
+<h4>原子商业模式的特征</h4>
+<ul>
+<li>战略目标</li>
+<li>收益来源</li>
+<li>关键成功因素</li>
+<li>所需的核心竞争力</li>
+</ul>
+<h3>3.电子商务的商业模式——综合模式</h3>
+<p>可能由一个以上的原子模式构成</p>
+<h4>收益模式</h4>
+<p>电子商务的主要收益来源<br />
+主要的收益模式有销售收入、交易费、预定服务费、广告费、入会费、其它收益来源</p>
+<h4>价值主张</h4>
+<p>电子商务给企业带来的有形、无形的好处</p>
+<h4>创造的价值</h4>
+<p>搜索和交易的成本效率、互补性、成功机会、新奇性</p>
+<h3>4.电子商务的典型模式</h3>
+<ul>
+<li>在线直销</li>
+<li>电子招投标</li>
+<li>开价</li>
+<li>寻找最优价格</li>
+<li>……</li>
+</ul>
+<h3>5.电子商务的优势与不足</h3>
+<h4>企业收益</h4>
+<ul>
+<li>全球化拓展
+降低成本</li>
+<li>改进供应链
+延长营业时间</li>
+<li>客户定制化
+创新商业模式</li>
+<li>供应商高度专业化
+快速进入市场</li>
+<li>提高采购效率</li>
+<li>改善客户关系</li>
+<li>促进低成本产品和服务定制</li>
+<li>缩短资本投入到产出的时间</li>
+<li>支持流程再造</li>
+<li>改善形象、服务</li>
+</ul>
+<h4>消费者收益</h4>
+<ul>
+<li>时间<br />
+365×24</li>
+<li>更多的选择<br />
+供应商、产品、服务，促进竞争，支出减少</li>
+<li>数字化产品即时交货</li>
+<li>获取信息便捷，交流更方便</li>
+</ul>
+<h4>社会收益</h4>
+<ul>
+<li>远程办公</li>
+<li>生活水平提高</li>
+<li>电子商务促进信息技术进步</li>
+<li>公共服务更有效</li>
+</ul>
+<h4>不足</h4>
+<p>包括技术上的和非技术上的</p>
+<h5>技术方面</h5>
+<ul>
+<li>缺乏质量、安全和可靠性方面的通用标准</li>
+<li>移动商务带宽问题</li>
+<li>软件开发工具仍需继续发展</li>
+<li>现有应用系统、数据库与电子商务软件整合困难</li>
+<li>构建电子商务系统成本不低</li>
+</ul>
+<h5>非技术方面</h5>
+<ul>
+<li>安全与隐私</li>
+<li>信任问题</li>
+<li>法律和公共政策问题<br />
+<em>包括税收</em></li>
+<li>国家之间的差异</li>
+<li>电子商务的部分优势难以度量<br />
+如广告</li>
+<li>没有实体商店的体验</li>
+<li>顾客数量不足导致盈利困难</li>
+<li>网上欺诈</li>
+<li>电子商务获取风险投资难度较大</li>
+</ul>
+<h2>四、电子市场：结构、机制、经济和影响</h2>
+<h3>1.市场与功能</h3>
+<ul>
+<li>进行商品交易和管理的场所<br />
+市场支持商品的交易，同时也要提供管理</li>
+<li>市场在经济活动中居于中心地位  </li>
+<li>方便了信息、货物、服务的交换和付款</li>
+</ul>
+<h4>市场的主要功能</h4>
+<p><em>展开后的具体功能见ppt</em></p>
+<ul>
+<li>匹配买方和卖方<br />
+实体市场、证券市场、淘宝的功能</li>
+<li>使与市场交易有关的信息、货物、服务及付款更加便利<br />
+无论是实体市场还是电子市场，都需要介绍商品的信息，达成交易的最终目标</li>
+<li>提供制度上的基础架构<br />
+制定适合本市场的政策和制度，提供相应的规范</li>
+</ul>
+<h3>2.电子市场</h3>
+<p>又被称为空间市场，用电子手段实现买卖双方以现金交易方式进行产品与服务交换</p>
+<ul>
+<li>电子市场使交易和供应链发生改变</li>
+</ul>
+<h4>IT驱动电子市场的结果</h4>
+<ul>
+<li>丰富交易和相关环境信息</li>
+<li>买方更低的信息搜索成本</li>
+<li>消除买卖双方的信息不对唱</li>
+<li>
+时间更大程度的分离和接近  
+
+<ul>
+<li>令购买者得到实体货物的时间更大程度地分离<br />
+物流造成的必然延误</li>
+<li>令购买者得到数字化产品的时间更大程度地接近<br />
+支付即可获得货物</li>
+</ul>
+</li>
+<li>位于不同地点的买方和卖方的能力大大提高</li>
+</ul>
+<h4>电子市场的要素</h4>
+<ul>
+<li>消费者</li>
+<li>商家</li>
+<li>产品与服务<br />
+后面的其它部分都可看作是市场本身应当提供的要素</li>
+<li>基础设施</li>
+<li>前端</li>
+<li>后端</li>
+<li>中介</li>
+<li>其他业务伙伴</li>
+<li>支持性服务</li>
+</ul>
+<h4>从店铺到门户</h4>
+<h5>电子店铺</h5>
+<p>一个商家提供商品和服务</p>
+<h5>电子商城</h5>
+<p>可以理解为若干个电子店铺的集合<br />
+<em>这与部分电商的名称不同，如京东，主要是自营物品，属于电子店铺，但其它商家也在其中销售商品，京东充当中介角色</em></p>
+<h5>电子市场的类型</h5>
+<p>一般指B2B，而不是B2C<br />
+<em>尽管B2C也是电子市场，但不在本课程讨论范围内</em></p>
+<ul>
+<li>私有电子市场</li>
+<li>公共电子市场</li>
+</ul>
+<h5>信息门户</h5>
+<p><em>信息门户是电子市场的</em><strong><em>展现形式</em></strong><em>，但门户并不都是电子市场</em></p>
+<ul>
+<li>公共门户</li>
+<li>公司门户</li>
+<li>出版门户</li>
+<li>移动门户</li>
+<li>语音门户</li>
+</ul>
+<h4>电子商务的中介</h4>
+<p>中介：为买卖双方提供增值活动与服务<br />
+安全、认证、提供电子市场本身…… </p>
+<h5>中介在电子市场中的作用和价值</h5>
+<ul>
+<li>搜索成本</li>
+<li>保护隐私</li>
+<li>提供完备信息<br />
+如内容提供商</li>
+<li>降低合同风险</li>
+<li>提高定价效率</li>
+</ul>
+<h5>去中介化与再中介化</h5>
+<p>中介可以买卖非自身的商品与服务，电子市场令企业与消费者得以直接联系<br />
+中介取代了传统市场中中介的作用</p>
+<h3>3.电子目录和市场机制</h3>
+<h4>电子目录</h4>
+<p>又产品数据库、目录和搜索能力，以及展现功能构成</p>
+<p>目的：进行广告宣传与服务促销</p>
+<h5>电子目录的分类</h5>
+<ul>
+<li>信息展现的动态性</li>
+<li>定制化程度</li>
+<li>与业务流程的整合</li>
+</ul>
+<h5><em>定制化电子目录主要用于B2B业务，少用于B2C</em></h5>
+<p>从个性化角度看，为了适应用户的需要，应当尽量定制化，但事实并非如此</p>
+<ol>
+<li>动态性方面，从客户发现商家到交易完成，B2C的时间相对较短，仅适合于此次，难以满足下一次的交易</li>
+<li>消费者数量巨大，在B2C电子市场中交易时每次可能采购不同的商品</li>
+<li>B2C中，主要针对个体消费者，他们受到的媒介影响非常巨大，任何变化都可能导致消费者转向</li>
+<li>在B2C中，消费者的忠诚度相对于实体市场极其低下</li>
+<li>从技术角度来看，面向海量的个体消费者会产生海量的定制化电子目录，在处理上会产生瓶颈</li>
+</ol>
+<p><em>当然，这不代表B2C不需要定制化电子目录，如果技术上能够产生突破，今后也可以应用</em></p>
+<h5>定制化目录的方法</h5>
+<ul>
+<li>让客户从总目录中识别感兴趣的部分，然后用软件实现定制的目录<br />
+对电子目录提供方而言是被动的，而主动权在于客户</li>
+<li>基于客户交易记录，系统自动识别客户特征，定制目录<br />
+交易记录包含了访问的路径、浏览的记录等等，这时主动权掌握在了提供电子目录的电子市场一方</li>
+</ul>
+<h4>搜索引擎和智能代理</h4>
+<p><strong>搜索引擎</strong>：用于访问因特网资源数据库、搜索特定信息或关键字，并给出报告的计算机程序<br />
+<em>对目录的浏览也是一种搜索</em></p>
+<p><strong>软件智能代理</strong>：用于需要智能的地方执行一些例行的任务</p>
+<p>搜索引擎和智能代理，电子商务都可以使用</p>
+<h4>购物车</h4>
+<ul>
+<li>订单处理技术</li>
+<li>允许客户在连续时将自己想购买的商品累积在一起</li>
+</ul>
+<p>B2C的购物车很容易实现，但B2B的购物车就很困难</p>
+<h4>拍卖</h4>
+<p>一种利用竞争过程的市场机制，在这一机制下，卖方连续请求买方出价，或者买方请求卖方出价（逆向拍卖、投标）</p>
+<h5>动态定价与拍卖类型</h5>
+<p>拍卖的主要特征：建立在动态定价的基础上</p>
+<p>动态定价：指价格不固定，而是允许其随着市场变化过程的中的供求变化而波动<br />
+<em>电子目录的价格相对固定，因为目录中包含了价格</em><br />
+动态定价有多种表现形式，如谈判和讨价还价</p>
+<p>买主卖主的一/多组合</p>
+<h4>实物交换与在线谈判</h4>
+<p>实物交换：商品与服务的直接交易，是古老的交易手段</p>
+<p>通过在线实物交换，可以吸引更多伙伴参与交换，从而提高匹配进程，提高匹配速度</p>
+<pre><code>电子实物交易场所流程：
+客户提出想提供交换的物品——交易所进行评估——交换
+</code></pre>
+
+<hr />
+<p>在线谈判是决定动态价格的一种方法</p>
+<p>除了确定价格以外，在线谈判还要确定<strong>非价格条款</strong>，如服务周期、付款条件等</p>
+<h5>影响在线谈判的因素</h5>
+<ul>
+<li>客户化的产品与服务<br />
+产品本身</li>
+<li>有助于谈判过程的计算机技术</li>
+<li>执行搜索和比较的软件智能代理<br />
+谈判要有理有据，搜索和比较可用于获得依据</li>
+</ul>
+<h4>移动商务</h4>
+<p>技术基础：移动计算，包括移动网络、移动计算设备和中间件，允许对信息、应用程序和工具进行实时访问</p>
+<p>移动商务是对电子商务的扩展，也是现在及今后一段时间的热点<br />
+<em>在移动的环境下实现商务的电子化，会有很多的机会</em></p>
+<h5>影响移动商务的因素</h5>
+<ul>
+<li>带宽</li>
+<li>移动设备的计算能力及操作便捷性</li>
+<li>安全<br />
+信道安全、智能终端的安全防护……</li>
+<li>其它因素</li>
+</ul>
+<h3>4.数字经济时代的竞争</h3>
+<p>因特网经济中的活动是自组织的，自然选择的过程完全围绕公司的利润和对客户的价值而发生</p>
+<h4>在线交易的优势</h4>
+<ul>
+<li>搜索低成本</li>
+<li>快速比较</li>
+<li>便于实现差异化和个性化</li>
+<li>较低的价格</li>
+<li>优质客户服务</li>
+<li>降低进入门槛</li>
+<li>多元化的虚拟伙伴</li>
+</ul>
+<h4>电子商务不重要的因素</h4>
+<ul>
+<li>企业规模</li>
+<li>地点</li>
+<li>语言</li>
+</ul>
+<p><em>但也不是完全不重要</em></p>
+<h4>完美竞争条件</h4>
+<ul>
+<li>买卖双方必须很低成本、甚至无成本入场</li>
+<li>大买卖主都不能单独影响市场</li>
+<li>产品同质化</li>
+<li>买卖双方必须拥有<strong>全面</strong>的产品信息及市场参与者的需求、供给和条件的信息</li>
+</ul>
+<p><em>完美市场永远难以达到，只能尽量趋近</em><br />
+电子商务支持有效率的市场，并导致完美市场竞争</p>
+<h3>5.电子商务对组织和业务流程的影响——布洛赫的增值视角</h3>
+<ul>
+<li>有助于提高直销能力</li>
+<li>
+促进组织变革
+<ul>
+<li>组织学习<br />
+电子商务加速了市场竞争，促使企业提供新产品、新服务和新的业务模式，导致企业战略或结构的变革，带来业务实现方式的变革，这就要求企业不断学习</li>
+<li>
+改变工作性质<br />
+电子商务使工作性质和雇佣关系发生改变
+<ul>
+<li>减少员工数量，保留核心员工</li>
+<li>外包</li>
+<li>稳定工作越来越少</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+重新定义组织的内涵
+<ul>
+<li>创造新产品和改进已有产品的能力<br />
+容易获取客户概况和喜好的数据</li>
+<li>产生新的业务模式</li>
+<li>改进供应链</li>
+<li>
+生产模式从大规模生产线方式转向需求驱动、JIT生产<br />
+从信息和信息系统角度看，促进了企业内部不同系统整合，也促进了合作伙伴与客户信息系统的整合
+<ul>
+<li>按单生产</li>
+<li>实施需求驱动的制造</li>
+<li>虚拟制造</li>
+<li>装配线</li>
+</ul>
+</li>
+<li>影响财务会计<br />
+如电子支付系统</li>
+<li>影响企业人力资源的管理和培训</li>
+</ul>
+</li>
+</ul>
+<p><em>具体内容在后续课程中描述</em></p>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
