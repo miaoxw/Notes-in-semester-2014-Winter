@@ -1,4 +1,4 @@
-#Notes in Semester 2015, Winter
+#Notes in Semester 2014, Winter
 What a f**king semester... Not only those coursework assigned during the winter holiday, but also final exams closely following Qingming Festval are disturbing us!
 
 I made some notes on the classes I attended this semester. Sharing these notes is a mean to help each other successfully pass this final. Wish guys and me good luck.
