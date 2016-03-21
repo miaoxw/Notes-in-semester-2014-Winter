@@ -13,3 +13,7 @@ Last but not least, my notes contain these parts:
 * E-business
 * Business Intelligence
 * Software Design and Architecture
+
+##Memo
+###2016-03-21
+The winter semester is finally coming to an end. I found some test papers which I dictated once I finished answering my own paper. Unfortunately, what I dictated is only limited to that of **Linux Programming**. Papers of the other three were too long for me to remember those questions.
